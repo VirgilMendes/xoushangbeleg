@@ -1,12 +1,34 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 inline int vueCombatRun()
 {
+
+	const int LONGUEUR_GRILLE = 10;
+	const int LARGEUR_GRILLE = 10;
+
 	// création de la fenêtre
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Xoushangbeleg : Vue Combat");
-	window.setFramerateLimit(30);
+	window.setFramerateLimit(1);
+
+	sf::Texture textureSol;
+	textureSol.loadFromFile("ressources/sprite/ground_tiles.png");
+	textureSol.setSmooth(true);
+	
+	std::vector<std::vector<sf::Sprite>> grille(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()));
+	for(int i(0); i < LONGUEUR_GRILLE; i++)
+	{
+		for(int j(0); j < LARGEUR_GRILLE; j++)
+		{
+			sf::Sprite* sprite = &grille[i][j];
+			std::cout << i << " " << j << std::endl;
+			sprite->setTexture(textureSol);
+			sprite->setTextureRect(sf::IntRect(32, 64, 32, 32));
+			sprite->setPosition(i*32, j*32);
+		}
+	}
 
 	// on fait tourner le programme tant que la fenêtre n'a pas été fermée
 	while (window.isOpen())
@@ -23,8 +45,14 @@ inline int vueCombatRun()
 		// effacement de la fenêtre en noir
 		window.clear(sf::Color::Black);
 
-		// c'est ici qu'on dessine tout
-		// window.draw(...);
+		for (auto colone : grille)
+		{
+			for (sf::Sprite sprite : colone)
+			{
+				std::cout << "a" << std::endl;
+				window.draw(sprite);
+			}
+		}
 
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		window.display();
