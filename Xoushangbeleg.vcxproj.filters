@@ -21,5 +21,8 @@
     <ClCompile Include="src\VueCombat.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MenuPrincipal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
