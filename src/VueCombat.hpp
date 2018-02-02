@@ -1,12 +1,23 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 inline int vueCombatRun()
 {
 	// création de la fenêtre
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Xoushangbeleg : Vue Combat");
 	window.setFramerateLimit(30);
+
+	sf::Texture textureSol;
+	textureSol.loadFromFile("ressources/sprite/ground_tiles.png");
+	textureSol.setSmooth(true);
+	
+	sf::Sprite tile;
+	tile.setTexture(textureSol);
+	tile.setTextureRect(sf::IntRect(32, 64, 32, 32));
+	tile.setPosition(0, 0);
+
 
 	// on fait tourner le programme tant que la fenêtre n'a pas été fermée
 	while (window.isOpen())
@@ -23,8 +34,7 @@ inline int vueCombatRun()
 		// effacement de la fenêtre en noir
 		window.clear(sf::Color::Black);
 
-		// c'est ici qu'on dessine tout
-		// window.draw(...);
+		window.draw(tile);
 
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		window.display();
