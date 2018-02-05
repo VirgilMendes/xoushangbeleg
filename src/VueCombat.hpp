@@ -23,7 +23,6 @@ inline int vueCombatRun()
 		for(int j(0); j < LARGEUR_GRILLE; j++)
 		{
 			sf::Sprite* sprite = &grille[i][j];
-			std::cout << i << " " << j << std::endl;
 			sprite->setTexture(textureSol);
 			sprite->setTextureRect(sf::IntRect(32, 64, 32, 32));
 			sprite->setPosition(i*32, j*32);
@@ -49,7 +48,6 @@ inline int vueCombatRun()
 		{
 			for (sf::Sprite sprite : colone)
 			{
-				std::cout << "a" << std::endl;
 				window.draw(sprite);
 			}
 		}
