@@ -15,8 +15,28 @@ public:
 
 		forme_.setPosition(position_.x*32, position_.y*32);
 		forme_.setTexture(&texture_);
-
 	}
+
+	Curseur(sf::Vector2i position) : position_(position), forme_(sf::Vector2f(32, 32))
+	{
+		image_.create(32, 32, sf::Color::Red);
+		image_.createMaskFromColor(sf::Color::Red, 50);
+
+		texture_.loadFromImage(image_);
+
+		forme_.setPosition(position_.x * 32, position_.y * 32);
+		forme_.setTexture(&texture_);
+	}
+
+	void deplacementCurseur(sf::Vector2i position)
+	{
+		position_ = position;
+		forme_.setPosition(position.x*32, position.y*32);
+	}
+	
+	sf::Vector2i getPosition() { return position_; }
+
+
 private:
 	
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
@@ -66,8 +86,33 @@ inline int vueCombatRun()
 		while (window.pollEvent(event))
 		{
 			// fermeture de la fen�tre lorsque l'utilisateur le souhaite
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 				window.close();
+				break;
+
+			case sf::Event::KeyPressed:
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Z:
+					curseur.deplacementCurseur(curseur.getPosition() + sf::Vector2i(0, -1));
+					break;
+				case sf::Keyboard::Q:
+					curseur.deplacementCurseur(curseur.getPosition() + sf::Vector2i(-1, 0));
+					break;
+				case sf::Keyboard::S:
+					curseur.deplacementCurseur(curseur.getPosition() + sf::Vector2i(0, 1));
+					break;
+				case sf::Keyboard::D:
+					curseur.deplacementCurseur(curseur.getPosition() + sf::Vector2i(1, 0));
+					break;
+				default: break;
+
+
+				}
+
+			}
 		}
 
 		// effacement de la fen�tre en noir
