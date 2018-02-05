@@ -3,17 +3,13 @@
 
 #include "MenuPrincipal.h"
 
-class MenuPrincipal {
 
-	sf::Window fenetre;
-
-	MenuPrincipal::MenuPrincipal()
-	{
+MenuPrincipal::MenuPrincipal()
+{
 		fenetre.create(sf::VideoMode(800, 600), "My window");
-	}
+}
 
-	int MenuPrincipal::choix()
-	{
+int MenuPrincipal::choix()
+{
 
-	}
-};
+}
