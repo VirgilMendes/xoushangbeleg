@@ -3,15 +3,42 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+class Curseur : public sf::Drawable
+{
+public:
+	Curseur() : position_(0, 0), forme_(sf::Vector2f(32,32))
+	{
+		image_.create(32, 32, sf::Color::Red);
+		image_.createMaskFromColor(sf::Color::Red, 50);
+		
+		texture_.loadFromImage(image_);
+
+		forme_.setPosition(position_.x*32, position_.y*32);
+		forme_.setTexture(&texture_);
+
+	}
+private:
+	
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+	{
+		target.draw(forme_, states);
+	}
+	
+	sf::Vector2i position_;
+	sf::RectangleShape forme_;
+	sf::Image image_;
+	sf::Texture texture_;
+};
+
 inline int vueCombatRun()
 {
 
 	const int LONGUEUR_GRILLE = 10;
 	const int LARGEUR_GRILLE = 10;
 
-	// création de la fenêtre
+	// crï¿½ation de la fenï¿½tre
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Xoushangbeleg : Vue Combat");
-	window.setFramerateLimit(1);
+	window.setFramerateLimit(60);
 
 	sf::Texture textureSol;
 	textureSol.loadFromFile("ressources/sprite/ground_tiles.png");
@@ -29,19 +56,21 @@ inline int vueCombatRun()
 		}
 	}
 
-	// on fait tourner le programme tant que la fenêtre n'a pas été fermée
+	Curseur curseur;
+
+	// on fait tourner le programme tant que la fenï¿½tre n'a pas ï¿½tï¿½ fermï¿½e
 	while (window.isOpen())
 	{
-		// on traite tous les évènements de la fenêtre qui ont été générés depuis la dernière itération de la boucle
+		// on traite tous les ï¿½vï¿½nements de la fenï¿½tre qui ont ï¿½tï¿½ gï¿½nï¿½rï¿½s depuis la derniï¿½re itï¿½ration de la boucle
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			// fermeture de la fenêtre lorsque l'utilisateur le souhaite
+			// fermeture de la fenï¿½tre lorsque l'utilisateur le souhaite
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 
-		// effacement de la fenêtre en noir
+		// effacement de la fenï¿½tre en noir
 		window.clear(sf::Color::Black);
 
 		for (auto colone : grille)
@@ -52,7 +81,9 @@ inline int vueCombatRun()
 			}
 		}
 
-		// fin de la frame courante, affichage de tout ce qu'on a dessiné
+		window.draw(curseur);
+
+		// fin de la frame courante, affichage de tout ce qu'on a dessinï¿½
 		window.display();
 	}
 
