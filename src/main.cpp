@@ -5,7 +5,9 @@
 int main()
 	{
 		std::thread vueCombat(vueCombatRun);
-		std::thread MenuPrincipal(MenuPrincipalRun);
+		std::thread menuPrincipal(MenuPrincipalRun);
 		
 		vueCombat.join();
+		menuPrincipal.join();
+
 	}
