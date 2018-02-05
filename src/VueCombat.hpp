@@ -2,6 +2,7 @@
 
 #include "Curseur.hpp"
 #include <iostream>
+#include "Unite.hpp"
 
 inline int vueCombatRun()
 {
@@ -28,6 +29,8 @@ inline int vueCombatRun()
 			sprite->setPosition(i*32, j*32);
 		}
 	}
+
+	Unite unite(sf::Vector2i(4, 3));
 
 	Curseur curseur;
 
@@ -80,6 +83,7 @@ inline int vueCombatRun()
 		}
 
 		window.draw(curseur);
+		window.draw(unite);
 
 		// fin de la frame courante, affichage de tout ce qu'on a dessin�
 		window.display();
