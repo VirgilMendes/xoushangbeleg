@@ -1,5 +1,6 @@
 #include "VueCombat.hpp"
 #include "MenuPrincipal.cpp"
+#include "NouvellePartie.cpp"
 #include <thread>
 
 int main()
@@ -9,5 +10,6 @@ int main()
 		
 		vueCombat.join();
 		menuPrincipal.join();
-
+		std::thread nouvellePartie(NouvellePartieRun);
+		nouvellePartie.join();
 	}
