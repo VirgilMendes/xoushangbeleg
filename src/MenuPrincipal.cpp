@@ -109,6 +109,11 @@ inline int MenuPrincipalRun() {
 			toucheLache = true;
 		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+		{
+			return choix;
+		}
+
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
@@ -123,5 +128,5 @@ inline int MenuPrincipalRun() {
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		fenetre.display();
 	}
-	return 0;
+	return 3;
 }
