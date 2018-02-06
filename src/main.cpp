@@ -7,9 +7,9 @@ int main()
 	{
 		std::thread vueCombat(vueCombatRun);
 		std::thread menuPrincipal(MenuPrincipalRun);
-		std::thread menuPrincipal(NouvellePartieRun);
 		
 		vueCombat.join();
 		menuPrincipal.join();
-
+		std::thread nouvellePartie(NouvellePartieRun);
+		nouvellePartie.join();
 	}

@@ -8,11 +8,20 @@ inline int NouvellePartieRun() {
 
 	int choix(0);
 	sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Nouvelle partie");
-	fenetre.setVerticalSyncEnabled(true);
+	//fenetre.setVerticalSyncEnabled(true);
 	fenetre.setFramerateLimit(12);
 	sf::Sprite sprite;
 
 	int frame(-1);
+
+	sf::Texture titre;
+	if (!titre.loadFromFile("ressources/sprite/titre.png"))
+	{
+		std::cout << "error img titre" << std::endl;
+	}
+	titre.setSmooth(false);
+
+	sprite.setTexture(titre);
 
 	sf::IntRect animation[11];
 	animation[0] = sf::IntRect(0, 0, 256, 512);
@@ -29,6 +38,11 @@ inline int NouvellePartieRun() {
 
 
 	sf::Font font; // GESTION DE L'ECRITURE
+	if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
+	{
+		std::cout << "error font" << std::endl;
+	}
+
 	sf::Text TabMenu[2];
 	TabMenu[0].setString("Creation de la partie");
 	TabMenu[1].setString("Choix");
@@ -92,7 +106,7 @@ inline int NouvellePartieRun() {
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
-		for (int i = 0; i<4; i++)
+		for (int i(0); i<2; i++)
 		{
 			fenetre.draw(TabMenu[i]);
 		}
