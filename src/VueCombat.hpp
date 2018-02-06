@@ -3,6 +3,7 @@
 #include "Curseur.hpp"
 #include <iostream>
 #include "Unite.hpp"
+#include "InfoPersonnageUI.hpp"
 
 inline int vueCombatRun()
 {
@@ -11,7 +12,7 @@ inline int vueCombatRun()
 	const int LARGEUR_GRILLE = 10;
 
 	// cr�ation de la fen�tre
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Xoushangbeleg : Vue Combat");
+	sf::RenderWindow window(sf::VideoMode(1000, 700), "Xoushangbeleg : Vue Combat");
 	window.setFramerateLimit(60);
 
 	sf::Texture textureSol;
@@ -33,6 +34,8 @@ inline int vueCombatRun()
 	Unite unite(sf::Vector2i(4, 3));
 
 	Curseur curseur;
+
+	InfoPersonnageUI infoPersonnageUI;
 
 	// on fait tourner le programme tant que la fen�tre n'a pas �t� ferm�e
 	while (window.isOpen())
@@ -84,6 +87,7 @@ inline int vueCombatRun()
 
 		window.draw(curseur);
 		window.draw(unite);
+		window.draw(infoPersonnageUI);
 
 		// fin de la frame courante, affichage de tout ce qu'on a dessin�
 		window.display();
