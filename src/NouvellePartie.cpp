@@ -6,11 +6,13 @@
 
 inline int NouvellePartieRun() {
 
-	int choix(0);
+	int choix(1);
 	sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Nouvelle partie");
 	//fenetre.setVerticalSyncEnabled(true);
 	fenetre.setFramerateLimit(12);
 	sf::Sprite sprite;
+	std::string str;
+	sf::Text titreCrea;
 
 	int frame(-1);
 
@@ -20,7 +22,6 @@ inline int NouvellePartieRun() {
 		std::cout << "error img titre" << std::endl;
 	}
 	titre.setSmooth(false);
-
 	sprite.setTexture(titre);
 
 	sf::IntRect animation[11];
@@ -36,6 +37,7 @@ inline int NouvellePartieRun() {
 	animation[9] = sf::IntRect(2048 * 32, 0, 256, 512);
 	animation[10] = sf::IntRect(2048 * 64, 0, 256, 512);
 
+	sprite.setPosition(270, -50);
 
 	sf::Font font; // GESTION DE L'ECRITURE
 	if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
@@ -43,16 +45,17 @@ inline int NouvellePartieRun() {
 		std::cout << "error font" << std::endl;
 	}
 
-	sf::Text TabMenu[2];
-	TabMenu[0].setString("Creation de la partie");
-	TabMenu[1].setString("Choix");
-
-	for (int i = 0; i < 2; i++)
+	sf::Text TabMenu[3];
+	TabMenu[0].setString("Jouer");
+	TabMenu[1].setString("Entrer un nom");
+	TabMenu[2].setString("Retour");
+	titreCrea.setString("Creation de la partie");
+	for (int i = 0; i < 3; i++)
 	{
 		TabMenu[i].setFont(font);// choix de la police à utiliser
 		TabMenu[i].setCharacterSize(24);// choix de la taille des caractères
 		TabMenu[i].setFillColor(sf::Color::White);
-		TabMenu[i].setPosition(450, i * 50 + 400);
+		TabMenu[i].setPosition(450, i * 50 + 300);
 	}
 
 	boolean toucheLache(true);   //FIN GESTION DE L'ECRITURE
@@ -73,9 +76,9 @@ inline int NouvellePartieRun() {
 		if (frame == 11)
 		{
 			frame = 0;
-			std::cout << std::endl;
+			//std::cout << std::endl;
 		}
-		std::cout << frame;
+		//std::cout << frame;
 
 		sprite.setTextureRect(sf::IntRect(0, 256 * frame, 512, 256));
 
@@ -91,9 +94,18 @@ inline int NouvellePartieRun() {
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && toucheLache)
 		{
-			if (choix < 1)
+			if (choix < 2)
 			{
 				choix += 1;
+			}
+			toucheLache = false;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && toucheLache)
+		{
+			if (choix == 1)
+			{
+				
 			}
 			toucheLache = false;
 		}
@@ -102,11 +114,17 @@ inline int NouvellePartieRun() {
 		{
 			toucheLache = true;
 		}
+		titreCrea.setFont(font);// choix de la police à utiliser
+		titreCrea.setCharacterSize(36);// choix de la taille des caractères
+		titreCrea.setFillColor(sf::Color::White);
+		titreCrea.setPosition(290, 230);
+		fenetre.draw(titreCrea);
+
 
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
-		for (int i(0); i<2; i++)
+		for (int i(0); i<3; i++)
 		{
 			fenetre.draw(TabMenu[i]);
 		}
