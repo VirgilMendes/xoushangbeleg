@@ -13,6 +13,9 @@ inline int NouvellePartieRun() {
 	sf::Sprite sprite;
 	std::string str;
 	sf::Text titreCrea;
+	sf::Text numIP;
+	std::string chaineNom;
+	chaineNom = "Nom de la partie : ";
 
 	int frame(-1);
 
@@ -46,16 +49,17 @@ inline int NouvellePartieRun() {
 	}
 
 	sf::Text TabMenu[3];
-	TabMenu[0].setString("Jouer");
-	TabMenu[1].setString("Entrer un nom");
+	TabMenu[0].setString("Creer");
+	TabMenu[1].setString(chaineNom);
 	TabMenu[2].setString("Retour");
-	titreCrea.setString("Creation de la partie");
+	titreCrea.setString("Nouvelle partie");
+	numIP.setString("Adresse IP de la partie : ???.???.???.?");
 	for (int i = 0; i < 3; i++)
 	{
 		TabMenu[i].setFont(font);// choix de la police à utiliser
 		TabMenu[i].setCharacterSize(24);// choix de la taille des caractères
 		TabMenu[i].setFillColor(sf::Color::White);
-		TabMenu[i].setPosition(450, i * 50 + 300);
+		TabMenu[i].setPosition(310, i * 50 + 320);
 	}
 
 	boolean toucheLache(true);   //FIN GESTION DE L'ECRITURE
@@ -101,11 +105,29 @@ inline int NouvellePartieRun() {
 			toucheLache = false;
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && toucheLache)
+		if (event.type == sf::Event::TextEntered)
 		{
 			if (choix == 1)
 			{
-				
+
+				if (event.type == sf::Event::TextEntered && chaineNom.size() < 30 && !sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+				{
+					// Handle ASCII characters only
+					if (event.text.unicode < 128)
+					{
+						chaineNom += static_cast<char>(event.text.unicode);
+						TabMenu[1].setString(chaineNom);
+					}
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && chaineNom.size() > 19)
+				{
+					chaineNom.erase(chaineNom.end() - 1);
+					TabMenu[1].setString(chaineNom);
+				}
+			}
+			else if (choix == 2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			{
+				fenetre.close();
 			}
 			toucheLache = false;
 		}
@@ -117,8 +139,14 @@ inline int NouvellePartieRun() {
 		titreCrea.setFont(font);// choix de la police à utiliser
 		titreCrea.setCharacterSize(36);// choix de la taille des caractères
 		titreCrea.setFillColor(sf::Color::White);
-		titreCrea.setPosition(290, 230);
+		titreCrea.setPosition(350, 230);
 		fenetre.draw(titreCrea);
+
+		numIP.setFont(font);// choix de la police à utiliser
+		numIP.setCharacterSize(24);// choix de la taille des caractères
+		numIP.setFillColor(sf::Color::White);
+		numIP.setPosition(30, 650);
+		fenetre.draw(numIP);
 
 
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
