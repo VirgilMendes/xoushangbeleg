@@ -3,11 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Windows.h>
+#include "MenuPrincipal.h"
 
-inline int MenuPrincipalRun() {
+MenuPrincipal::MenuPrincipal() {
 
 
-	sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "MenuTest");
+	fenetre(sf::VideoMode(1000, 700), "MenuTest");
 	fenetre.setVerticalSyncEnabled(true);
 	fenetre.setFramerateLimit(12);
 
