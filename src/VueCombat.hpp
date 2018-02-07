@@ -15,7 +15,7 @@ public:
 	{
 		
 
-		textureSol_.loadFromFile("ressources/sprite/ground_tiles.png");
+		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
 
 		
@@ -25,8 +25,8 @@ public:
 			{
 				sf::Sprite* sprite = &grille_[i][j];
 				sprite->setTexture(textureSol_);
-				sprite->setTextureRect(sf::IntRect(32, 64, 32, 32));
-				sprite->setPosition(i * 32, j * 32);
+				sprite->setTextureRect(sf::IntRect(0, 0, 64, 64));
+				sprite->setPosition(i * 64, j * 64);
 			}
 		}
 	}
@@ -47,16 +47,16 @@ public:
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Z:
-					curseur_.deplacementCurseur(curseur_.getPosition() + sf::Vector2i(0, -1));
+					curseur_.deplacerCurseur(sf::Vector2i(0, -1));
 					break;
 				case sf::Keyboard::Q:
-					curseur_.deplacementCurseur(curseur_.getPosition() + sf::Vector2i(-1, 0));
+					curseur_.deplacerCurseur(sf::Vector2i(-1, 0));
 					break;
 				case sf::Keyboard::S:
-					curseur_.deplacementCurseur(curseur_.getPosition() + sf::Vector2i(0, 1));
+					curseur_.deplacerCurseur(sf::Vector2i(0, 1));
 					break;
 				case sf::Keyboard::D:
-					curseur_.deplacementCurseur(curseur_.getPosition() + sf::Vector2i(1, 0));
+					curseur_.deplacerCurseur(sf::Vector2i(1, 0));
 					break;
 				default: break;
 
