@@ -1,5 +1,7 @@
 #ifndef DEF_MENUPRINCIPAL
 #define DEF_MENUPRINCIPAL
+#pragma once
+
 
 #include <string>
 
@@ -23,7 +25,7 @@ private:
 	sf::Font font;
 	sf::Text TabMenu[4];
 
-	boolean toucheLache;
+	bool toucheLache;
 };
 
 #endif

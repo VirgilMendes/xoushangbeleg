@@ -39,6 +39,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MenuPrincipal.h">
+    <ClInclude Include="src\GameState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

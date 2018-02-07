@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="src\Curseur.hpp" />
     <ClInclude Include="src\MenuPrincipal.h" />
+    <ClInclude Include="src\GameState.hpp" />
     <ClInclude Include="src\InfoPersonnageUI.hpp" />
     <ClInclude Include="src\Unite.hpp" />
   </ItemGroup>

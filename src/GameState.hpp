@@ -1,9 +1,13 @@
 #pragma once
-#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics.hpp>
 
 class GameState
 {
-	GameState() = default;
-	
-	virtual void run(sf::Event* event) = 0;
+public:
+
+	GameState(sf::RenderWindow* window) : window_(window) {};
+	virtual void run() = 0;
+
+protected:
+	sf::RenderWindow* window_;
 };

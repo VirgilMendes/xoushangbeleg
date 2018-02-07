@@ -1,15 +1,19 @@
 #include "VueCombat.hpp"
-#include "MenuPrincipal.cpp"
+#include "MenuPrincipal.h"
 #include "NouvellePartie.cpp"
 #include <thread>
 
 int main()
 	{
-		std::thread vueCombat(vueCombatRun);
-		std::thread menuPrincipal(MenuPrincipalRun);
-		
-		vueCombat.join();
-		menuPrincipal.join();
+		sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Xoushangbeleg");
+		fenetre.setFramerateLimit(60);
+		VueCombat vueCombat(&fenetre);
+		while (fenetre.isOpen())
+		{
+			vueCombat.run();
+		}
+		fenetre.setFramerateLimit(60);
+		MenuPrincipal menuPrincipal();
 		std::thread nouvellePartie(NouvellePartieRun);
 		nouvellePartie.join();
 	}

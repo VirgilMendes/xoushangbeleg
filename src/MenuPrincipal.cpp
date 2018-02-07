@@ -5,15 +5,12 @@
 #include <Windows.h>
 #include "MenuPrincipal.h"
 
-MenuPrincipal::MenuPrincipal() {
+MenuPrincipal::MenuPrincipal(): fenetre(sf::VideoMode(1000, 700), "MenuTest"), frame(-1), choix(0), toucheLache(true) {
 
-
-	fenetre(sf::VideoMode(1000, 700), "MenuTest");
 	fenetre.setVerticalSyncEnabled(true);
 	fenetre.setFramerateLimit(12);
 
 	sf::Texture titre;
-	int frame(-1);
 
 	if (!titre.loadFromFile("ressources/sprite/titre.png"))
 	{
@@ -41,8 +38,6 @@ MenuPrincipal::MenuPrincipal() {
 
 	sf::Font font; // GESTION DE L'ECRITURE
 
-	int choix(0);
-
 	if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
 	{
 		std::cout << "error font" << std::endl;
@@ -62,7 +57,6 @@ MenuPrincipal::MenuPrincipal() {
 		TabMenu[i].setPosition(450, i * 50 + 400);
 	}
 
-	boolean toucheLache(true);   //FIN GESTION DE L'ECRITURE
 
 	while (fenetre.isOpen())
 	{
@@ -112,7 +106,7 @@ MenuPrincipal::MenuPrincipal() {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 		{
-			return choix;
+			//return choix;
 		}
 
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
@@ -129,5 +123,10 @@ MenuPrincipal::MenuPrincipal() {
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		fenetre.display();
 	}
-	return 3;
+	//return 3;
+}
+
+int MenuPrincipal::RunMenuPrincipal()
+{
+	return 0;
 }
