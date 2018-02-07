@@ -1,24 +1,25 @@
 #ifndef DEF_MENUPRINCIPAL
 #define DEF_MENUPRINCIPAL
+#include "GameState.hpp"
 #pragma once
 
 
 #include <string>
 
-class MenuPrincipal
+class MenuPrincipal : GameState 
 {
 public:
 
-	MenuPrincipal();
-	int RunMenuPrincipal();
+	MenuPrincipal(sf::RenderWindow* fenetre);
+	int run () override;
 	
 
 private:
 	int choix;
 
-	sf::RenderWindow fenetre;
 	int frame;
 
+	sf::Texture titre;
 	sf::Sprite sprite;
 	sf::IntRect animation[11];
 

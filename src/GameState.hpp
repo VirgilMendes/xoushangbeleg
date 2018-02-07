@@ -6,7 +6,7 @@ class GameState
 public:
 
 	GameState(sf::RenderWindow* window) : window_(window) {};
-	virtual void run() = 0;
+	virtual int run() = 0;
 
 protected:
 	sf::RenderWindow* window_;

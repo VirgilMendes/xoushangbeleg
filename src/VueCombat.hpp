@@ -31,7 +31,7 @@ public:
 		}
 	}
 
-	void run() override
+	int run() override
 	{
 		sf::Event event;
 		while (window_->pollEvent(event))
@@ -83,6 +83,7 @@ public:
 
 		// fin de la frame courante, affichage de tout ce qu'on a dessin�
 		window_->display();
+		return 0;
 	}
 
 protected:

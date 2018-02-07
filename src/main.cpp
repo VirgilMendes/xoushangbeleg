@@ -12,8 +12,15 @@ int main()
 		{
 			vueCombat.run();
 		}
-		fenetre.setFramerateLimit(60);
-		MenuPrincipal menuPrincipal();
+		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
+		MenuPrincipal menuPrincipal(&fenetre);
+		while (fenetre.isOpen())
+		{
+			if (menuPrincipal.run() == 4) fenetre.close();
+		}
+
 		std::thread nouvellePartie(NouvellePartieRun);
 		nouvellePartie.join();
+
+		
 	}

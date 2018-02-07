@@ -5,45 +5,43 @@
 #include <Windows.h>
 #include "MenuPrincipal.h"
 
-MenuPrincipal::MenuPrincipal(): fenetre(sf::VideoMode(1000, 700), "MenuTest"), frame(-1), choix(0), toucheLache(true) {
+MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre): GameState(fenetre), frame(-1), choix(0), toucheLache(true)
+{	//Titre est une texture donc il a un constructeur par défaut et n'a pas besoin d'être initialisé
 
-	fenetre.setVerticalSyncEnabled(true);
-	fenetre.setFramerateLimit(12);
+	fenetre->setVerticalSyncEnabled(true);
+	fenetre->setFramerateLimit(12);
 
-	sf::Texture titre;
 
 	if (!titre.loadFromFile("ressources/sprite/titre.png"))
 	{
 		std::cout << "error img titre" << std::endl;
 	}
 	titre.setSmooth(false);
-	sf::Sprite sprite;
+
 	sprite.setTexture(titre);
 
-	sf::IntRect animation[11];
-	animation[0] = sf::IntRect(0, 0, 256, 512);
-	animation[1] = sf::IntRect(256, 0, 256, 512);
-	animation[2] = sf::IntRect(512, 0, 256, 512);
-	animation[3] = sf::IntRect(1024, 0, 256, 512);
-	animation[4] = sf::IntRect(2048, 0, 256, 512);
-	animation[5] = sf::IntRect(2048 * 2, 0, 256, 512);
-	animation[6] = sf::IntRect(2048 * 4, 0, 256, 512);
-	animation[7] = sf::IntRect(2048 * 8, 0, 256, 512);
-	animation[8] = sf::IntRect(2048 * 16, 0, 256, 512);
-	animation[9] = sf::IntRect(2048 * 32, 0, 256, 512);
-	animation[10] = sf::IntRect(2048 * 64, 0, 256, 512);
+	animation[0] = sf::IntRect(0, 0, 512, 256);  // Meme chose pour les tableaux de IntRect
+	animation[1] = sf::IntRect(0, 256, 512, 256);
+	animation[2] = sf::IntRect(0, 256*2, 512, 256);
+	animation[3] = sf::IntRect(0, 256*3, 512, 256);
+	animation[4] = sf::IntRect(0, 256*4, 512, 256);
+	animation[5] = sf::IntRect(0, 256*5, 512, 256);
+	animation[6] = sf::IntRect(0, 256*6, 512, 256);
+	animation[7] = sf::IntRect(0, 256*7, 512, 256);
+	animation[8] = sf::IntRect(0, 256*8, 512, 256);
+	animation[9] = sf::IntRect(0, 256*9, 512, 256);
+	animation[10] = sf::IntRect(0, 256*10, 512, 256);
 
 
 	sprite.setPosition(300, 100);
 
-	sf::Font font; // GESTION DE L'ECRITURE
+	// GESTION DE L'ECRITURE
 
 	if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
 	{
 		std::cout << "error font" << std::endl;
 	}
 
-	sf::Text TabMenu[4];
 	TabMenu[0].setString("Nouveau");
 	TabMenu[1].setString("Rejoindre");
 	TabMenu[2].setString("Charger");
@@ -57,18 +55,19 @@ MenuPrincipal::MenuPrincipal(): fenetre(sf::VideoMode(1000, 700), "MenuTest"), f
 		TabMenu[i].setPosition(450, i * 50 + 400);
 	}
 
+}
 
-	while (fenetre.isOpen())
+int MenuPrincipal::run()
 	{
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
 		sf::Event event;
-		while (fenetre.pollEvent(event))
+		while (window_->pollEvent(event))
 		{
 			// évènement "fermeture demandée" : on ferme la fenêtre
 			if (event.type == sf::Event::Closed)
-				fenetre.close();
+				return 4;
 		}
-		fenetre.clear(sf::Color::Black);
+		window_->clear(sf::Color::Black);
 
 		frame = frame + 1;
 		if (frame == 11)
@@ -77,8 +76,6 @@ MenuPrincipal::MenuPrincipal(): fenetre(sf::VideoMode(1000, 700), "MenuTest"), f
 			std::cout << std::endl;
 		}
 		std::cout << frame;
-
-		sprite.setTextureRect(sf::IntRect(0, 256 * frame, 512, 256));
 
 		TabMenu[choix].setFillColor(sf::Color::White);
 
@@ -106,7 +103,7 @@ MenuPrincipal::MenuPrincipal(): fenetre(sf::VideoMode(1000, 700), "MenuTest"), f
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 		{
-			//return choix;
+			return choix;
 		}
 
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
@@ -114,19 +111,17 @@ MenuPrincipal::MenuPrincipal(): fenetre(sf::VideoMode(1000, 700), "MenuTest"), f
 		// window.draw(...);
 		for (int i = 0; i<4; i++)
 		{
-			fenetre.draw(TabMenu[i]);
+			window_->draw(TabMenu[i]);
 		}
 
-		fenetre.draw(sprite);
+		window_->draw(sprite);
 
 		sprite.setTextureRect(animation[frame]);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
-		fenetre.display();
+		window_->display();
+
+		return 0;
 	}
 	//return 3;
-}
 
-int MenuPrincipal::RunMenuPrincipal()
-{
-	return 0;
-}
+
