@@ -131,6 +131,7 @@
     <ClInclude Include="src\MenuPrincipal.h" />
     <ClInclude Include="src\GameState.hpp" />
     <ClInclude Include="src\InfoPersonnageUI.hpp" />
+    <ClInclude Include="src\NouvellePartie.hpp" />
     <ClInclude Include="src\Unite.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

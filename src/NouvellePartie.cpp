@@ -3,22 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Windows.h>
+#include "NouvellePartie.hpp"
 
-inline int NouvellePartieRun() {
+NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
+	fenetre->setVerticalSyncEnabled(true);
+	fenetre->setFramerateLimit(12);
 
-	int choix(1);
-	sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Nouvelle partie");
-	//fenetre.setVerticalSyncEnabled(true);
-	fenetre.setFramerateLimit(12);
-	sf::Sprite sprite;
-	std::string str;
-	sf::Text titreCrea;
-	sf::Text numIP;
-	std::string chaineNom;
 	chaineNom = "Nom de la partie : ";
-
-	int frame(-1);
-
 	sf::Texture titre;
 	if (!titre.loadFromFile("ressources/sprite/titre.png"))
 	{
@@ -42,18 +33,18 @@ inline int NouvellePartieRun() {
 
 	sprite.setPosition(270, -50);
 
-	sf::Font font; // GESTION DE L'ECRITURE
+	// GESTION DE L'ECRITURE
 	if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
 	{
 		std::cout << "error font" << std::endl;
 	}
 
-	sf::Text TabMenu[3];
 	TabMenu[0].setString("Creer");
 	TabMenu[1].setString(chaineNom);
 	TabMenu[2].setString("Retour");
 	titreCrea.setString("Nouvelle partie");
 	numIP.setString("Adresse IP de la partie : ???.???.???.?");
+
 	for (int i = 0; i < 3; i++)
 	{
 		TabMenu[i].setFont(font);// choix de la police à utiliser
@@ -62,27 +53,24 @@ inline int NouvellePartieRun() {
 		TabMenu[i].setPosition(310, i * 50 + 320);
 	}
 
-	boolean toucheLache(true);   //FIN GESTION DE L'ECRITURE
-
-	while (fenetre.isOpen())
-	{
+	 //FIN GESTION DE L'ECRITURE
+}
+int NouvellePartie::run(){
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
 		sf::Event event;
-		while (fenetre.pollEvent(event))
+		while (fenetre_->pollEvent(event))
 		{
 			// évènement "fermeture demandée" : on ferme la fenêtre
 			if (event.type == sf::Event::Closed)
-				fenetre.close();
+				return 3;
 		}
-		fenetre.clear(sf::Color::Black);
+		fenetre_->clear(sf::Color::Black);
 
 		frame = frame + 1;
 		if (frame == 11)
 		{
 			frame = 0;
-			//std::cout << std::endl;
 		}
-		//std::cout << frame;
 
 		sprite.setTextureRect(sf::IntRect(0, 256 * frame, 512, 256));
 
@@ -127,7 +115,7 @@ inline int NouvellePartieRun() {
 			}
 			else if (choix == 2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 			{
-				fenetre.close();
+				return 3;
 			}
 			toucheLache = false;
 		}
@@ -140,13 +128,13 @@ inline int NouvellePartieRun() {
 		titreCrea.setCharacterSize(36);// choix de la taille des caractères
 		titreCrea.setFillColor(sf::Color::White);
 		titreCrea.setPosition(350, 230);
-		fenetre.draw(titreCrea);
+		fenetre_->draw(titreCrea);
 
 		numIP.setFont(font);// choix de la police à utiliser
 		numIP.setCharacterSize(24);// choix de la taille des caractères
 		numIP.setFillColor(sf::Color::White);
 		numIP.setPosition(30, 650);
-		fenetre.draw(numIP);
+		fenetre_->draw(numIP);
 
 
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
@@ -154,14 +142,13 @@ inline int NouvellePartieRun() {
 		// window.draw(...);
 		for (int i(0); i<3; i++)
 		{
-			fenetre.draw(TabMenu[i]);
+			fenetre_->draw(TabMenu[i]);
 		}
 
-		fenetre.draw(sprite);
+		fenetre_->draw(sprite);
 
 		sprite.setTextureRect(animation[frame]);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
-		fenetre.display();
-	}
+		fenetre_->display();
 	return 0;
 }

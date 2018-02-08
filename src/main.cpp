@@ -1,6 +1,6 @@
 #include "VueCombat.hpp"
 #include "MenuPrincipal.h"
-#include "NouvellePartie.cpp"
+#include "NouvellePartie.hpp"
 #include <thread>
 
 int main()
@@ -20,8 +20,12 @@ int main()
 			if (menuPrincipal.run() == 4) fenetre.close();
 		}
 
-		std::thread nouvellePartie(NouvellePartieRun);
-		nouvellePartie.join();
+		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
+		NouvellePartie nouvellePartie(&fenetre);
+		while (fenetre.isOpen())
+		{
+			if (nouvellePartie.run() == 3) fenetre.close();
+		}
 
 		
 	}
