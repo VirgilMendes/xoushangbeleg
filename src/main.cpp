@@ -8,6 +8,7 @@ int main()
 		sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		fenetre.setFramerateLimit(60);
 		VueCombat vueCombat(&fenetre);
+		//vueCombat.ajouterUnite(sf::Vector2i(1, 1));
 		while (fenetre.isOpen())
 		{
 			vueCombat.run();

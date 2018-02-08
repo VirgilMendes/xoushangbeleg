@@ -5,9 +5,9 @@ class GameState
 {
 public:
 
-	GameState(sf::RenderWindow* window) : window_(window) {};
+	GameState(sf::RenderWindow* fenetre) : fenetre_(fenetre) {};
 	virtual int run() = 0;
 
 protected:
-	sf::RenderWindow* window_;
+	sf::RenderWindow* fenetre_;
 };

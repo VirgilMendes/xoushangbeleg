@@ -10,14 +10,13 @@ class VueCombat : GameState
 {
 public:
 
-	VueCombat(sf::RenderWindow* window): GameState(window), unite_(sf::Vector2i(4, 3)), 
+	VueCombat(sf::RenderWindow* window): GameState(window), 
 										grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
 	{
-		
-
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
 
+		unites_.push_back(Unite(sf::Vector2i(4, 3)));
 		
 		for (int i(0); i < LONGUEUR_GRILLE; i++)
 		{
@@ -34,13 +33,13 @@ public:
 	int run() override
 	{
 		sf::Event event;
-		while (window_->pollEvent(event))
+		while (fenetre_->pollEvent(event))
 		{
 			// fermeture de la fen�tre lorsque l'utilisateur le souhaite
 			switch (event.type)
 			{
 			case sf::Event::Closed:
-				window_->close();
+				fenetre_->close();
 				break;
 
 			case sf::Event::KeyPressed:
@@ -67,24 +66,31 @@ public:
 		}
 
 		// effacement de la fen�tre en noir
-		window_->clear(sf::Color::Black);
+		fenetre_->clear(sf::Color::Black);
 
 		for (auto colone : grille_)
 		{
 			for (sf::Sprite sprite : colone)
 			{
-				window_->draw(sprite);
+				fenetre_->draw(sprite);
 			}
 		}
 
-		window_->draw(curseur_);
-		window_->draw(unite_);
-		window_->draw(infoPersonnageUI_);
+		fenetre_->draw(curseur_);
+		for(Unite unite : unites_)
+			fenetre_->draw(unite);
+		fenetre_->draw(infoPersonnageUI_);
 
 		// fin de la frame courante, affichage de tout ce qu'on a dessin�
-		window_->display();
+		fenetre_->display();
 		return 0;
 	}
+
+	void ajouterUnite(sf::Vector2i position)
+	{
+		unites_.push_back(Unite(position));
+	}
+
 
 protected:
 
@@ -93,7 +99,7 @@ protected:
 
 	std::vector<std::vector<sf::Sprite>> grille_;
 
-	Unite unite_;
+	std::vector<Unite> unites_;
 	Curseur curseur_;
 	InfoPersonnageUI infoPersonnageUI_;
 	sf::Texture textureSol_;

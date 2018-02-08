@@ -61,13 +61,13 @@ int MenuPrincipal::run()
 	{
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
 		sf::Event event;
-		while (window_->pollEvent(event))
+		while (fenetre_->pollEvent(event))
 		{
 			// évènement "fermeture demandée" : on ferme la fenêtre
 			if (event.type == sf::Event::Closed)
 				return 4;
 		}
-		window_->clear(sf::Color::Black);
+		fenetre_->clear(sf::Color::Black);
 
 		frame = frame + 1;
 		if (frame == 11)
@@ -111,14 +111,14 @@ int MenuPrincipal::run()
 		// window.draw(...);
 		for (int i = 0; i<4; i++)
 		{
-			window_->draw(TabMenu[i]);
+			fenetre_->draw(TabMenu[i]);
 		}
 
-		window_->draw(sprite);
+		fenetre_->draw(sprite);
 
 		sprite.setTextureRect(animation[frame]);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
-		window_->display();
+		fenetre_->display();
 
 		return 0;
 	}
