@@ -16,7 +16,7 @@ public:
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
 
-		unites_.push_back(Unite(sf::Vector2i(4, 3)));
+		ajouterUnite("", sf::Vector2i(4, 3));
 		
 		for (int i(0); i < LONGUEUR_GRILLE; i++)
 		{
@@ -27,6 +27,16 @@ public:
 				sprite->setTextureRect(sf::IntRect(0, 0, 64, 64));
 				sprite->setPosition(i * 64, j * 64);
 			}
+		}
+	}
+
+	~VueCombat()
+	{
+		auto iterateur = textures_.begin();
+		while(iterateur != textures_.end())
+		{
+			delete iterateur->second;
+			++iterateur;
 		}
 	}
 
@@ -86,14 +96,31 @@ public:
 		return 0;
 	}
 
-	void ajouterUnite(sf::Vector2i position)
+	void ajouterUnite(std::string cheminTexture, sf::Vector2i position)
 	{
-		unites_.push_back(Unite(position));
+		sf::Texture* texture;
+		if (textures_.find(cheminTexture) == textures_.end())
+		{
+			sf::Image image;
+			image.loadFromFile("ressources/sprite/Archer_sprite.png");
+			image.createMaskFromColor(sf::Color::Transparent, 0);
+			
+			texture = new sf::Texture;
+			texture->loadFromImage(image);
+		}
+		else
+		{
+			texture = textures_[cheminTexture];
+		}
+		
+		unites_.push_back(Unite(texture, position));
 	}
 
 
 protected:
 
+	std::map<std::string, sf::Texture*> textures_;
+	
 	const int LONGUEUR_GRILLE = 10;
 	const int LARGEUR_GRILLE = 10;
 
