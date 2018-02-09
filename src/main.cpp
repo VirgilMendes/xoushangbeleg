@@ -24,6 +24,7 @@ int main()
 
 		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		NouvellePartie nouvellePartie(&fenetre);
+		nouvellePartie.setIP();
 		while (fenetre.isOpen())
 		{
 			if (nouvellePartie.run() == 3) fenetre.close();

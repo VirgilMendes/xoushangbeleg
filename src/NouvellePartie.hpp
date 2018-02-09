@@ -11,6 +11,7 @@ public:
 
 	NouvellePartie(sf::RenderWindow* fenetre);
 	int run() override;
+	void NouvellePartie::setIP();
 
 
 private:

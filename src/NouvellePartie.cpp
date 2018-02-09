@@ -10,7 +10,6 @@ NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), 
 	fenetre->setFramerateLimit(12);
 
 	chaineNom = "Nom de la partie : ";
-	sf::Texture titre;
 	if (!titre.loadFromFile("ressources/sprite/titre.png"))
 	{
 		std::cout << "error img titre" << std::endl;
@@ -43,7 +42,6 @@ NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), 
 	TabMenu[1].setString(chaineNom);
 	TabMenu[2].setString("Retour");
 	titreCrea.setString("Nouvelle partie");
-	numIP.setString("Adresse IP de la partie : ???.???.???.?");
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -151,4 +149,7 @@ int NouvellePartie::run(){
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		fenetre_->display();
 	return 0;
+}
+void NouvellePartie::setIP() {
+	numIP.setString("Adresse IP de la partie : ???.???.???.?");
 }
