@@ -11,7 +11,12 @@ public:
 
 	NouvellePartie(sf::RenderWindow* fenetre);
 	int run() override;
+<<<<<<< master
 	void NouvellePartie::setIP();
+=======
+	void NouvellePartie::setIP(std::string std);
+	std::string NouvellePartie::getIP();
+>>>>>>> local
 
 
 private:
