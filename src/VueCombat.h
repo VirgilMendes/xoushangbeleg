@@ -5,6 +5,7 @@
 #include "Unite.hpp"
 #include "InfoPersonnageUI.h"
 #include "GameState.h"
+#include "Vecteur2.h"
 
 class VueCombat : GameState
 {
@@ -98,7 +99,7 @@ public:
 		return 0;
 	}
 
-	void ajouterUnite(std::string nom ,std::string cheminTexture, sf::Vector2i position)
+	void ajouterUnite(std::string nom ,std::string cheminTexture, Vecteur2<int> position)
 	{
 		sf::Texture* texture;
 		if (textures_.find(cheminTexture) == textures_.end())
@@ -118,9 +119,9 @@ public:
 		unites_.push_back(Unite(nom, texture, position));
 	}
 
-	void deplacerUnite(std::string nom)
+	void deplacerUnite(std::string nom, Vecteur2<int> position)
 	{
-		Unite* unite;
+		Unite* unite = nullptr;
 
 		auto iterateur = unites_.begin();
 		while (iterateur != unites_.end())
@@ -128,11 +129,14 @@ public:
 			if(iterateur->getNom() == nom)
 			{
 				unite = &*iterateur;
+				std::cout << "a" << std::endl;
 				break;
 			}
+			++iterateur;
 		}
 		if (iterateur == unites_.end()) return;
-	
+		unite->setPosition(position);
+		std::cout << "b" << std::endl;
 	}
 
 

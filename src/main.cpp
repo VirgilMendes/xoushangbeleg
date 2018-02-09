@@ -8,9 +8,10 @@ int main()
 		sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		fenetre.setFramerateLimit(60);
 		VueCombat vueCombat(&fenetre);
-		vueCombat.ajouterUnite("Archer2","ressources/sprite/Archer_sprite.png", sf::Vector2i(1, 1));
-		vueCombat.ajouterUnite("Tank","ressources/sprite/Tank_sprite.png", sf::Vector2i(1, 2));
-		vueCombat.ajouterUnite("Soldat","ressources/sprite/Soldat_sprite.png", sf::Vector2i(2, 1));
+		vueCombat.ajouterUnite("Archer2","ressources/sprite/Archer_sprite.png", Vecteur2<int>(1, 1));
+		vueCombat.ajouterUnite("Tank","ressources/sprite/Tank_sprite.png", Vecteur2<int>(1, 2));
+		vueCombat.ajouterUnite("Soldat","ressources/sprite/Soldat_sprite.png", Vecteur2<int>(2, 1));
+		vueCombat.deplacerUnite("Tank", Vecteur2<int>(9, 4));
 		while (fenetre.isOpen())
 		{
 			vueCombat.run();

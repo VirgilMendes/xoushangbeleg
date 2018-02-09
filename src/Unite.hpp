@@ -21,7 +21,7 @@ public:
 	}
 
 	sf::Vector2i getPosition() { return position_; }
-	sf::Vector2i setPosition(sf::Vector2i position) { position_= position; }
+	void setPosition(sf::Vector2i position) { position_= position; sprite_.setPosition(position_.x * 64, position_.y * 64);}
 	std::string getNom() { return nom_; }
 
 private:

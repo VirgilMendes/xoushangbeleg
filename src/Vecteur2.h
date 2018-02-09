@@ -1,6 +1,7 @@
 #pragma once
 #include <tuple>
 #include <string>
+#include <SFML/System/Vector2.hpp>
 
 typedef unsigned short ushort;
 
@@ -8,6 +9,11 @@ template<class T>
 struct Vecteur2
 {
 	Vecteur2(const T& x, const T& y): x(x), y(y) {}
+	
+	Vecteur2(const sf::Vector2<T>& sfVecteur): x(sfVecteur.x), y(sfVecteur.y){}
+	Vecteur2<T>& operator= (const sf::Vector2<T>& sfVecteur) { return Vecteur2<T>(sfVecteur.x,sfVecteur.y); }
+	operator sf::Vector2<T>() { return sf::Vector2<T>(x,y); }
+
 	Vecteur2() : x(T(0)), y(T(0)) {}
 
 	Vecteur2& operator+=(const Vecteur2& v) { x += v.x; y += v.y; return *this; }
