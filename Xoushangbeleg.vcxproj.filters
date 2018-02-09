@@ -5,6 +5,7 @@
     <ClCompile Include="src\MenuPrincipal.cpp" />
     <ClCompile Include="src\NouvellePartie.cpp" />
     <ClCompile Include="src\VueCombat.h" />
+    <ClCompile Include="src\RejoindrePartie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MenuPrincipal.h" />
@@ -14,5 +15,6 @@
     <ClInclude Include="src\InfoPersonnageUI.h" />
     <ClInclude Include="src\Curseur.h" />
     <ClInclude Include="src\GameState.h" />
+    <ClInclude Include="src\RejoindrePartie.h" />
   </ItemGroup>
 </Project>

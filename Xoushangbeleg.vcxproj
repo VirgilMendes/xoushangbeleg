@@ -124,6 +124,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MenuPrincipal.cpp" />
     <ClCompile Include="src\NouvellePartie.cpp" />
+    <ClCompile Include="src\RejoindrePartie.cpp" />
     <ClCompile Include="src\VueCombat.h" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +133,7 @@
     <ClInclude Include="src\GameState.h" />
     <ClInclude Include="src\InfoPersonnageUI.h" />
     <ClInclude Include="src\NouvellePartie.h" />
+    <ClInclude Include="src\RejoindrePartie.h" />
     <ClInclude Include="src\Unite.hpp" />
     <ClInclude Include="src\Vecteur2.h" />
   </ItemGroup>
