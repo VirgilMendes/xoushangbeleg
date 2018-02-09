@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Windows.h>
-#include "NouvellePartie.hpp"
+#include "NouvellePartie.h"
 
 NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
 	fenetre->setVerticalSyncEnabled(true);

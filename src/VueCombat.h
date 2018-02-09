@@ -1,14 +1,16 @@
 #pragma once
 
-#include "Curseur.hpp"
+#include "Curseur.h"
 #include <iostream>
 #include "Unite.hpp"
-#include "InfoPersonnageUI.hpp"
-#include "GameState.hpp"
+#include "InfoPersonnageUI.h"
+#include "GameState.h"
 
 class VueCombat : GameState
 {
 public:
+
+
 
 	VueCombat(sf::RenderWindow* window): GameState(window), 
 										grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
@@ -118,17 +120,19 @@ public:
 
 	void deplacerUnite(std::string nom)
 	{
-		auto iterateur = unites_.begin();
+		Unite* unite;
 
+		auto iterateur = unites_.begin();
 		while (iterateur != unites_.end())
 		{
 			if(iterateur->getNom() == nom)
 			{
-				
+				unite = &*iterateur;
+				break;
 			}
-
 		}
-
+		if (iterateur == unites_.end()) return;
+	
 	}
 
 

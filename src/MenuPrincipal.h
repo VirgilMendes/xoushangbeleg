@@ -1,6 +1,6 @@
 #ifndef DEF_MENUPRINCIPAL
 #define DEF_MENUPRINCIPAL
-#include "GameState.hpp"
+#include "GameState.h"
 #pragma once
 
 

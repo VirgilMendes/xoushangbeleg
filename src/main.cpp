@@ -1,6 +1,6 @@
-#include "VueCombat.hpp"
+#include "VueCombat.h"
 #include "MenuPrincipal.h"
-#include "NouvellePartie.hpp"
+#include "NouvellePartie.h"
 #include <thread>
 
 int main()

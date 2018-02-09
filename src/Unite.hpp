@@ -21,6 +21,7 @@ public:
 	}
 
 	sf::Vector2i getPosition() { return position_; }
+	sf::Vector2i setPosition(sf::Vector2i position) { position_= position; }
 	std::string getNom() { return nom_; }
 
 private:

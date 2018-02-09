@@ -1,6 +1,6 @@
 #ifndef DEF_NOUVELLEPARTIE
 #define DEF_NOUVELLEPARTIE
-#include "GameState.hpp"
+#include "GameState.h"
 #include <string>
 #pragma once
 
