@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include "MenuPrincipal.h"
 
-MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre): GameState(fenetre), frame(-1), choix(0), toucheLache(true)
+MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre): GameState(fenetre), frame(-1), choix(0), toucheLache(true), fichiers(false)
 {	//Titre est une texture donc il a un constructeur par défaut et n'a pas besoin d'être initialisé
 
 	fenetre->setVerticalSyncEnabled(true);
@@ -57,6 +57,11 @@ MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre): GameState(fenetre), fra
 
 }
 
+void MenuPrincipal::setFichiers(bool fichiersExistant)
+{
+	fichiers = fichiersExistant;
+}
+
 int MenuPrincipal::run()
 	{
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
@@ -83,7 +88,14 @@ int MenuPrincipal::run()
 		{
 			if (choix > 0)
 			{
-				choix -= 1;
+				if (!fichiers && choix == 3)
+				{
+					choix -= 2;
+				}
+				else
+				{
+					choix -= 1;
+				}
 			}
 			toucheLache = false;
 		}
@@ -91,7 +103,14 @@ int MenuPrincipal::run()
 		{
 			if (choix < 3)
 			{
-				choix += 1;
+				if (!fichiers && choix == 1)
+				{
+					choix += 2;
+				}
+				else
+				{
+					choix += 1;
+				}
 			}
 			toucheLache = false;
 		}
@@ -106,6 +125,14 @@ int MenuPrincipal::run()
 			return choix;
 		}
 
+		if (!fichiers ) // charger grisé
+		{
+			TabMenu[2].setFillColor(gris);
+		}
+		else
+		{
+			TabMenu[2].setFillColor(sf::Color::White);
+		}
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);

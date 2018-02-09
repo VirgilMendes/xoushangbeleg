@@ -17,9 +17,11 @@ int main()
 		}
 		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		MenuPrincipal menuPrincipal(&fenetre);
+		menuPrincipal.setFichiers(true);
 		while (fenetre.isOpen())
 		{
 			if (menuPrincipal.run() == 4) fenetre.close();
+			
 		}
 
 		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");

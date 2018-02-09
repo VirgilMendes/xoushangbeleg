@@ -12,12 +12,16 @@ public:
 
 	MenuPrincipal(sf::RenderWindow* fenetre);
 	int run () override;
-	
+	void setFichiers(bool filesExistant);
 
 private:
 	int choix;
 
+	bool fichiers;
+
 	int frame;
+
+	sf::Color gris = sf::Color(100, 100, 100);
 
 	sf::Texture titre;
 	sf::Sprite sprite;
