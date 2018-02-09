@@ -16,7 +16,7 @@ public:
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
 
-		ajouterUnite("", sf::Vector2i(4, 3));
+		ajouterUnite("Archer1","ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
 		
 		for (int i(0); i < LONGUEUR_GRILLE; i++)
 		{
@@ -96,13 +96,13 @@ public:
 		return 0;
 	}
 
-	void ajouterUnite(std::string cheminTexture, sf::Vector2i position)
+	void ajouterUnite(std::string nom ,std::string cheminTexture, sf::Vector2i position)
 	{
 		sf::Texture* texture;
 		if (textures_.find(cheminTexture) == textures_.end())
 		{
 			sf::Image image;
-			image.loadFromFile("ressources/sprite/Archer_sprite.png");
+			image.loadFromFile(cheminTexture);
 			image.createMaskFromColor(sf::Color::Transparent, 0);
 			
 			texture = new sf::Texture;
@@ -113,7 +113,22 @@ public:
 			texture = textures_[cheminTexture];
 		}
 		
-		unites_.push_back(Unite(texture, position));
+		unites_.push_back(Unite(nom, texture, position));
+	}
+
+	void deplacerUnite(std::string nom)
+	{
+		auto iterateur = unites_.begin();
+
+		while (iterateur != unites_.end())
+		{
+			if(iterateur->getNom() == nom)
+			{
+				
+			}
+
+		}
+
 	}
 
 
