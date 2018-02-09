@@ -150,15 +150,12 @@ int NouvellePartie::run(){
 		fenetre_->display();
 	return 0;
 }
-<<<<<<< master
-void NouvellePartie::setIP() {
-	numIP.setString("Adresse IP de la partie : ???.???.???.?");
-=======
+
 void NouvellePartie::setIP(std::string str) {
 	numIP.setString(str);
 }
 
 std::string NouvellePartie::getIP() {
 	return numIP.getString();
->>>>>>> local
+
 }
