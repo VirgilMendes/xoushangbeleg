@@ -5,7 +5,7 @@
 #include "Unite.hpp"
 #include "InfoPersonnageUI.h"
 #include "GameState.h"
-#include "Vecteur2.h"
+#include "../Modele/Vecteur2.h"
 
 class VueCombat : GameState
 {

@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\Vue\MenuPrincipal.cpp" />
+    <ClCompile Include="src\Vue\NouvellePartie.cpp" />
+    <ClCompile Include="src\Vue\RejoindrePartie.cpp" />
+    <ClCompile Include="src\Vue\VueCombat.h" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\MenuPrincipal.cpp" />
-    <ClCompile Include="src\NouvellePartie.cpp" />
-    <ClCompile Include="src\VueCombat.h" />
-    <ClCompile Include="src\RejoindrePartie.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\MenuPrincipal.h" />
-    <ClInclude Include="src\Unite.hpp" />
-    <ClInclude Include="src\Vecteur2.h" />
-    <ClInclude Include="src\NouvellePartie.h" />
-    <ClInclude Include="src\InfoPersonnageUI.h" />
-    <ClInclude Include="src\Curseur.h" />
-    <ClInclude Include="src\GameState.h" />
-    <ClInclude Include="src\RejoindrePartie.h" />
+    <ClInclude Include="src\Vue\Curseur.h" />
+    <ClInclude Include="src\Vue\GameState.h" />
+    <ClInclude Include="src\Vue\InfoPersonnageUI.h" />
+    <ClInclude Include="src\Vue\MenuPrincipal.h" />
+    <ClInclude Include="src\Vue\NouvellePartie.h" />
+    <ClInclude Include="src\Vue\RejoindrePartie.h" />
+    <ClInclude Include="src\Vue\Unite.hpp" />
+    <ClInclude Include="src\Modele\Vecteur2.h" />
   </ItemGroup>
 </Project>
