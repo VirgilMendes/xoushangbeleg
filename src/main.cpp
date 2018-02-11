@@ -7,17 +7,17 @@ int main()
 	{
 		sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		fenetre.setFramerateLimit(60);
-		VueCombat vueCombat(&fenetre);
-		vueCombat.ajouterUnite("Archer2","ressources/sprite/Archer_sprite.png", Vecteur2<int>(1, 1));
-		vueCombat.ajouterUnite("Tank","ressources/sprite/Tank_sprite.png", Vecteur2<int>(1, 2));
-		vueCombat.ajouterUnite("Soldat","ressources/sprite/Soldat_sprite.png", Vecteur2<int>(2, 1));
-		vueCombat.deplacerUnite("Tank", Vecteur2<int>(9, 4));
+		Vue::VueCombat vueCombat(&fenetre);
+		vueCombat.ajouterUnite("Archer2","ressources/sprite/Archer_sprite.png", Modele::Vecteur2<int>(1, 1));
+		vueCombat.ajouterUnite("Tank","ressources/sprite/Tank_sprite.png", Modele::Vecteur2<int>(1, 2));
+		vueCombat.ajouterUnite("Soldat","ressources/sprite/Soldat_sprite.png", Modele::Vecteur2<int>(2, 1));
+		vueCombat.deplacerUnite("Tank", Modele::Vecteur2<int>(9, 4));
 		while (fenetre.isOpen())
 		{
 			vueCombat.run();
 		}
 		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
-		MenuPrincipal menuPrincipal(&fenetre);
+		Vue::MenuPrincipal menuPrincipal(&fenetre);
 		menuPrincipal.setFichiers(true);
 		while (fenetre.isOpen())
 		{
@@ -26,7 +26,7 @@ int main()
 		}
 
 		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
-		NouvellePartie nouvellePartie(&fenetre);
+		Vue::NouvellePartie nouvellePartie(&fenetre);
 		nouvellePartie.setIP("192.555.12.22");
 		while (fenetre.isOpen())
 		{

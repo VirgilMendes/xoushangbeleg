@@ -4,35 +4,39 @@
 #include <string>
 #pragma once
 
-
-class NouvellePartie : GameState
+namespace Vue
 {
-public:
 
-	NouvellePartie(sf::RenderWindow* fenetre);
-	int run() override;
+	class NouvellePartie : GameState
+	{
+	public:
 
-	void NouvellePartie::setIP();
-	void NouvellePartie::setIP(std::string std);
-	std::string NouvellePartie::getIP();
+		NouvellePartie(sf::RenderWindow* fenetre);
+		int run() override;
+
+		void NouvellePartie::setIP();
+		void NouvellePartie::setIP(std::string std);
+		std::string NouvellePartie::getIP();
 
 
 
-private:
-	int choix;
+	private:
+		int choix;
 
-	int frame;
+		int frame;
 
-	sf::Texture titre;
-	sf::Sprite sprite;
-	sf::IntRect animation[11];
-	std::string str;
-	sf::Text titreCrea;
-	sf::Text numIP;
-	std::string chaineNom;
-	sf::Font font;
-	sf::Text TabMenu[3];
+		sf::Texture titre;
+		sf::Sprite sprite;
+		sf::IntRect animation[11];
+		std::string str;
+		sf::Text titreCrea;
+		sf::Text numIP;
+		std::string chaineNom;
+		sf::Font font;
+		sf::Text TabMenu[3];
 
-	bool toucheLache;
-};
+		bool toucheLache;
+	};
+
+}
 #endif

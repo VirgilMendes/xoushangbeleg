@@ -5,55 +5,58 @@
 #include <Windows.h>
 #include "NouvellePartie.h"
 
-NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
-	fenetre->setVerticalSyncEnabled(true);
-	fenetre->setFramerateLimit(12);
+namespace Vue
+{
 
-	chaineNom = "Nom de la partie : ";
-	if (!titre.loadFromFile("ressources/sprite/titre.png"))
-	{
-		std::cout << "error img titre" << std::endl;
+	NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
+		fenetre->setVerticalSyncEnabled(true);
+		fenetre->setFramerateLimit(12);
+
+		chaineNom = "Nom de la partie : ";
+		if (!titre.loadFromFile("ressources/sprite/titre.png"))
+		{
+			std::cout << "error img titre" << std::endl;
+		}
+		titre.setSmooth(false);
+		sprite.setTexture(titre);
+
+		sf::IntRect animation[11];
+		animation[0] = sf::IntRect(0, 0, 256, 512);
+		animation[1] = sf::IntRect(256, 0, 256, 512);
+		animation[2] = sf::IntRect(512, 0, 256, 512);
+		animation[3] = sf::IntRect(1024, 0, 256, 512);
+		animation[4] = sf::IntRect(2048, 0, 256, 512);
+		animation[5] = sf::IntRect(2048 * 2, 0, 256, 512);
+		animation[6] = sf::IntRect(2048 * 4, 0, 256, 512);
+		animation[7] = sf::IntRect(2048 * 8, 0, 256, 512);
+		animation[8] = sf::IntRect(2048 * 16, 0, 256, 512);
+		animation[9] = sf::IntRect(2048 * 32, 0, 256, 512);
+		animation[10] = sf::IntRect(2048 * 64, 0, 256, 512);
+
+		sprite.setPosition(270, -50);
+
+		// GESTION DE L'ECRITURE
+		if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
+		{
+			std::cout << "error font" << std::endl;
+		}
+
+		TabMenu[0].setString("Creer");
+		TabMenu[1].setString(chaineNom);
+		TabMenu[2].setString("Retour");
+		titreCrea.setString("Nouvelle partie");
+
+		for (int i = 0; i < 3; i++)
+		{
+			TabMenu[i].setFont(font);// choix de la police à utiliser
+			TabMenu[i].setCharacterSize(24);// choix de la taille des caractères
+			TabMenu[i].setFillColor(sf::Color::White);
+			TabMenu[i].setPosition(310, i * 50 + 320);
+		}
+
+		//FIN GESTION DE L'ECRITURE
 	}
-	titre.setSmooth(false);
-	sprite.setTexture(titre);
-
-	sf::IntRect animation[11];
-	animation[0] = sf::IntRect(0, 0, 256, 512);
-	animation[1] = sf::IntRect(256, 0, 256, 512);
-	animation[2] = sf::IntRect(512, 0, 256, 512);
-	animation[3] = sf::IntRect(1024, 0, 256, 512);
-	animation[4] = sf::IntRect(2048, 0, 256, 512);
-	animation[5] = sf::IntRect(2048 * 2, 0, 256, 512);
-	animation[6] = sf::IntRect(2048 * 4, 0, 256, 512);
-	animation[7] = sf::IntRect(2048 * 8, 0, 256, 512);
-	animation[8] = sf::IntRect(2048 * 16, 0, 256, 512);
-	animation[9] = sf::IntRect(2048 * 32, 0, 256, 512);
-	animation[10] = sf::IntRect(2048 * 64, 0, 256, 512);
-
-	sprite.setPosition(270, -50);
-
-	// GESTION DE L'ECRITURE
-	if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
-	{
-		std::cout << "error font" << std::endl;
-	}
-
-	TabMenu[0].setString("Creer");
-	TabMenu[1].setString(chaineNom);
-	TabMenu[2].setString("Retour");
-	titreCrea.setString("Nouvelle partie");
-
-	for (int i = 0; i < 3; i++)
-	{
-		TabMenu[i].setFont(font);// choix de la police à utiliser
-		TabMenu[i].setCharacterSize(24);// choix de la taille des caractères
-		TabMenu[i].setFillColor(sf::Color::White);
-		TabMenu[i].setPosition(310, i * 50 + 320);
-	}
-
-	 //FIN GESTION DE L'ECRITURE
-}
-int NouvellePartie::run(){
+	int NouvellePartie::run() {
 		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
 		sf::Event event;
 		while (fenetre_->pollEvent(event))
@@ -138,7 +141,7 @@ int NouvellePartie::run(){
 		TabMenu[choix].setFillColor(sf::Color::Yellow);
 		// c'est ici qu'on dessine tout
 		// window.draw(...);
-		for (int i(0); i<3; i++)
+		for (int i(0); i < 3; i++)
 		{
 			fenetre_->draw(TabMenu[i]);
 		}
@@ -148,14 +151,16 @@ int NouvellePartie::run(){
 		sprite.setTextureRect(animation[frame]);
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		fenetre_->display();
-	return 0;
-}
+		return 0;
+	}
 
-void NouvellePartie::setIP(std::string str) {
-	numIP.setString(str);
-}
+	void NouvellePartie::setIP(std::string str) {
+		numIP.setString(str);
+	}
 
-std::string NouvellePartie::getIP() {
-	return numIP.getString();
+	std::string NouvellePartie::getIP() {
+		return numIP.getString();
+
+	}
 
 }

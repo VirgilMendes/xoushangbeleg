@@ -1,13 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class GameState
+namespace Vue
 {
-public:
 
-	GameState(sf::RenderWindow* fenetre) : fenetre_(fenetre) {};
-	virtual int run() = 0;
+	class GameState
+	{
+	public:
 
-protected:
-	sf::RenderWindow* fenetre_;
-};
+		GameState(sf::RenderWindow* fenetre) : fenetre_(fenetre) {};
+		virtual int run() = 0;
+
+	protected:
+		sf::RenderWindow* fenetre_;
+	};
+}

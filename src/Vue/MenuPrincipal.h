@@ -6,31 +6,35 @@
 
 #include <string>
 
-class MenuPrincipal : GameState 
+namespace Vue
 {
-public:
 
-	MenuPrincipal(sf::RenderWindow* fenetre);
-	int run () override;
-	void setFichiers(bool filesExistant);
+	class MenuPrincipal : GameState
+	{
+	public:
 
-private:
-	int choix;
+		MenuPrincipal(sf::RenderWindow* fenetre);
+		int run() override;
+		void setFichiers(bool filesExistant);
 
-	bool fichiers;
+	private:
+		int choix;
 
-	int frame;
+		bool fichiers;
 
-	sf::Color gris = sf::Color(100, 100, 100);
+		int frame;
 
-	sf::Texture titre;
-	sf::Sprite sprite;
-	sf::IntRect animation[11];
+		sf::Color gris = sf::Color(100, 100, 100);
 
-	sf::Font font;
-	sf::Text TabMenu[4];
+		sf::Texture titre;
+		sf::Sprite sprite;
+		sf::IntRect animation[11];
 
-	bool toucheLache;
-};
+		sf::Font font;
+		sf::Text TabMenu[4];
 
+		bool toucheLache;
+	};
+
+}
 #endif
