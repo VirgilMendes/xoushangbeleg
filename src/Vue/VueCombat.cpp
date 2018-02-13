@@ -3,13 +3,12 @@
 
 namespace Vue
 {
-	VueCombat::VueCombat(sf::RenderWindow* window) : GameState(window),
-	                                                 grille_(LONGUEUR_GRILLE,
-	                                                         std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
+	VueCombat::VueCombat(sf::RenderWindow* window): GameState(window), grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
+
 	{
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
-		ajouterUnite("Archer1", "ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
+		ajouterUnite("Archer1", "ressource/sprite/Archer_sprite.png", sf::Vector2i(4,3));
 		for (int i(0); i < LONGUEUR_GRILLE; i++)
 		{
 			for (int j(0); j < LARGEUR_GRILLE; j++)
@@ -22,7 +21,7 @@ namespace Vue
 		}
 	}
 
-	VueCombat::~VueCombat()
+VueCombat::~VueCombat()
 	{
 		auto iterateur = textures_.begin();
 		while (iterateur != textures_.end())
@@ -37,8 +36,7 @@ namespace Vue
 		sf::Event event;
 		while (fenetre_->pollEvent(event))
 		{
-			// fermeture de la fen?tre lorsque l'utilisateur le souhaite 
-			switch (event.type)
+		switch (event.type)
 			{
 			case sf::Event::Closed: fenetre_->close();
 				break;
@@ -55,13 +53,12 @@ namespace Vue
 				default: break;
 				}
 			}
-		} // effacement de la fen?tre en noir 
-		fenetre_->clear(sf::Color::Black);
+}fenetre_->clear(sf::Color::Black);
 		for (auto colone : grille_) { for (sf::Sprite sprite : colone) { fenetre_->draw(sprite); } }
 		fenetre_->draw(curseur_);
 		for (Unite unite : unites_) fenetre_->draw(unite);
-		fenetre_->draw(infoPersonnageUI_); // fin de la frame courante, affichage de tout ce qu'on a dessin? 
-		fenetre_->display();
+		fenetre_->draw(infoPersonnageUI_);
+fenetre_->display();
 		return 0;
 	}
 
