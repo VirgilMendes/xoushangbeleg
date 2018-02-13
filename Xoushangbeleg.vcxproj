@@ -125,12 +125,14 @@
     <ClCompile Include="src\Vue\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\RejoindrePartie.cpp" />
+    <ClCompile Include="src\Vue\Jauge.cpp" />
     <ClCompile Include="src\Vue\VueCombat.cpp" />
     <ClCompile Include="src\Vue\VueCombat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Unite.h" />
     <ClInclude Include="src\Vue\Curseur.h" />
+    <ClInclude Include="src\Vue\Jauge.h" />
     <ClInclude Include="src\Vue\MenuPrincipal.h" />
     <ClInclude Include="src\Vue\GameState.h" />
     <ClInclude Include="src\Vue\InfoPersonnageUI.h" />
