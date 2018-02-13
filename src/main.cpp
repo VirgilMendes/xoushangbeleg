@@ -1,6 +1,7 @@
 #include "Vue/VueCombat.h"
 #include "Vue/MenuPrincipal.h"
 #include "Vue/NouvellePartie.h"
+#include "Vue/RejoindrePartie.h"
 #include <thread>
 
 int main()
@@ -33,5 +34,11 @@ int main()
 			if (nouvellePartie.run() == 3) fenetre.close();
 		}
 
-		
+
+		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
+		Vue::RejoindrePartie rejoindrePartie(&fenetre);
+		while (fenetre.isOpen())
+		{
+			if (rejoindrePartie.run() == 3) fenetre.close();
+		}
 	}
