@@ -8,35 +8,40 @@
 
 #include <string>
 
-class Jauge : sf::Drawable
+namespace Vue
 {
-public:
 
-	Jauge(sf::Vector2f pos, int hauteur, int largeur, int maximum, sf::Vector2f taill);
-	Jauge(sf::Vector2f pos, int hauteur, int largeur, int maximum, int courant, sf::Vector2f taill);
+	class Jauge : public sf::Drawable
+	{
+	public:
 
-	void setPosition(sf::Vector2f position);
-	sf::Vector2f getPosition();
+		Jauge(sf::Vector2f pos, int maximum, sf::Vector2f taill);
+		Jauge(sf::Vector2f pos, int maximum, int courant, sf::Vector2f taill);
 
-	void setTaille(sf::Vector2f taill);
-	sf::Vector2f getTaille();
+		void setPosition(sf::Vector2f position);
+		sf::Vector2f getPosition();
 
-	void setValeurCourante(int courant);
-	int getValeurCourante();
+		void setTaille(sf::Vector2f taill);
+		sf::Vector2f getTaille();
 
-	void setValeurMax(int maximum);
-	int getValeurMax();
+		void setValeurCourante(int courant);
+		int getValeurCourante();
 
-private:
+		void setValeurMax(int maximum);
+		int getValeurMax();
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	private:
 
-	sf::Vector2f position;
-	sf::Vector2f taille;
-	sf::RectangleShape fond;
-	sf::RectangleShape barre;
-	double valeurCourante;
-	double valeurMax;
-};
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+		sf::Vector2f position;
+		sf::Vector2f taille;
+		sf::RectangleShape fond;
+		sf::RectangleShape barre;
+		double valeurCourante;
+		double valeurMax;
+	};
 
 #endif
+
+}

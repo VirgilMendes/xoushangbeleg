@@ -4,12 +4,17 @@
 #include <iostream>
 #include <Windows.h>
 #include "MenuPrincipal.h"
+#include "Jauge.h"
 
 namespace Vue
 {
 
-	MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(0), toucheLache(true), fichiers(false)
+	MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(0), toucheLache(true), fichiers(false), J(sf::Vector2f(50, 50),
+	100,50,sf::Vector2f(500, 50))
 	{	//Titre est une texture donc il a un constructeur par défaut et n'a pas besoin d'être initialisé
+
+
+
 
 		fenetre->setVerticalSyncEnabled(true);
 		fenetre->setFramerateLimit(12);
@@ -81,9 +86,7 @@ namespace Vue
 		if (frame == 11)
 		{
 			frame = 0;
-			std::cout << std::endl;
 		}
-		std::cout << frame;
 
 		TabMenu[choix].setFillColor(sf::Color::White);
 
@@ -118,6 +121,22 @@ namespace Vue
 			toucheLache = false;
 		}
 
+
+
+
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::N) )
+		{
+			std::cout<<std::endl << J.getValeurCourante() << std::endl;
+			J.setValeurCourante(J.getValeurCourante() - 1);
+		}
+
+
+
+
+
+
+
 		if (event.type == sf::Event::KeyReleased)
 		{
 			toucheLache = true;
@@ -147,6 +166,11 @@ namespace Vue
 		fenetre_->draw(sprite);
 
 		sprite.setTextureRect(animation[frame]);
+
+
+		fenetre_->draw(J);
+
+
 		// fin de la frame courante, affichage de tout ce qu'on a dessiné
 		fenetre_->display();
 

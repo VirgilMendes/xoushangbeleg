@@ -1,6 +1,7 @@
 #ifndef DEF_MENUPRINCIPAL
 #define DEF_MENUPRINCIPAL
 #include "GameState.h"
+#include "Jauge.h"
 #pragma once
 
 
@@ -29,6 +30,9 @@ namespace Vue
 		sf::Texture titre;
 		sf::Sprite sprite;
 		sf::IntRect animation[11];
+
+		Jauge J;
+
 
 		sf::Font font;
 		sf::Text TabMenu[4];
