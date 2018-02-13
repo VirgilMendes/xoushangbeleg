@@ -19,6 +19,7 @@ namespace Vue
 		}
 		titre.setSmooth(false);
 		sprite.setTexture(titre);
+		ipRemplie = false;
 
 		sf::IntRect animation[11];
 		animation[0] = sf::IntRect(0, 0, 256, 512);
@@ -76,12 +77,23 @@ namespace Vue
 		sprite.setTextureRect(sf::IntRect(0, 256 * frame, 512, 256));
 
 		TabMenu[choix].setFillColor(sf::Color::White);
+		ipRemplie = chaineNom.size() == 30;
+
+		if (ipRemplie) {
+			TabMenu[0].setFillColor(sf::Color::White);
+		}
+		else {
+			TabMenu[0].setFillColor(gris);
+		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && toucheLache)
 		{
-			if (choix > 0)
-			{
-				choix -= 1;
+			if(choix == 1 && !ipRemplie){}
+			else {
+				if (choix > 0)
+				{
+					choix -= 1;
+				}
 			}
 			toucheLache = false;
 		}
@@ -102,13 +114,13 @@ namespace Vue
 				if (event.type == sf::Event::TextEntered && chaineNom.size() < 30 && !sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
 				{
 					// Handle ASCII characters only
-					if (event.text.unicode < 128)
+					if ((event.text.unicode < 58 && event.text.unicode > 47) || (event.text.unicode == 46))
 					{
 						chaineNom += static_cast<char>(event.text.unicode);
 						TabMenu[1].setString(chaineNom);
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && chaineNom.size() > 19)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && chaineNom.size() > 18)
 				{
 					chaineNom.erase(chaineNom.end() - 1);
 					TabMenu[1].setString(chaineNom);

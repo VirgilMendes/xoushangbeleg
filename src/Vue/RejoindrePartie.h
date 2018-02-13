@@ -21,7 +21,8 @@ namespace Vue
 		int choix;
 
 		int frame;
-
+		bool ipRemplie;
+		sf::Color gris = sf::Color(100, 100, 100);
 		sf::Texture titre;
 		sf::Sprite sprite;
 		sf::IntRect animation[11];
