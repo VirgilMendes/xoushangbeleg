@@ -126,7 +126,6 @@
     <ClCompile Include="src\Vue\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\Jauge.cpp" />
-    <ClCompile Include="src\Vue\VueCombat.cpp" />
     <ClCompile Include="src\Vue\VueCombat.h" />
   </ItemGroup>
   <ItemGroup>

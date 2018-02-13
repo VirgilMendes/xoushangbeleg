@@ -7,7 +7,6 @@
     <ClCompile Include="src\Vue\VueCombat.h" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Vue\Jauge.cpp" />
-    <ClCompile Include="src\Vue\VueCombat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Vue\Curseur.h" />
