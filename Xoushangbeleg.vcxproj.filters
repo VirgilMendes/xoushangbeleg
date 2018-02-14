@@ -11,6 +11,7 @@
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Archer.cpp" />
     <ClCompile Include="src\Modele\Soldat.cpp" />
+    <ClCompile Include="src\Vue\InterfaceUnite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Vue\Curseur.h" />
@@ -26,5 +27,6 @@
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Soldat.h" />
+    <ClInclude Include="src\Vue\InterfaceUnite.h" />
   </ItemGroup>
 </Project>
