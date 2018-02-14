@@ -7,6 +7,10 @@
     <ClCompile Include="src\Vue\VueCombat.h" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Vue\Jauge.cpp" />
+    <ClCompile Include="src\Modele\Unite.cpp" />
+    <ClCompile Include="src\Modele\Tank.cpp" />
+    <ClCompile Include="src\Modele\Archer.cpp" />
+    <ClCompile Include="src\Modele\Soldat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Vue\Curseur.h" />
@@ -19,5 +23,8 @@
     <ClInclude Include="src\Modele\Unite.h" />
     <ClInclude Include="src\Vue\Unite.h" />
     <ClInclude Include="src\Vue\Jauge.h" />
+    <ClInclude Include="src\Modele\Tank.h" />
+    <ClInclude Include="src\Modele\Archer.h" />
+    <ClInclude Include="src\Modele\Soldat.h" />
   </ItemGroup>
 </Project>
