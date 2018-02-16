@@ -94,7 +94,8 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>lib/SFML-2.4.2/lib;lib/pugixml/lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;pugixml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;pugixml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,7 +124,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>lib/SFML-2.4.2/lib;lib/pugixml/lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-window.lib;pugixml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-window.lib;sfml-network.lib;pugixml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -140,6 +142,7 @@
     <ClCompile Include="src\Vue\VueCombat.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Controleur\Navigation.h" />
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />

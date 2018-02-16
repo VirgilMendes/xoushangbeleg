@@ -7,7 +7,7 @@
 namespace Vue
 {
 
-	class NouvellePartie : GameState
+	class NouvellePartie : public GameState
 	{
 	public:
 

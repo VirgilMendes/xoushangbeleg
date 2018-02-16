@@ -9,7 +9,7 @@
 
 namespace Vue {
 
-	class VueCombat : GameState
+	class VueCombat : public GameState
 	{
 	public:
 

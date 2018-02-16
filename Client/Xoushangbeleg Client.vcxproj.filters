@@ -28,5 +28,6 @@
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Vue\InterfaceUnite.h" />
+    <ClInclude Include="src\Controleur\Navigation.h" />
   </ItemGroup>
 </Project>
