@@ -3,10 +3,11 @@
 namespace Modele
 {
 
-	Unite::Unite(Equipe equipe, std::string nom, int vieM, int vieC, int statD, int statA, Vecteur2<int> pos)
+	Unite::Unite(Equipe equipe, Classe classe, std::string nom, int vieM, int vieC, int statD, int statA, Vecteur2<int> pos)
 	{
 		this->nom = nom;
 		this->equipe = equipe;
+		this->classe = classe;
 		vieMax = vieM;
 		vieCourante = vieC;
 		statDef = statD;
@@ -37,6 +38,16 @@ namespace Modele
 	void Unite::setEquipe(Equipe BoR)
 	{
 		equipe = BoR;
+	}
+
+	Classe Unite::getClasse()
+	{
+		return classe;
+	}
+
+	void Unite::setClasse(Classe classe)
+	{
+		this->classe = classe;
 	}
 
 	Equipe Unite::getEquipe()

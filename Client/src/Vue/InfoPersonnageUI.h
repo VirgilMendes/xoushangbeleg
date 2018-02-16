@@ -34,6 +34,5 @@ namespace Vue
 		sf::Text classe_;
 		sf::Image image_;
 		sf::Texture texture_;
-
 	};
 }

@@ -16,13 +16,23 @@ namespace Modele
 		Bleu
 	};
 
+	enum class Classe
+	{
+		Archer,
+		Tank,
+		Soldat
+	};
+
 	class Unite
 	{
 	public:
-		Unite(Equipe equipe, std::string nom, int vieM, int vieC, int statD, int statA, Vecteur2<int> pos);
+		Unite(Equipe equipe, Classe classe, std::string nom, int vieM, int vieC, int statD, int statA, Vecteur2<int> pos);
 
 		void setEquipe(Equipe BoR);
 		Equipe getEquipe();
+
+		void setClasse(Classe classe);
+		Classe getClasse();
 
 		void setNom(std::string nom);
 		std::string getNom();
@@ -45,7 +55,7 @@ namespace Modele
 
 	private:
 		Equipe equipe;
-		std::string classe;
+		Classe classe;
 		std::string nom;
 
 		int vieMax;

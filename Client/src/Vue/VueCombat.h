@@ -3,7 +3,7 @@
 #include "Curseur.h"
 #include <iostream>
 #include "Unite.h"
-#include "InfoPersonnageUI.h"
+#include "InterFaceUnite.h"
 #include "GameState.h"
 #include "../modele/Vecteur2.h"
 
@@ -15,7 +15,7 @@ namespace Vue {
 
 
 
-		VueCombat(sf::RenderWindow* window) : GameState(window),
+		VueCombat(sf::RenderWindow* window) : GameState(window), interfaceUnite(&Modele::Tank(Modele::Equipe::Rouge, std::string("Benoit"), 0, 0)),
 			grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
 		{
 			textureSol_.loadFromFile("ressources/sprite/map.png");
@@ -94,7 +94,7 @@ namespace Vue {
 			fenetre_->draw(curseur_);
 			for (Unite unite : unites_)
 				fenetre_->draw(unite);
-			fenetre_->draw(infoPersonnageUI_);
+			fenetre_->draw(interfaceUnite);
 
 			// fin de la frame courante, affichage de tout ce qu'on a dessin?
 			fenetre_->display();
@@ -153,7 +153,7 @@ namespace Vue {
 
 		std::vector<Unite> unites_;
 		Curseur curseur_;
-		InfoPersonnageUI infoPersonnageUI_;
+		InterfaceUnite interfaceUnite;
 		sf::Texture textureSol_;
 
 
