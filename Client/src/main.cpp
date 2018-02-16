@@ -3,42 +3,30 @@
 #include "Vue/NouvellePartie.h"
 #include "Vue/RejoindrePartie.h"
 #include <thread>
+#include <SFML/Network.hpp>
+#include "Controleur/Navigation.h"
 
 int main()
+{
+
+	Controleur::Fenetre fenetre;
+	fenetre.run();
+
+	sf::TcpSocket socket;
+	sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
+	if (status != sf::Socket::Done)
 	{
-		sf::RenderWindow fenetre(sf::VideoMode(1000, 700), "Xoushangbeleg");
-		fenetre.setFramerateLimit(60);
-		Vue::VueCombat vueCombat(&fenetre);
-		vueCombat.ajouterUnite("Archer2","ressources/sprite/Archer_sprite.png", Modele::Vecteur2<int>(1, 1));
-		vueCombat.ajouterUnite("Tank","ressources/sprite/Tank_sprite.png", Modele::Vecteur2<int>(1, 2));
-		vueCombat.ajouterUnite("Soldat","ressources/sprite/Soldat_sprite.png", Modele::Vecteur2<int>(2, 1));
-		vueCombat.deplacerUnite("Tank", Modele::Vecteur2<int>(9, 4));
-		while (fenetre.isOpen())
-		{
-			vueCombat.run();
-		}
-		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
-		Vue::MenuPrincipal menuPrincipal(&fenetre);
-		menuPrincipal.setFichiers(true);
-		while (fenetre.isOpen())
-		{
-			if (menuPrincipal.run() == 4) fenetre.close();
-			
-		}
-
-		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
-		Vue::NouvellePartie nouvellePartie(&fenetre);
-		nouvellePartie.setIP("192.555.12.22");
-		while (fenetre.isOpen())
-		{
-			if (nouvellePartie.run() == 3) fenetre.close();
-		}
-
-
-		fenetre.create(sf::VideoMode(1000, 700), "Xoushangbeleg");
-		Vue::RejoindrePartie rejoindrePartie(&fenetre);
-		while (fenetre.isOpen())
-		{
-			if (rejoindrePartie.run() == 3) fenetre.close();
-		}
+		// erreur...
 	}
+
+
+	char data[100] = "test";
+
+	// socket TCP:
+	if (socket.send(data, 100) != sf::Socket::Done)
+	{
+		// erreur...
+	}
+
+	
+}

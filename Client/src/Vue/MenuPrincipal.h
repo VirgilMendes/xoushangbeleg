@@ -10,7 +10,7 @@
 namespace Vue
 {
 
-	class MenuPrincipal : GameState
+	class MenuPrincipal : public GameState
 	{
 	public:
 
