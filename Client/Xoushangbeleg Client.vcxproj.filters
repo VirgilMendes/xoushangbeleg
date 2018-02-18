@@ -29,5 +29,6 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Vue\InterfaceUnite.h" />
     <ClInclude Include="src\Controleur\Navigation.h" />
+    <ClInclude Include="src\Vue\Animation.h" />
   </ItemGroup>
 </Project>

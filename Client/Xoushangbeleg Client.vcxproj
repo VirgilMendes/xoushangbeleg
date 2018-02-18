@@ -147,6 +147,7 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
+    <ClInclude Include="src\Vue\Animation.h" />
     <ClInclude Include="src\Vue\Curseur.h" />
     <ClInclude Include="src\Vue\InterfaceUnite.h" />
     <ClInclude Include="src\Vue\Jauge.h" />
