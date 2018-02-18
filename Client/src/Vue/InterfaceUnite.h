@@ -37,6 +37,10 @@ namespace Vue
 
 		sf::Font font;
 		sf::Text TabStat[4];
+		sf::Text classeText;
+		sf::Text vieText;
+		sf::Text statTextAtt;
+		sf::Text statTextDef;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	};
