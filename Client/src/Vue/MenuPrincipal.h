@@ -6,6 +6,7 @@
 
 
 #include <string>
+#include "Animation.h"
 
 namespace Vue
 {
@@ -19,25 +20,21 @@ namespace Vue
 		void setFichiers(bool filesExistant);
 
 	private:
-		int choix;
+		int choix_;
 
-		bool fichiers;
+		bool sauvegardeExistante_;
 
-		int frame;
+		sf::Color gris_ = sf::Color(100, 100, 100);
 
-		sf::Color gris = sf::Color(100, 100, 100);
+		sf::Texture textureTitre_;
+		sf::Sprite titre_;
 
-		sf::Texture titre;
-		sf::Sprite sprite;
-		sf::IntRect animation[11];
+		Animation animationtitre_;
 
-		Jauge J;
+		sf::Font font_;
+		sf::Text TabMenu_[4];
 
-
-		sf::Font font;
-		sf::Text TabMenu[4];
-
-		bool toucheLache;
+		bool toucheLache_;
 	};
 
 }
