@@ -30,19 +30,14 @@ namespace Vue
 
 		~Animation()
 		{
-			//delete horloge_;
-			//delete frameIndex_;
 		}
 
 		sf::IntRect getFrame() const
 		{
-			
-			
-			if (horloge_->getElapsedTime().asMilliseconds() > interval_)
+			if (horloge_->getElapsedTime().asMilliseconds() >= interval_)
 			{
-				std::cout << "a" << std::endl;
 				*frameIndex_ += 1;
-				if (*frameIndex_ == frames_.size())
+				if (*frameIndex_ >= frames_.size())
 					*frameIndex_ = 0;
 				horloge_->restart();
 			}

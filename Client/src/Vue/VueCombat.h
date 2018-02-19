@@ -13,8 +13,6 @@ namespace Vue {
 	{
 	public:
 
-
-
 		VueCombat(sf::RenderWindow* window) : GameState(window), interfaceUnite(&Modele::Tank(Modele::Equipe::Rouge, std::string("Benoit"), 0, 0)),
 			grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
 		{
@@ -131,14 +129,12 @@ namespace Vue {
 				if (iterateur->getNom() == nom)
 				{
 					unite = &*iterateur;
-					std::cout << "a" << std::endl;
 					break;
 				}
 				++iterateur;
 			}
 			if (iterateur == unites_.end()) return;
 			unite->setPosition(position);
-			std::cout << "b" << std::endl;
 		}
 
 
