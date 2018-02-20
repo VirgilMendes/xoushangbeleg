@@ -1,7 +1,7 @@
-#include "Vue/VueCombat.h"
-#include "Vue/MenuPrincipal.h"
-#include "Vue/NouvellePartie.h"
-#include "Vue/RejoindrePartie.h"
+#include "Vue/GameStates/VueCombat.h"
+#include "Vue/GameStates/MenuPrincipal.h"
+#include "Vue/GameStates/NouvellePartie.h"
+#include "Vue/GameStates/RejoindrePartie.h"
 #include <thread>
 #include <SFML/Network.hpp>
 #include "Controleur/Navigation.h"

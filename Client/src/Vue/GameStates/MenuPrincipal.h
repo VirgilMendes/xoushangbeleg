@@ -1,12 +1,12 @@
 #ifndef DEF_MENUPRINCIPAL
 #define DEF_MENUPRINCIPAL
 #include "GameState.h"
-#include "Jauge.h"
+#include "../Outils/Jauge.h"
 #pragma once
 
 
 #include <string>
-#include "Animation.h"
+#include "../Outils/Animation.h"
 
 namespace Vue
 {

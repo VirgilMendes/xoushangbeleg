@@ -4,7 +4,7 @@
 #include <iostream>
 #include <Windows.h>
 #include "MenuPrincipal.h"
-#include "Jauge.h"
+#include "../Outils/Jauge.h"
 
 namespace Vue
 {

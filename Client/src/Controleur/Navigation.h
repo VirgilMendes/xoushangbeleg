@@ -2,9 +2,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "../Vue/GameState.h"
+#include "../Vue/GameStates/GameState.h"
 #include <stack>
-#include "../Vue/VueCombat.h"
+#include "../Vue/GameStates/VueCombat.h"
 
 namespace Controleur
 {

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Curseur.h"
+#include "../Combat/Curseur.h"
 #include <iostream>
-#include "Unite.h"
-#include "InterFaceUnite.h"
+#include "../Combat/Unite.h"
+#include "../Combat/InterFaceUnite.h"
 #include "GameState.h"
-#include "../modele/Vecteur2.h"
+#include "../../modele/Vecteur2.h"
 
 namespace Vue {
 
