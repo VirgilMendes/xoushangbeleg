@@ -134,12 +134,12 @@
     <ClCompile Include="src\Modele\Soldat.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
-    <ClCompile Include="src\Vue\MenuPrincipal.cpp" />
-    <ClCompile Include="src\Vue\NouvellePartie.cpp" />
-    <ClCompile Include="src\Vue\RejoindrePartie.cpp" />
-    <ClCompile Include="src\Vue\Jauge.cpp" />
-    <ClCompile Include="src\Vue\InterfaceUnite.cpp" />
-    <ClCompile Include="src\Vue\VueCombat.h" />
+    <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
+    <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
+    <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
+    <ClCompile Include="src\Vue\Outils\Jauge.cpp" />
+    <ClCompile Include="src\Vue\Combat\InterfaceUnite.cpp" />
+    <ClCompile Include="src\Vue\GameStates\VueCombat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
@@ -147,16 +147,16 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
-    <ClInclude Include="src\Vue\Animation.h" />
-    <ClInclude Include="src\Vue\Curseur.h" />
-    <ClInclude Include="src\Vue\InterfaceUnite.h" />
-    <ClInclude Include="src\Vue\Jauge.h" />
-    <ClInclude Include="src\Vue\MenuPrincipal.h" />
-    <ClInclude Include="src\Vue\GameState.h" />
-    <ClInclude Include="src\Vue\InfoPersonnageUI.h" />
-    <ClInclude Include="src\Vue\NouvellePartie.h" />
-    <ClInclude Include="src\Vue\RejoindrePartie.h" />
-    <ClInclude Include="src\Vue\Unite.h" />
+    <ClInclude Include="src\Vue\Outils\Animation.h" />
+    <ClInclude Include="src\Vue\Combat\Curseur.h" />
+    <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
+    <ClInclude Include="src\Vue\Outils\Jauge.h" />
+    <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
+    <ClInclude Include="src\Vue\GameStates\GameState.h" />
+    <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
+    <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
+    <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
+    <ClInclude Include="src\Vue\Combat\Unite.h" />
     <ClInclude Include="src\Modele\Vecteur2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
