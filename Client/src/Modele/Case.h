@@ -5,6 +5,21 @@
 
 namespace Modele
 {
+	enum class Terrain
+	{
+		herbeux,
+		sableux,
+		aquatique,
+		rocheux
+	};
+
+	enum class Obstacle
+	{
+		aucun,
+		arbre,
+		buisson,
+		rocher
+	};
 
 	class Case
 	{
@@ -15,7 +30,6 @@ namespace Modele
 	private :
 
 		Unite* unite;
-
 
 	};
 

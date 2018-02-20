@@ -30,5 +30,6 @@
     <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
     <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
+    <ClInclude Include="src\Modele\Case.h" />
   </ItemGroup>
 </Project>

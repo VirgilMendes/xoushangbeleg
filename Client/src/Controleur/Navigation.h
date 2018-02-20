@@ -14,7 +14,7 @@ namespace Controleur
 		Fenetre() : RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg")
 		{
 			setFramerateLimit(60);
-			gameStates_.push(new Vue::MenuPrincipal(this));
+			gameStates_.push(new Vue::VueCombat(this));
 		}
 
 		void run()
