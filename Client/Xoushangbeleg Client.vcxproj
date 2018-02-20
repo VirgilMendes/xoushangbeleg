@@ -132,6 +132,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modele\Archer.cpp" />
     <ClCompile Include="src\Modele\Soldat.cpp" />
+    <ClCompile Include="src\Modele\Case.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />

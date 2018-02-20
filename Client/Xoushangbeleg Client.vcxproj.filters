@@ -12,6 +12,7 @@
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\VueCombat.h" />
+    <ClCompile Include="src\Modele\Case.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Vecteur2.h" />

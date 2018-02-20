@@ -25,11 +25,22 @@ namespace Modele
 	{
 	public :
 
+		Case(Unite* unite, Terrain terrain, Obstacle obstacle);
 
+		Unite* getUnite();
+		void setUnite( Unite* unite);
+
+		Terrain getTerrain();
+		void setTerrain(Terrain terrain);
+
+		Obstacle getObstacle();
+		void setObstacle(Obstacle obstacle);
 
 	private :
 
 		Unite* unite;
+		Terrain terrain;
+		Obstacle obstacle;
 
 	};
 
