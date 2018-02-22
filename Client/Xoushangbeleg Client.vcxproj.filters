@@ -7,6 +7,7 @@
     <ClCompile Include="src\Modele\Archer.cpp" />
     <ClCompile Include="src\Modele\Soldat.cpp" />
     <ClCompile Include="src\Vue\Outils\Jauge.cpp" />
+    <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\Combat\InterfaceUnite.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
@@ -22,6 +23,7 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Controleur\Navigation.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
+    <ClInclude Include="src\Vue\Outils\MenuChoix.h" />
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
     <ClInclude Include="src\Vue\Combat\Curseur.h" />
     <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
@@ -32,5 +34,6 @@
     <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Modele\Case.h" />
+    <ClInclude Include="src\Vue\Outils\Node.h" />
   </ItemGroup>
 </Project>

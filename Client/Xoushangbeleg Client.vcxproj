@@ -135,6 +135,7 @@
     <ClCompile Include="src\Modele\Case.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
+    <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="src\Vue\Combat\Curseur.h" />
     <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
+    <ClInclude Include="src\Vue\Outils\MenuChoix.h" />
     <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
     <ClInclude Include="src\Vue\GameStates\GameState.h" />
     <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Vue\Combat\Unite.h" />
     <ClInclude Include="src\Modele\Vecteur2.h" />
+    <ClInclude Include="src\Vue\Outils\Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
