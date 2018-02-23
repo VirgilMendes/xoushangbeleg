@@ -1,4 +1,5 @@
 #include "Unite.h"
+#include <pugixml.hpp>
 
 namespace Modele
 {
@@ -127,6 +128,19 @@ namespace Modele
 	void Unite::setPosition(Vecteur2<int> pos)
 	{
 		position = pos;
+		pugi::xml_document doc;
+		auto root = doc.append_child("paquet");
+		pugi::xml_node nodeDeplacement = root.append_child("deplacement");
+		pugi::xml_node nodeUnite = nodeDeplacement.append_child("unite");
+		pugi::xml_node nodeNom = nodeUnite.append_child("nom");
+		nodeNom.text().set(this->getNom().c_str());
+		pugi::xml_node nodePosition = nodeDeplacement.append_child("position");
+		pugi::xml_node nodeX = nodePosition.append_child("x");
+		nodeX.text().set((std::to_string(pos.x).c_str()));
+		pugi::xml_node nodeY = nodePosition.append_child("y");
+		nodeY.text().set(std::to_string(pos.y).c_str());
+		std::cout << doc << std::endl;
+		doc.save_file("test.xml");
 	}
 	Vecteur2<int> Unite::getPosition()
 	{

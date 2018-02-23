@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<paquet>
+	<deplacement>
+		<unite>
+			<nom>Archer</nom>
+		</unite>
+		<position>
+			<x>10</x>
+			<y>3</y>
+		</position>
+	</deplacement>
+</paquet>
