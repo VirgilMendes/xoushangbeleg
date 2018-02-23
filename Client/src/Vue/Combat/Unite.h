@@ -36,10 +36,10 @@ namespace Vue
 		{
 			const std::vector < sf::IntRect > idle = 
 			{
-				sf::IntRect(0, 192, 64, 64),
-				sf::IntRect(64, 192, 64, 64)
+				sf::IntRect(0, 256, 64, 64),
+				sf::IntRect(64, 256, 64, 64)
 			};
-			idle_.initialiser(idle, 1000);
+			idle_.initialiser(idle, 750);
 
 			const std::vector < sf::IntRect > deplacementFace = 
 			{ 
@@ -52,7 +52,7 @@ namespace Vue
 				sf::IntRect(384, 0, 64, 64) ,
 				sf::IntRect(448, 0, 64, 64)
 			};
-			deplacementFace_.initialiser(deplacementFace, 1000);
+			deplacementFace_.initialiser(deplacementFace, 500);
 
 			const std::vector < sf::IntRect > deplacementDos =
 			{
@@ -65,7 +65,7 @@ namespace Vue
 				sf::IntRect(384, 64, 64, 64) ,
 				sf::IntRect(448, 64, 64, 64)
 			};
-			deplacementDos_.initialiser(deplacementFace, 1000);
+			deplacementDos_.initialiser(deplacementFace, 500);
 		}
 
 
