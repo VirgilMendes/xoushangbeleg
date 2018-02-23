@@ -1,5 +1,6 @@
 #include "Unite.h"
 #include <pugixml.hpp>
+#include <sstream>
 
 namespace Modele
 {
@@ -139,8 +140,10 @@ namespace Modele
 		nodeX.text().set((std::to_string(pos.x).c_str()));
 		pugi::xml_node nodeY = nodePosition.append_child("y");
 		nodeY.text().set(std::to_string(pos.y).c_str());
-		std::cout << doc << std::endl;
-		doc.save_file("test.xml");
+		std::stringstream flux;
+		doc.print(flux);
+		std::cout << flux.str() << std::endl;
+		
 	}
 	Vecteur2<int> Unite::getPosition()
 	{
