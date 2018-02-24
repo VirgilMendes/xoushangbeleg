@@ -5,6 +5,8 @@
 int main()
 	{
 
+	std::cout << "Serveur" << std::endl;
+
 	sf::TcpListener listener;
 
 	// lie l'écouteur à un port
@@ -19,6 +21,17 @@ int main()
 	{
 		std::cout << "impossible d'obtenir le premier client" << std::endl;
 	}
+
+	char parametre[100];
+	std::size_t received;
+
+	// socket TCP:
+	if (client1.receive(parametre, 100, received) != sf::Socket::Done)
+	{
+		std::cout << "impossible de recevoir des données du premier client" << std::endl;
+	}
+	std::cout << "Received from 1 " << received << " " << parametre << " bytes" << std::endl;
+
 	sf::TcpSocket client2;
 	if (listener.accept(client2) != sf::Socket::Done)
 	{
@@ -28,21 +41,8 @@ int main()
 	// utilisez la socket "client" pour communiquer avec le client connecté,
 	// et continuez à attendre de nouvelles connexions avec l'écouteur
 	
-	char data[100];
-	std::size_t received;
-
-	// socket TCP:
-	if (client1.receive(data, 100, received) != sf::Socket::Done)
+	if (client2.send(parametre, 100) != sf::Socket::Done)
 	{
-		std::cout << "impossible de recevoir des données du premier client" << std::endl;
+		std::cout << "impossible d'enviyer les données au second client" << std::endl;
 	}
-	std::cout << "Received from 1 " << received << " "<< data <<" bytes" << std::endl;
-
-	if (client2.receive(data, 100, received) != sf::Socket::Done)
-	{
-		std::cout << "impossible de recevoir des données du second client" << std::endl;
-	}
-	std::cout << "Received from 2 " << received << " " << data << " bytes" << std::endl;
-
-
 }
