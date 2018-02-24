@@ -9,14 +9,14 @@
 int main()
 {
 
-	Controleur::Fenetre fenetre;
-	fenetre.run();
+	//Controleur::Fenetre fenetre;
+	//fenetre.run();
 
 	sf::TcpSocket socket;
 	sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
 	if (status != sf::Socket::Done)
 	{
-		// erreur...
+		std::cout << "Impossible de se connecter au serveur" << std::endl;
 	}
 
 
@@ -25,8 +25,6 @@ int main()
 	// socket TCP:
 	if (socket.send(data, 100) != sf::Socket::Done)
 	{
-		// erreur...
+		std::cout << "Impossible d'envoyer les données" << std::endl;
 	}
-
-	
 }
