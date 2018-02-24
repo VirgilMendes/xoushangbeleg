@@ -91,6 +91,7 @@
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>lib/SFML-2.4.2/include;lib/pugixml/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>lib/SFML-2.4.2/lib;lib/pugixml/lib;</AdditionalLibraryDirectories>
@@ -133,6 +134,7 @@
     <ClCompile Include="src\Modele\Archer.cpp" />
     <ClCompile Include="src\Modele\Soldat.cpp" />
     <ClCompile Include="src\Modele\Case.cpp" />
+    <ClCompile Include="src\Modele\Carte.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
     <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
@@ -147,6 +149,7 @@
     <ClInclude Include="src\Controleur\Navigation.h" />
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Case.h" />
+    <ClInclude Include="src\Modele\Carte.h" />
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
@@ -163,6 +166,9 @@
     <ClInclude Include="src\Vue\Combat\Unite.h" />
     <ClInclude Include="src\Modele\Vecteur2.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

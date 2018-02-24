@@ -25,6 +25,7 @@ namespace Modele
 	{
 	public :
 
+		Case();
 		Case(Unite* unite, Terrain terrain, Obstacle obstacle);
 
 		Unite* getUnite();

@@ -2,6 +2,9 @@
 
 namespace Modele
 {
+	Case::Case()
+	{}
+
 	Case::Case(Unite* unite, Terrain terrain, Obstacle obstacle) : unite(unite), terrain(terrain), obstacle(obstacle)
 	{}
 

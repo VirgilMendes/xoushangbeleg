@@ -14,6 +14,7 @@
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\VueCombat.h" />
     <ClCompile Include="src\Modele\Case.cpp" />
+    <ClCompile Include="src\Modele\Carte.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Vecteur2.h" />
@@ -35,5 +36,9 @@
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
+    <ClInclude Include="src\Modele\Carte.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />
   </ItemGroup>
 </Project>

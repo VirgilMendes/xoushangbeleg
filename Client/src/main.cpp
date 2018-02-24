@@ -5,11 +5,11 @@
 #include <thread>
 #include <SFML/Network.hpp>
 #include "Controleur/Navigation.h"
-
+#include "Modele/Carte.h"
 int main()
 {
 
-	Controleur::Fenetre fenetre;
+	/*Controleur::Fenetre fenetre;
 	fenetre.run();
 
 	sf::TcpSocket socket;
@@ -27,6 +27,7 @@ int main()
 	{
 		// erreur...
 	}
-
+	*/ 
+	Modele::Carte();
 	
 }
