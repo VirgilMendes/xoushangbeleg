@@ -20,13 +20,13 @@ namespace Vue
 			sf::Texture carteFond;
 			sf::Texture carteObstacle;
 
-			sf::Sprite carteSol;
-			sf::Sprite carteElement ;
+			int frame;
+
+			sf::Sprite carteSol[32][32];
+			sf::Sprite carteElement[32][32] ;
 
 			std::map<parametreSol, sf::IntRect> sol;
 			std::map<parametreElement, sf::IntRect> element;
-
-			sf::Sprite carteADessiner[32][32];
 
 			void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

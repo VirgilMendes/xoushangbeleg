@@ -5,18 +5,19 @@ namespace Vue
 {
 	CarteGUI::CarteGUI() : sf::Drawable()
 	{
+		frame = 1;
 
 		if (!carteFond.loadFromFile("ressources/sprite/mapFond.png"))
 		{
 			std::cout << "erreur chargement Texture mapFond.png" << std::endl;
 		}
-		carteSol.setTexture(carteFond);
+		
 
 		if (!carteObstacle.loadFromFile("ressources/sprite/mapObstacles.png"))
 		{
 			std::cout << "erreur chargement Texture mapObstacles.png" << std::endl;
 		}
-		carteElement.setTexture(carteObstacle);
+
 		
 		sol[parametreSol(Modele::Terrain::herbeux, 1 )] = sf::IntRect(0, 0, 32, 32);
 		sol[parametreSol(Modele::Terrain::herbeux, 2)] = sf::IntRect(32, 0, 32, 32);
@@ -60,7 +61,12 @@ namespace Vue
 		{
 			for (int j = 0; j < 32; i++)
 			{
-				
+				carteSol[i][j].setTexture(carteFond);
+				carteSol[i][j].setTextureRect(sol[parametreSol(carte.getCase(i,j).getTerrain(), frame)]);
+				carteSol[i][j].setPosition(i * 32, j * 32);
+				carteElement[i][j].setTexture(carteObstacle);
+				carteElement[i][j].setTextureRect(element[parametreElement(carte.getCase(i, j).getTerrain(), carte.getCase(i, j).getObstacle(), frame)]);
+				carteElement[i][j].setPosition(i * 32, j * 32);
 			}
 		}
 	}
@@ -71,7 +77,8 @@ namespace Vue
 		{
 			for (int j = 0; j < 32; i++)
 			{
-				target.draw(carteADessiner[i][j], states);
+				target.draw(carteSol[i][j], states);
+				target.draw(carteElement[i][j], states);
 			}
 		}
 	}
