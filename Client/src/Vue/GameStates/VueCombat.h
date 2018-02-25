@@ -135,6 +135,9 @@ namespace Vue {
 			}
 			if (iterateur == unites_.end()) return;
 			unite->setPosition(position);
+			Modele::Unite* test = new Modele::Archer(Modele::Equipe::Bleu, "Archer", 4, 3);
+			test->setPosition(Modele::Vecteur2<int>(10, 3));
+			delete test;
 		}
 
 

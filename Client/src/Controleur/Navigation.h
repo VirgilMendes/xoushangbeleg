@@ -14,7 +14,9 @@ namespace Controleur
 		Fenetre() : RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg")
 		{
 			setFramerateLimit(60);
-			gameStates_.push(new Vue::VueCombat(this));
+			Vue::VueCombat* vueCombat = new Vue::VueCombat(this);
+			gameStates_.push(vueCombat);
+			vueCombat->deplacerUnite("Archer1", sf::Vector2i(10, 7));
 		}
 
 		void run()
