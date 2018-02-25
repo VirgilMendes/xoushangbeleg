@@ -15,6 +15,7 @@
     <ClCompile Include="src\Vue\GameStates\VueCombat.h" />
     <ClCompile Include="src\Modele\Case.cpp" />
     <ClCompile Include="src\Modele\Carte.cpp" />
+    <ClCompile Include="src\Vue\Combat\CarteGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Vecteur2.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
     <ClInclude Include="src\Modele\Carte.h" />
+    <ClInclude Include="src\Vue\Combat\CarteGUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

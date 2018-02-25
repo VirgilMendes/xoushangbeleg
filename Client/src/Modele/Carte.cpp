@@ -7,36 +7,18 @@ namespace Modele
 {
 	Carte::Carte()
 	{
-
-		char * buffer[32];
-		unsigned long size = 0;
-
-		FILE* fichier = NULL, *sortie = NULL;
-		fichier = fopen("ressources/Carte.bmp", "rb");
-		sortie = fopen("ressources/sortieCarte.txt", "w+");
-
-		if (fichier == NULL) {
-			printf("Impossible d'ouvrir le fichier specifie");
-			system("PAUSE");
-			exit(0);
+		for (int i = 0; i < 32; i++)
+		{
+			for (int j = 0; j < 32; j++)
+			{
+				carte[i][j] = Case(nullptr, Terrain::herbeux, Obstacle::aucun);
+			}
 		}
-
-		fseek(fichier, 0, SEEK_END);
-		size = ftell(fichier);
-		fseek(fichier, 0, SEEK_SET);
-		if (!size) {
-			printf("Le fichier specifie est vide");
-			system("PAUSE");
-			exit(0);
-		}
-
-
-		for (int i = 0; i < size; i++) {
-			fread(buffer, 1, 1, fichier);
-			fprintf(sortie, "%s", buffer);
-		}
-
-		fclose(fichier);
-		fclose(sortie);
 	}
+
+	Case Carte::getCase(int x, int y)
+	{
+		return this->carte[x][y];
+	}
+
 }

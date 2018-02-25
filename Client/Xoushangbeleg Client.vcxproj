@@ -137,6 +137,7 @@
     <ClCompile Include="src\Modele\Carte.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
+    <ClCompile Include="src\Vue\Combat\CarteGUI.cpp" />
     <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
+    <ClInclude Include="src\Vue\Combat\CarteGUI.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
     <ClInclude Include="src\Vue\Combat\Curseur.h" />
     <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
