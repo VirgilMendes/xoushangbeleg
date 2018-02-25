@@ -8,7 +8,7 @@ namespace Vue
 	typedef std::pair<Modele::Terrain, int > parametreSol;
 	typedef std::tuple<Modele::Terrain, Modele::Obstacle, int > parametreElement;
 
-	class CarteGUI : public sf::Drawable
+	class CarteGUI : public sf::Drawable, public sf::Transformable
 	{
 		public :
 			CarteGUI();
@@ -17,16 +17,9 @@ namespace Vue
 
 			Modele::Carte carte;
 
-			sf::Texture carteFond;
-			sf::Texture carteObstacle;
+			sf::Texture map;
 
-			int frame;
-
-			sf::Sprite carteSol[32][32];
-			sf::Sprite carteElement[32][32] ;
-
-			std::map<parametreSol, sf::IntRect> sol;
-			std::map<parametreElement, sf::IntRect> element;
+			sf::VertexArray tabVertex;
 
 			void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

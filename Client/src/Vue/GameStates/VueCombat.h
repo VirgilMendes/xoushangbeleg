@@ -6,6 +6,7 @@
 #include "../Combat/InterFaceUnite.h"
 #include "GameState.h"
 #include "../../modele/Vecteur2.h"
+#include "../Combat/CarteGUI.h"
 
 namespace Vue {
 
@@ -80,14 +81,16 @@ namespace Vue {
 
 			// effacement de la fen?tre en noir
 			fenetre_->clear(sf::Color::Black);
-
+			/*
 			for (auto colone : grille_)
 			{
 				for (sf::Sprite sprite : colone)
 				{
 					fenetre_->draw(sprite);
 				}
-			}
+			}*/
+			CarteGUI carte;
+			fenetre_->draw(carte);
 
 			fenetre_->draw(curseur_);
 			for (Unite unite : unites_)
@@ -155,6 +158,6 @@ namespace Vue {
 		InterfaceUnite interfaceUnite;
 		sf::Texture textureSol_;
 
-
+		CarteGUI carte;
 	};
 }

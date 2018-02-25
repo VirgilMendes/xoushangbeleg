@@ -14,6 +14,7 @@ namespace Modele
 				carte[i][j] = Case(nullptr, Terrain::herbeux, Obstacle::aucun);
 			}
 		}
+		carte[0][0] = Case(nullptr, Terrain::aquatique, Obstacle::rocher);
 	}
 
 	Case Carte::getCase(int x, int y)

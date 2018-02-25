@@ -1,85 +1,93 @@
 #include "CarteGUI.h"
+#include "../../Modele/Case.h"
 #include "../../Modele/Carte.h"
 
 namespace Vue
 {
-	CarteGUI::CarteGUI() : sf::Drawable()
+	CarteGUI::CarteGUI() 
 	{
-		frame = 1;
+		int largeur = 32 , hauteur = 32;
 
-		if (!carteFond.loadFromFile("ressources/sprite/mapFond.png"))
+		if (!map.loadFromFile("ressources/sprite/map.png"))
 		{
-			std::cout << "erreur chargement Texture mapFond.png" << std::endl;
-		}
-		
-
-		if (!carteObstacle.loadFromFile("ressources/sprite/mapObstacles.png"))
-		{
-			std::cout << "erreur chargement Texture mapObstacles.png" << std::endl;
+			std::cout << "erreur chargement Texture map.png" << std::endl;
 		}
 
-		
-		sol[parametreSol(Modele::Terrain::herbeux, 1 )] = sf::IntRect(0, 0, 32, 32);
-		sol[parametreSol(Modele::Terrain::herbeux, 2)] = sf::IntRect(32, 0, 32, 32);
-		sol[parametreSol(Modele::Terrain::sableux, 1)] = sf::IntRect(0, 32, 32, 32);
-		sol[parametreSol(Modele::Terrain::sableux, 2)] = sf::IntRect(32, 32, 32, 32);
-		sol[parametreSol(Modele::Terrain::aquatique, 1)] = sf::IntRect(0, 64, 32, 32);
-		sol[parametreSol(Modele::Terrain::aquatique, 2)] = sf::IntRect(32, 64, 32, 32);
-		sol[parametreSol(Modele::Terrain::rocheux, 1)] = sf::IntRect(0, 96, 32, 32);
-		sol[parametreSol(Modele::Terrain::rocheux, 2)] = sf::IntRect(32, 96, 32, 32);
 
-		
-		element[parametreElement(Modele::Terrain::herbeux, Modele::Obstacle::arbre, 1)] = sf::IntRect(0, 0, 32, 32);
-		element[parametreElement(Modele::Terrain::herbeux, Modele::Obstacle::arbre, 2)] = sf::IntRect(32, 0, 32, 32);
-		element[parametreElement(Modele::Terrain::herbeux, Modele::Obstacle::buisson, 1)] = sf::IntRect(64, 0, 32, 32);
-		element[parametreElement(Modele::Terrain::herbeux, Modele::Obstacle::buisson, 2)] = sf::IntRect(96, 0, 32, 32);
-		element[parametreElement(Modele::Terrain::herbeux, Modele::Obstacle::rocher, 1)] = sf::IntRect(128, 0, 32, 32);
-		element[parametreElement(Modele::Terrain::herbeux, Modele::Obstacle::rocher, 2)] = sf::IntRect(160, 0, 32, 32);
+		// on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
+		tabVertex.setPrimitiveType(sf::Quads);
+		tabVertex.resize(largeur * hauteur * 4);
 
-		element[parametreElement(Modele::Terrain::sableux, Modele::Obstacle::arbre, 1)] = sf::IntRect(0, 32, 32, 32);
-		element[parametreElement(Modele::Terrain::sableux, Modele::Obstacle::arbre, 2)] = sf::IntRect(32, 32, 32, 32);
-		element[parametreElement(Modele::Terrain::sableux, Modele::Obstacle::buisson, 1)] = sf::IntRect(64, 32, 32, 32);
-		element[parametreElement(Modele::Terrain::sableux, Modele::Obstacle::buisson, 2)] = sf::IntRect(96, 32, 32, 32);
-		element[parametreElement(Modele::Terrain::sableux, Modele::Obstacle::rocher, 1)] = sf::IntRect(128, 32, 32, 32);
-		element[parametreElement(Modele::Terrain::sableux, Modele::Obstacle::rocher, 2)] = sf::IntRect(160, 32, 32, 32);
+		int tileNumber = 0;
+		Modele::Case caseTemp;
 
-		element[parametreElement(Modele::Terrain::aquatique, Modele::Obstacle::arbre, 1)] = sf::IntRect(0, 64, 32, 32);
-		element[parametreElement(Modele::Terrain::aquatique, Modele::Obstacle::arbre, 2)] = sf::IntRect(32, 64, 32, 32);
-		element[parametreElement(Modele::Terrain::aquatique, Modele::Obstacle::buisson, 1)] = sf::IntRect(64, 64, 32, 32);
-		element[parametreElement(Modele::Terrain::aquatique, Modele::Obstacle::buisson, 2)] = sf::IntRect(96, 64, 32, 32);
-		element[parametreElement(Modele::Terrain::aquatique, Modele::Obstacle::rocher, 1)] = sf::IntRect(128, 64, 32, 32);
-		element[parametreElement(Modele::Terrain::aquatique, Modele::Obstacle::rocher, 2)] = sf::IntRect(160, 64, 32, 32);
-
-		element[parametreElement(Modele::Terrain::rocheux, Modele::Obstacle::arbre, 1)] = sf::IntRect(0, 96, 32, 32);
-		element[parametreElement(Modele::Terrain::rocheux, Modele::Obstacle::arbre, 2)] = sf::IntRect(32, 96, 32, 32);
-		element[parametreElement(Modele::Terrain::rocheux, Modele::Obstacle::buisson, 1)] = sf::IntRect(64, 96, 32, 32);
-		element[parametreElement(Modele::Terrain::rocheux, Modele::Obstacle::buisson, 2)] = sf::IntRect(96, 96, 32, 32);
-		element[parametreElement(Modele::Terrain::rocheux, Modele::Obstacle::rocher, 1)] = sf::IntRect(128, 96, 32, 32);
-		element[parametreElement(Modele::Terrain::rocheux, Modele::Obstacle::rocher, 2)] = sf::IntRect(160, 96, 32, 32);
-
-		for (int i = 0; i < 32; i++)
-		{
-			for (int j = 0; j < 32; i++)
+		// on remplit le tableau de vertex, avec un quad par tuile
+		for (unsigned int i = 0; i < largeur; ++i)
+			for (unsigned int j = 0; j < hauteur; ++j)
 			{
-				carteSol[i][j].setTexture(carteFond);
-				carteSol[i][j].setTextureRect(sol[parametreSol(carte.getCase(i,j).getTerrain(), frame)]);
-				carteSol[i][j].setPosition(i * 32, j * 32);
-				carteElement[i][j].setTexture(carteObstacle);
-				carteElement[i][j].setTextureRect(element[parametreElement(carte.getCase(i, j).getTerrain(), carte.getCase(i, j).getObstacle(), frame)]);
-				carteElement[i][j].setPosition(i * 32, j * 32);
+				caseTemp = carte.getCase(i, j);
+
+
+				// on récupère le code de tuile courant
+				switch (caseTemp.getTerrain())
+				{
+				case Modele::Terrain::herbeux :
+					tileNumber = 0;
+					break;
+				case Modele::Terrain::sableux:
+					tileNumber = 8;
+					break;
+				case Modele::Terrain::aquatique:
+					tileNumber = 16;
+					break;
+				case Modele::Terrain::rocheux:
+					tileNumber = 24;
+					break;
+				}
+
+				switch (caseTemp.getObstacle())
+				{
+				case Modele::Obstacle::aucun:
+					tileNumber = tileNumber + 1;
+					break;
+				case Modele::Obstacle::arbre:
+					tileNumber = tileNumber + 3;
+					break;
+				case Modele::Obstacle::buisson:
+					tileNumber = tileNumber + 5;
+					break;
+				case Modele::Obstacle::rocher:
+					tileNumber = tileNumber + 7;
+					break;
+				}
+
+				// on récupère un pointeur vers le quad à définir dans le tableau de vertex
+				sf::Vertex* quad = &tabVertex[(i + j * largeur) * 4];
+
+				// on définit ses quatre coins
+				quad[0].position = sf::Vector2f(i * 64, j * 64);
+				quad[1].position = sf::Vector2f((i + 1) * 64, j * 64);
+				quad[2].position = sf::Vector2f((i + 1) * 64, (j + 1) * 64);
+				quad[3].position = sf::Vector2f(i * 64, (j + 1) * 64);
+
+				// on définit ses quatre coordonnées de texture
+				quad[0].texCoords = sf::Vector2f(tileNumber * 64, 0);
+				quad[1].texCoords = sf::Vector2f((tileNumber + 1) * 64, 0);
+				quad[2].texCoords = sf::Vector2f((tileNumber + 1) * 64, 64);
+				quad[3].texCoords = sf::Vector2f(tileNumber * 64, 64);
 			}
-		}
 	}
 
 	void CarteGUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		for (int i = 0; i < 32; i++)
-		{
-			for (int j = 0; j < 32; i++)
-			{
-				target.draw(carteSol[i][j], states);
-				target.draw(carteElement[i][j], states);
-			}
-		}
+		// on applique la transformation du sol
+		states.transform *= getTransform();
+
+		// on applique la texture du tileset du sol
+		states.texture = &map;
+
+		// et on dessine enfin le tableau de vertex du sol 
+		target.draw(tabVertex, states);
+
 	}
 }

@@ -1,4 +1,5 @@
 #include "Vue/GameStates/VueCombat.h"
+#include "Vue/Combat/CarteGUI.h"
 #include "Vue/GameStates/MenuPrincipal.h"
 #include "Vue/GameStates/NouvellePartie.h"
 #include "Vue/GameStates/RejoindrePartie.h"
@@ -8,11 +9,10 @@
 
 int main()
 {
-	int client;
+	/*int client;
 	std::cin >> client; std::cout << std::endl;
 
-	//Controleur::Fenetre fenetre;
-	//fenetre.run();
+	
 
 	sf::TcpSocket socket;
 	sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
@@ -42,5 +42,8 @@ int main()
 			std::cout << "impossible de recevoir des données du premier client" << std::endl;
 		}
 		std::cout << "Received from 1 " << received << " " << parametre << " bytes" << std::endl;
-	}
+
+	}*/
+	Controleur::Fenetre fenetre;
+	fenetre.run();
 }
