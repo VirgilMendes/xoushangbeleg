@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 #include "SFML/Graphics.hpp"
 #include "../../Modele/Carte.h"
 #include "../../Modele/Case.h"

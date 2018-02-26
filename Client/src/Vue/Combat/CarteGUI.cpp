@@ -8,11 +8,12 @@ namespace Vue
 	{
 		int largeur = 32 , hauteur = 32;
 
-		if (!map.loadFromFile("ressources/sprite/map.png"))
+		if (!map.loadFromFile("ressources/sprite/minimaptest.png"))
 		{
 			std::cout << "erreur chargement Texture map.png" << std::endl;
 		}
 
+		int resolution = 16;
 
 		// on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
 		tabVertex.setPrimitiveType(sf::Quads);
@@ -65,16 +66,16 @@ namespace Vue
 				sf::Vertex* quad = &tabVertex[(i + j * largeur) * 4];
 
 				// on définit ses quatre coins
-				quad[0].position = sf::Vector2f(i * 64, j * 64);
-				quad[1].position = sf::Vector2f((i + 1) * 64, j * 64);
-				quad[2].position = sf::Vector2f((i + 1) * 64, (j + 1) * 64);
-				quad[3].position = sf::Vector2f(i * 64, (j + 1) * 64);
+				quad[0].position = sf::Vector2f(i * resolution, j * resolution);
+				quad[1].position = sf::Vector2f((i + 1) * resolution, j * resolution);
+				quad[2].position = sf::Vector2f((i + 1) * resolution, (j + 1) * resolution);
+				quad[3].position = sf::Vector2f(i * resolution, (j + 1) * resolution);
 
 				// on définit ses quatre coordonnées de texture
-				quad[0].texCoords = sf::Vector2f(tileNumber * 64, 0);
-				quad[1].texCoords = sf::Vector2f((tileNumber + 1) * 64, 0);
-				quad[2].texCoords = sf::Vector2f((tileNumber + 1) * 64, 64);
-				quad[3].texCoords = sf::Vector2f(tileNumber * 64, 64);
+				quad[0].texCoords = sf::Vector2f(tileNumber * resolution, 0);
+				quad[1].texCoords = sf::Vector2f((tileNumber + 1) * resolution, 0);
+				quad[2].texCoords = sf::Vector2f((tileNumber + 1) * resolution, resolution);
+				quad[3].texCoords = sf::Vector2f(tileNumber * resolution, resolution);
 			}
 	}
 

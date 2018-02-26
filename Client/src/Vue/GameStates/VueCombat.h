@@ -19,6 +19,7 @@ namespace Vue {
 		{
 			textureSol_.loadFromFile("ressources/sprite/map.png");
 			textureSol_.setSmooth(true);
+			CarteGUI carte;
 
 			ajouterUnite("Archer1", "ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
 
@@ -89,7 +90,7 @@ namespace Vue {
 					fenetre_->draw(sprite);
 				}
 			}*/
-			CarteGUI carte;
+
 			fenetre_->draw(carte);
 
 			fenetre_->draw(curseur_);
