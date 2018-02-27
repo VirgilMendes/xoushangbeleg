@@ -85,6 +85,49 @@ namespace Controleur
 			doc.print(flux);
 			return flux.str();
 		}
+		std::string initialisatonCarteUnite() {
+			pugi::xml_document doc;
+			auto root = doc.append_child("paquet");
+			pugi::xml_node nodeCarte = root.append_child("carte");
+			pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
+			pugi::xml_node nodeUnite = root.append_child("unites");
+			pugi::xml_node nodeNomUnite;
+			pugi::xml_node nodeClasseUnite;
+			pugi::xml_node nodeEquipeUnite;
+			pugi::xml_node nodeVieMaxUnite;
+			pugi::xml_node nodeVieCouranteUnite;
+			pugi::xml_node nodeAttaqueUnite;
+			pugi::xml_node nodeDefenseUnite;
+			pugi::xml_node nodePositionUnite;
+			pugi::xml_node nodePositionXUnite;
+			pugi::xml_node nodePositionYUnite;
+			Modele::Vecteur2<int> position;
+			//utiliser listeUnite de Carte.h
+			//for(listeUnite){
+				//position = unite.getPosition();
+				//nodeNomUnite = nodeUnite.append_child(unite.getNom());
+				//nodeClasseUnite = nodeNomUnite.append_child("classe");
+				//nodeClasseUnite.text().set(unite.getClasse().c_str());
+				//nodeEquipeUnite = nodeNomUnite.append_child("equipe");
+				//nodeEquipeUnite.text().set(unite.getEquipe().c_str());
+				//nodeVieMaxUnite = nodeNomUnite.append_child("vieMax");
+				//nodeVieMaxUnite.text().set(unite.getVieMax().c_str());
+				//nodeVieCouranteUnite = nodeNomUnite.append_child("vieCourante");
+				//nodeVieCouranteUnite.text().set(unite.getVieCourante().c_str());
+				//nodeAttaqueUnite = nodeNomUnite.append_child("attaque");
+				//nodeAttaqueUnite.text().set(unite.getStatAtt().c_str());
+				//nodeDefenseUnite = nodeNomUnite.append_child("defense");
+				//nodeDefenseUnite.text().set(unite.getStatDef().c_str());
+				//nodePositionUnite = nodeNomUnite.append_child("position");
+				//nodePositionXUnite = nodePositionUnite.append_child("x");
+				//nodePositionXUnite.text().set(position[0].c_str());
+				//nodePositionYUnite = nodePositionUnite.append_child("x");
+				//nodePositionYUnite.text().set(position[1].c_str());
+			//}
+			std::stringstream flux;
+			doc.print(flux);
+			return flux.str();
+		}
 
 	private:
 
