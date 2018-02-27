@@ -11,9 +11,9 @@ namespace Modele {
 
 		Carte();
 
-		void genererEau();
+		void genererEau(int tailleMax);
 
-		void genererPlage();
+		void genererPlage(int circonferenceMax);
 
 		Case getCase(int x, int y);
 		

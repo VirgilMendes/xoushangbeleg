@@ -21,13 +21,13 @@ namespace Modele
 		}
 
 		// génération de l'eau
-		this->genererEau();
+		this->genererEau(100);
 
 		// génération du sable autour de l'eau
-		this->genererPlage();
+		this->genererPlage(3);
 	}
 
-	void Carte::genererEau() 
+	void Carte::genererEau( int tailleMax) 
 	{
 		int nbCaseAquatique = 0;
 		
@@ -45,7 +45,7 @@ namespace Modele
 		int testRandAquatique;
 		if (tabAquatique.size() != 0)
 		{
-			while (nbCaseAquatique < 100 && nbEssais < 1000)
+			while (nbCaseAquatique < tailleMax && nbEssais < 1000)
 			{
 				testRandAquatique = rand() % tabAquatique.size();
 
@@ -69,12 +69,14 @@ namespace Modele
 		}
 	}
 
-	void Carte::genererPlage()
+	void Carte::genererPlage( int circonferenceMax)
 	{
 		int tailleVoisinageEau;
+		int i = 0;
+		int j = 0;
 		for (int y = 0; y < tabAquatique.size(); y++)
 		{
-			tailleVoisinageEau = rand() % 4 + 1;
+			tailleVoisinageEau = rand() % circonferenceMax + 1;
 			std::cout << " rand = "<< tailleVoisinageEau << std::endl;
 			for (int i = tabAquatique[y].x - tailleVoisinageEau; i <= tabAquatique[y].x + tailleVoisinageEau; i++)
 			{
@@ -95,6 +97,26 @@ namespace Modele
 						carte[tabAquatique[y].x][j].setTerrain(Terrain::sableux);
 					}
 				}
+			}
+			i = 0 + tailleVoisinageEau;
+			j = 0 - tailleVoisinageEau;
+			while ( j <= tailleVoisinageEau && i >= (-1)*tailleVoisinageEau)
+			{
+				if (carte[tabAquatique[y].x + i][tabAquatique[y].y + j].getTerrain() == Terrain::herbeux  && tabAquatique[y].x + i < 32 && tabAquatique[y].x + i >= 0 && tabAquatique[y].y + j < 32 && tabAquatique[y].y + j >= 0)
+				{
+					carte[tabAquatique[y].x + i][tabAquatique[y].y + j].setTerrain(Terrain::sableux);
+				}
+				i = i - 1;
+				j = j + 1;
+			}
+			i = 0 - tailleVoisinageEau;
+			while ( i <= tailleVoisinageEau)
+			{
+				if (carte[tabAquatique[y].x + i][tabAquatique[y].y + i].getTerrain() == Terrain::herbeux && tabAquatique[y].x + i < 32 && tabAquatique[y].x + i >= 0 && tabAquatique[y].y + i < 32 && tabAquatique[y].y + i >= 0)
+				{
+					carte[tabAquatique[y].x + i][tabAquatique[y].y + i].setTerrain(Terrain::sableux);
+				}
+				i = i + 1;
 			}
 		}
 	}
