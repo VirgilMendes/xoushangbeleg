@@ -45,5 +45,8 @@ int main()
 
 	}*/
 	Controleur::Fenetre fenetre;
+	std::string sXml = "<paquet><deplacement><unite><nom>Archer1</nom></unite><position><x>6</x><y>9</y></position></deplacement></paquet>";
+	fenetre.decodeXml(sXml);
+
 	fenetre.run();
 }
