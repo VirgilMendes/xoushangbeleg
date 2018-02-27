@@ -7,6 +7,7 @@
 #include "GameState.h"
 #include "../../modele/Vecteur2.h"
 #include "../Combat/CarteGUI.h"
+#include "../Outils/MenuChoix.h"
 
 namespace Vue {
 
@@ -33,6 +34,11 @@ namespace Vue {
 					sprite->setPosition(i * 64, j * 64);
 				}
 			}
+
+			sf::Font font;
+			font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf");
+			menuAction_ = new MenuChoix(std::vector<std::string>{"test1", "test2", "test3"}, font, 20);
+			menuAction_->setPosition(Modele::Vecteur2<int>(600, 0));
 		}
 
 		~VueCombat()
@@ -43,6 +49,7 @@ namespace Vue {
 				delete iterateur->second;
 				++iterateur;
 			}
+			delete menuAction_;
 		}
 
 		int run() override
@@ -97,6 +104,8 @@ namespace Vue {
 			for (Unite unite : unites_)
 				fenetre_->draw(unite);
 			fenetre_->draw(interfaceUnite);
+
+			menuAction_->dessiner(*fenetre_, sf::Transform());
 
 			// fin de la frame courante, affichage de tout ce qu'on a dessin?
 			fenetre_->display();
@@ -160,5 +169,7 @@ namespace Vue {
 		sf::Texture textureSol_;
 
 		CarteGUI carte;
+		MenuChoix* menuAction_;
+
 	};
 }

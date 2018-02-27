@@ -7,7 +7,7 @@ namespace Vue
 	{
 	public:
 
-		Node();
+		Node(){}
 		
 		//Fonction de transformation relative
 		virtual void deplacerRelativement(sf::Vector2f deplacement) final
@@ -86,7 +86,7 @@ namespace Vue
 				enfant.second->dessiner(cible, transformationFinale);
 		}
 
-	private:
+	protected:
 
 		virtual void dessinerNode(sf::RenderTarget& target, const sf::Transform& transform) = 0;
 		virtual void setPositionElements(sf::Vector2i position) = 0;
