@@ -20,32 +20,13 @@ namespace Vue
 	public:
 
 		MenuChoix(std::vector<std::string> textes, sf::Font police, int tailletexte, sf::Vector2i position = sf::Vector2i(0, 0));
-		~MenuChoix()
-		{
-			for (Choix* choix : textes_)
-			{
-				delete choix;
-			}
-		}
+		~MenuChoix();
 
 	private:
 		
 		//Methode de Node 
-		void dessinerNode(sf::RenderTarget& target, const sf::Transform& transform) override
-		{
-			for(Choix* choix : textes_)
-			{
-				target.draw(choix->texte, transform);
-			}
-		}
-		virtual void setPositionElements(sf::Vector2i position) override
-		{
-			for (int i(0); i < textes_.size(); i++)
-			{
-				textes_[i]->texte.setPosition(position.x, position.y);
-				textes_[i]->texte.move(5, tailletexte_ * i);
-			}
-		}
+		void dessinerNode(sf::RenderTarget& target, const sf::Transform& transform) override;
+		virtual void setPositionElements(sf::Vector2i position) override;
 		virtual void setTailleElements(sf::Vector2i taille) override{}
 		virtual void setRotationElements(int rotation) override{}
 		
