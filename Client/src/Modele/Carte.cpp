@@ -11,12 +11,6 @@ namespace Modele
 	Carte::Carte()
 	{
 		srand((unsigned) time(NULL));
-		int nbCaseAquatique = 0;
-
-		std::vector<Vecteur2<int>> tabAquatique; 
-
-		int testRandi;
-		int testRandj;
 
 		for (int i = 0; i < 32; i++)
 		{
@@ -27,14 +21,27 @@ namespace Modele
 		}
 
 		// génération de l'eau
-	
-		testRandi = rand()%32;
+		this->genererEau();
+
+		// génération du sable autour de l'eau
+		this->genererPlage();
+	}
+
+	void Carte::genererEau() 
+	{
+		int nbCaseAquatique = 0;
+		
+
+		int testRandi;
+		int testRandj;
+
+		testRandi = rand() % 32;
 		testRandj = rand() % 32;
-		std::cout << " randi = " << testRandi << " randj = " << testRandj  <<std::endl;
+		
 		carte[testRandi][testRandj] = Case(nullptr, Terrain::aquatique, Obstacle::aucun);
 		tabAquatique.push_back(Vecteur2<int>(testRandi, testRandj));
 
-		int nbEssais =0;
+		int nbEssais = 0;
 		int testRandAquatique;
 		if (tabAquatique.size() != 0)
 		{
@@ -56,6 +63,36 @@ namespace Modele
 							}
 						}
 						nbEssais = nbEssais + 1;
+					}
+				}
+			}
+		}
+	}
+
+	void Carte::genererPlage()
+	{
+		int tailleVoisinageEau;
+		for (int y = 0; y < tabAquatique.size(); y++)
+		{
+			tailleVoisinageEau = rand() % 4 + 1;
+			std::cout << " rand = "<< tailleVoisinageEau << std::endl;
+			for (int i = tabAquatique[y].x - tailleVoisinageEau; i <= tabAquatique[y].x + tailleVoisinageEau; i++)
+			{
+				if (i < 32 && tabAquatique[y].y < 32 && i >= 0 && tabAquatique[y].y >= 0)
+				{
+					if (carte[i][tabAquatique[y].y].getTerrain() == Terrain::herbeux)
+					{
+						carte[i][tabAquatique[y].y].setTerrain(Terrain::sableux);
+					}
+				}
+			}
+			for (int j = tabAquatique[y].y - tailleVoisinageEau; j <= tabAquatique[y].y + tailleVoisinageEau; j++)
+			{
+				if (tabAquatique[y].x < 32 && j < 32 && tabAquatique[y].x >= 0 && j >= 0)
+				{
+					if (carte[tabAquatique[y].x][j].getTerrain() == Terrain::herbeux)
+					{
+						carte[tabAquatique[y].x][j].setTerrain(Terrain::sableux);
 					}
 				}
 			}

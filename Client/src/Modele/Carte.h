@@ -10,6 +10,11 @@ namespace Modele {
 	public :
 
 		Carte();
+
+		void genererEau();
+
+		void genererPlage();
+
 		Case getCase(int x, int y);
 		
 		void setUnite(Unite* unite, int x, int y);
@@ -19,6 +24,8 @@ namespace Modele {
 
 		Case carte[32][32];
 		std::vector<Vecteur2<int>> listeUnite;
+
+		std::vector<Vecteur2<int>> tabAquatique;
 
 	};
 
