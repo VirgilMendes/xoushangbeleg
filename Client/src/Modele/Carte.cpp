@@ -29,7 +29,7 @@ namespace Modele
 		// génération du terrain rocheux
 		this->genererRocheux(50, 5);
 
-		this->genererObstacles();
+		this->genererObstaclesRocheux();
 	}
 
 	void Carte::genererEau( int tailleMax) 

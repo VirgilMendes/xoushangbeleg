@@ -5,23 +5,22 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <string>
-#include "Vecteur2.h"
+#include "Outils/Vecteur2.h"
+#include "Outils/enum.h"
 
 namespace Modele
 {
 
-	enum class Equipe
-	{
+	BETTER_ENUM(Equipe, int,
 		Rouge,
 		Bleu
-	};
+	)
 
-	enum class Classe
-	{
+	BETTER_ENUM(Classe, int,
 		Archer,
 		Tank,
 		Soldat
-	};
+	)
 
 	class Unite
 	{

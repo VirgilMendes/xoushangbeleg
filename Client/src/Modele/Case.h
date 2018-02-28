@@ -2,24 +2,23 @@
 #include <iostream>
 #include <string>
 #include "Unite.h"
+#include "Outils/enum.h"
 
 namespace Modele
 {
-	enum class Terrain
-	{
+	BETTER_ENUM( Terrain, int, 
 		herbeux,
 		sableux,
 		aquatique,
 		rocheux
-	};
+	)
 
-	enum class Obstacle
-	{
+	BETTER_ENUM( Obstacle, int,
 		aucun,
 		arbre,
 		buisson,
 		rocher
-	};
+	)
 
 	class Case
 	{

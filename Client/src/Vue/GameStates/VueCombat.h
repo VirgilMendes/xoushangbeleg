@@ -5,9 +5,11 @@
 #include "../Combat/Unite.h"
 #include "../Combat/InterFaceUnite.h"
 #include "GameState.h"
-#include "../../modele/Vecteur2.h"
+#include "../../modele/Outils/Vecteur2.h"
 #include "../Combat/CarteGUI.h"
 #include "../Outils/MenuChoix.h"
+#include "../../Modele/Tank.h"
+#include "../../Modele/Archer.h"
 
 namespace Vue {
 
