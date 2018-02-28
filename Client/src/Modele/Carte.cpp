@@ -127,11 +127,12 @@ namespace Modele
 
 	void Carte::genererRocheux(int taille, int epaisseur)
 	{
-		int i;
-		int j;
+		int i ;
+		int j ;
 		int choixCote;
+		
 		choixCote = rand() % 4;
-		switch (choixCote)
+		switch (choixCote) // là on cherche le côté pour mettre la base collée au mur
 		{
 		case 0:
 			i = 0;
@@ -198,46 +199,54 @@ namespace Modele
 		carte[i][j].setTerrain(Terrain::rocheux);
 		tabRocheux.push_back(Vecteur2<int>(i, j));
 		int essais = 0;
-		while (tabRocheux.size() < taille && essais < 3000)
+		while (tabRocheux.size() < taille && essais < 5000)
 		{
 			choixCote = rand() % 4;
 			switch (choixCote)
 			{
 			case 0:
-				if (tabRocheux[tabRocheux.size() - 1].x - 1 >= 0 && tabRocheux[tabRocheux.size() - 1].x - 1 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
+				if (tabRocheux[tabRocheux.size() - 1].x - 2 >= 0 && tabRocheux[tabRocheux.size() - 1].x - 2 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
+					if (carte[tabRocheux[tabRocheux.size() - 1].x - 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x - 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
 					{
+						carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x - 1, tabRocheux[tabRocheux.size() - 1].y));
 						carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
 						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x - 1, tabRocheux[tabRocheux.size() - 1].y));
 					}
 				}
 				break;
 			case 1:
-				if (tabRocheux[tabRocheux.size() - 1].x + 1 >= 0 && tabRocheux[tabRocheux.size() - 1].x + 1 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
+				if (tabRocheux[tabRocheux.size() - 1].x + 2 >= 0 && tabRocheux[tabRocheux.size() - 1].x + 2 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
+					if (carte[tabRocheux[tabRocheux.size() - 1].x + 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x + 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
 					{
+						carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x + 1, tabRocheux[tabRocheux.size() - 1].y));
 						carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
 						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x + 1, tabRocheux[tabRocheux.size() - 1].y));
 					}
 				}
 				break;
 			case 2:
-				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32 && tabRocheux[tabRocheux.size() - 1].y - 1 < 32 && tabRocheux[tabRocheux.size() - 1].y - 1 >= 0)
+				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32 && tabRocheux[tabRocheux.size() - 1].y - 2 < 32 && tabRocheux[tabRocheux.size() - 1].y - 2 >= 0)
 				{
 					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].getTerrain() != Terrain::rocheux)
 					{
+						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y - 1));
 						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].setTerrain(Terrain::rocheux);
 						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y - 1));
 					}
 				}
 				break;
 			case 3:
-				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32  && tabRocheux[tabRocheux.size() - 1].y + 1 < 32 && tabRocheux[tabRocheux.size() - 1].y + 1 >= 0)
+				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32  && tabRocheux[tabRocheux.size() - 1].y + 2 < 32 && tabRocheux[tabRocheux.size() - 1].y + 2 >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].getTerrain() != Terrain::rocheux)
+					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 2].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 2].getTerrain() != Terrain::rocheux)
 					{
+						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y + 1));
 						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].setTerrain(Terrain::rocheux);
 						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y + 1));
 					}
@@ -247,32 +256,81 @@ namespace Modele
 			essais++;
 		}
 		std::cout << "	nombre essais = " << essais << "  /  taille = " << tabRocheux.size() << std::endl;
-
+		
 		for (int e = 0; e < tabRocheux.size(); e++) // on va effectuer un traitement sur tout le chemin de "rocheux" fait precedemment
 		{
-			for (int a = tabRocheux[e].x - epaisseur; a < tabRocheux[e].x + epaisseur ; a++)
+			for (int a = tabRocheux[e].x - epaisseur; a <= tabRocheux[e].x + epaisseur ; a++)
 			{
-				for (int b = tabRocheux[e].y - epaisseur; b < tabRocheux[e].y + epaisseur; b++)
+				if (a != tabRocheux[e].x - epaisseur && a != tabRocheux[e].x + epaisseur)
 				{
-					if (carte[a][b].getTerrain() != Terrain::aquatique && a < 32 && b < 32 && a >= 0 && b >= 0)
+					for (int b = tabRocheux[e].y - epaisseur; b <= tabRocheux[e].y + epaisseur; b++)
 					{
-						carte[a][b].setTerrain(Terrain::rocheux);
+						if (carte[a][b].getTerrain() != Terrain::aquatique && a < 32 && b < 32 && a >= 0 && b >= 0)
+						{
+							carte[a][b].setTerrain(Terrain::rocheux);
+						}
+					}
+				}
+				else
+				{
+					for (int b = tabRocheux[e].y - epaisseur +1; b <= tabRocheux[e].y + epaisseur-1; b++)
+					{
+						if (carte[a][b].getTerrain() != Terrain::aquatique && a < 32 && b < 32 && a >= 0 && b >= 0)
+						{
+							carte[a][b].setTerrain(Terrain::rocheux);
+						}
 					}
 				}
 			}
 		}
 	}
 
-	void Carte::genererObstacles()
+	void Carte::genererObstaclesRocheux()
 	{
-
+		// generer murs terrains rocheux
+		int randRocher;
+		int rochersALaSuite = 0;
+		int tailleSortie = 0;
+		for (int i = 0; i < 32; i++) // parcours pour trouver les zones rocheuses
+		{
+			for (int j = 0; j < 32; j++)
+			{
+				if (carte[i][j].getTerrain() == Terrain::rocheux)
+				{
+					randRocher = rand() % 10;
+					for (int a = i - 1; a <= i + 1; a++) // test des alentours de la case sur la quelle on est positionné
+					{
+						for (int b = j - 1; b <= j + 1; b++)
+						{
+							if (carte[a][b].getTerrain() != Terrain::rocheux && randRocher <= 8 && rochersALaSuite <= 10)
+							{
+								carte[i][j].setObstacle(Obstacle::rocher);
+								rochersALaSuite = rochersALaSuite + 1;
+							}
+							else if (carte[a][b].getTerrain() != Terrain::rocheux && tailleSortie > 3)
+							{
+								rochersALaSuite = 0;
+								tailleSortie = 0;
+							}
+							else if (carte[a][b].getTerrain() != Terrain::rocheux && rochersALaSuite > 10)
+							{
+								tailleSortie = tailleSortie + 1;
+							}
+							else if (i == 0 || i == 31 || j == 0 || j == 31 || carte[a][b].getTerrain() == Terrain::aquatique)
+							{
+								carte[i][j].setObstacle(Obstacle::rocher);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	Case Carte::getCase(int x, int y)
 	{
 		return carte[x][y];
 	}
-
 
 
 }
