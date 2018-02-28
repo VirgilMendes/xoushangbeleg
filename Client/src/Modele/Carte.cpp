@@ -26,8 +26,10 @@ namespace Modele
 		// génération du sable autour de l'eau
 		this->genererPlage(5);
 
-		// génération du terrain sableux
-		this->genererRocheux(50);
+		// génération du terrain rocheux
+		this->genererRocheux(50, 5);
+
+		this->genererObstacles();
 	}
 
 	void Carte::genererEau( int tailleMax) 
@@ -246,10 +248,24 @@ namespace Modele
 		}
 		std::cout << "	nombre essais = " << essais << "  /  taille = " << tabRocheux.size() << std::endl;
 
-		for (int e = 0; e < tabRocheux.size(); e++)
+		for (int e = 0; e < tabRocheux.size(); e++) // on va effectuer un traitement sur tout le chemin de "rocheux" fait precedemment
 		{
-
+			for (int a = tabRocheux[e].x - epaisseur; a < tabRocheux[e].x + epaisseur ; a++)
+			{
+				for (int b = tabRocheux[e].y - epaisseur; b < tabRocheux[e].y + epaisseur; b++)
+				{
+					if (carte[a][b].getTerrain() != Terrain::aquatique && a < 32 && b < 32 && a >= 0 && b >= 0)
+					{
+						carte[a][b].setTerrain(Terrain::rocheux);
+					}
+				}
+			}
 		}
+	}
+
+	void Carte::genererObstacles()
+	{
+
 	}
 
 	Case Carte::getCase(int x, int y)

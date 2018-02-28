@@ -17,6 +17,8 @@ namespace Modele {
 
 		void genererRocheux(int tailleMax, int epaisseur);
 
+		void genererObstacles();
+
 		Case getCase(int x, int y);
 		
 		void setUnite(Unite* unite, int x, int y);
