@@ -24,7 +24,10 @@ namespace Modele
 		this->genererEau(100);
 
 		// génération du sable autour de l'eau
-		this->genererPlage(3);
+		this->genererPlage(5);
+
+		// génération du terrain sableux
+		this->genererRocheux(50);
 	}
 
 	void Carte::genererEau( int tailleMax) 
@@ -77,7 +80,6 @@ namespace Modele
 		for (int y = 0; y < tabAquatique.size(); y++)
 		{
 			tailleVoisinageEau = rand() % circonferenceMax + 1;
-			std::cout << " rand = "<< tailleVoisinageEau << std::endl;
 			for (int i = tabAquatique[y].x - tailleVoisinageEau; i <= tabAquatique[y].x + tailleVoisinageEau; i++)
 			{
 				if (i < 32 && tabAquatique[y].y < 32 && i >= 0 && tabAquatique[y].y >= 0)
@@ -118,6 +120,135 @@ namespace Modele
 				}
 				i = i + 1;
 			}
+		}
+	}
+
+	void Carte::genererRocheux(int taille, int epaisseur)
+	{
+		int i;
+		int j;
+		int choixCote;
+		choixCote = rand() % 4;
+		switch (choixCote)
+		{
+		case 0:
+			i = 0;
+			j = 0;
+			while ( j < 32 )
+			{
+				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				{
+					std::cout << " eau trouvée en : i = "<<i<<" / j = "<<j << std::endl;
+					i = 31;
+					j = 100;
+				}
+				j++;
+			}
+			j = rand() % 32;
+			break;
+		case 1:
+			i = 31;
+			j = 0;
+			while (j < 32)
+			{
+				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				{
+					std::cout << " eau trouvée en : i = " << i << " / j = " << j << std::endl;
+					i = 0;
+					j = 100;
+				}
+				j++;
+			}
+			j = rand() % 32;
+			break;
+		case 2:
+			j = 0;
+			i = 0;
+			while (i < 32)
+			{
+				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				{
+					std::cout << " eau trouvée en : i = " << i << " / j = " << j <<std::endl;
+					j = 31;
+					i = 100;
+				}
+				i++;
+			}
+			i = rand() % 32;
+			break;
+		case 3:
+			j = 31;
+			i = 0;
+			while (i < 32)
+			{
+				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				{
+					std::cout << " eau trouvée en : i = " << i << " / j = " << j << std::endl;
+					j = 0;
+					i = 100;
+				}
+				i++;
+			}
+			i = rand() % 32;
+			break;
+		}
+		std::cout << " base : i = " << i << " / j = " << j;
+		carte[i][j].setTerrain(Terrain::rocheux);
+		tabRocheux.push_back(Vecteur2<int>(i, j));
+		int essais = 0;
+		while (tabRocheux.size() < taille && essais < 3000)
+		{
+			choixCote = rand() % 4;
+			switch (choixCote)
+			{
+			case 0:
+				if (tabRocheux[tabRocheux.size() - 1].x - 1 >= 0 && tabRocheux[tabRocheux.size() - 1].x - 1 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
+				{
+					if (carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
+					{
+						carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x - 1, tabRocheux[tabRocheux.size() - 1].y));
+					}
+				}
+				break;
+			case 1:
+				if (tabRocheux[tabRocheux.size() - 1].x + 1 >= 0 && tabRocheux[tabRocheux.size() - 1].x + 1 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
+				{
+					if (carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
+					{
+						carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x + 1, tabRocheux[tabRocheux.size() - 1].y));
+					}
+				}
+				break;
+			case 2:
+				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32 && tabRocheux[tabRocheux.size() - 1].y - 1 < 32 && tabRocheux[tabRocheux.size() - 1].y - 1 >= 0)
+				{
+					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].getTerrain() != Terrain::rocheux)
+					{
+						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y - 1));
+					}
+				}
+				break;
+			case 3:
+				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32  && tabRocheux[tabRocheux.size() - 1].y + 1 < 32 && tabRocheux[tabRocheux.size() - 1].y + 1 >= 0)
+				{
+					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].getTerrain() != Terrain::rocheux)
+					{
+						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].setTerrain(Terrain::rocheux);
+						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y + 1));
+					}
+				}
+				break;
+			}
+			essais++;
+		}
+		std::cout << "	nombre essais = " << essais << "  /  taille = " << tabRocheux.size() << std::endl;
+
+		for (int e = 0; e < tabRocheux.size(); e++)
+		{
+
 		}
 	}
 
