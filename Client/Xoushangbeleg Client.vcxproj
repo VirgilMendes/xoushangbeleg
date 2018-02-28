@@ -151,6 +151,7 @@
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Modele\Carte.h" />
+    <ClInclude Include="src\Modele\Outils\enum.h" />
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
@@ -166,7 +167,7 @@
     <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Vue\Combat\Unite.h" />
-    <ClInclude Include="src\Modele\Vecteur2.h" />
+    <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
   </ItemGroup>
   <ItemGroup>

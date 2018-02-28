@@ -1,6 +1,6 @@
 #pragma once
 #include "Case.h"
-#include "Vecteur2.h"
+#include "Outils/Vecteur2.h"
 #include <vector>
 
 namespace Modele {
@@ -8,7 +8,7 @@ namespace Modele {
 	class Carte {
 
 	public :
-
+		
 		Carte();
 
 		void genererEau(int tailleMax);
