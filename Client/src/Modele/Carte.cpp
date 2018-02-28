@@ -29,7 +29,7 @@ namespace Modele
 		// génération du terrain rocheux
 		this->genererRocheux(50, 5);
 
-		this->genererObstacles();
+		this->genererObstaclesRocheux();
 	}
 
 	void Carte::genererEau( int tailleMax) 
@@ -291,6 +291,7 @@ namespace Modele
 		int randRocher;
 		int rochersALaSuite = 0;
 		int tailleSortie = 0;
+
 		for (int i = 0; i < 32; i++) // parcours pour trouver les zones rocheuses
 		{
 			for (int j = 0; j < 32; j++)
@@ -302,12 +303,12 @@ namespace Modele
 					{
 						for (int b = j - 1; b <= j + 1; b++)
 						{
-							if (carte[a][b].getTerrain() != Terrain::rocheux && randRocher <= 8 && rochersALaSuite <= 10)
+							if (carte[a][b].getTerrain() != Terrain::rocheux && randRocher <= 7 && rochersALaSuite <= 10)
 							{
 								carte[i][j].setObstacle(Obstacle::rocher);
 								rochersALaSuite = rochersALaSuite + 1;
 							}
-							else if (carte[a][b].getTerrain() != Terrain::rocheux && tailleSortie > 3)
+							else if (carte[a][b].getTerrain() != Terrain::rocheux && tailleSortie > 4)
 							{
 								rochersALaSuite = 0;
 								tailleSortie = 0;
@@ -322,11 +323,115 @@ namespace Modele
 							}
 						}
 					}
+
+				}
+			}
+		}
+//apres avoir mis les frontières des zones rocheuses, on va y ajouter des murs... malheureusement, ça demande de retraverser les cases.
+		int randMur;
+		int randTailleMur;
+		int randDirMur;
+		int xMur;
+		int yMur;
+		int cheminSansMur;
+		int limiteMur = 100;
+
+		for (int i = 0; i < 32; i++) // parcours pour trouver les zones rocheuses
+		{
+			for (int j = 0; j < 32; j++)
+			{
+				if (carte[i][j].getTerrain() == Terrain::rocheux)
+				{
+					for (int a = i - 1; a <= i + 1; a++) // test des alentours de la case sur la quelle on est positionné
+					{
+						for (int b = j - 1; b <= j + 1; b++)
+						{
+							randMur = rand() % 100;
+							if (carte[a][b].getObstacle() == Obstacle::rocher && randMur < 5 && limiteMur >= 0)
+							{	
+								limiteMur = limiteMur - 1;
+
+								std::cout << " mur démarré aux coord : i = " << i << "  /  j = " << j << std::endl;
+								xMur = i;
+								yMur = j;
+								randTailleMur = rand() % 15;
+								cheminSansMur = 0;
+								while( cheminSansMur <= randTailleMur )
+								{
+									carte[xMur][yMur].setObstacle(Obstacle::rocher);
+									randDirMur = rand() % 4;
+									switch (randDirMur) // là on donne à chaque fois une nouvelle direction au mur
+									{
+									case 0:
+										if (carte[xMur - 3][yMur].getObstacle() == Obstacle::rocher )
+										{
+											cheminSansMur = 100;
+										}
+										else if (carte[xMur - 1][yMur].getObstacle() == Obstacle::rocher)
+										{
+											cheminSansMur = cheminSansMur - 1;
+										}
+										else if (xMur - 1 >= 0)
+										{
+											xMur = xMur - 1;
+										}
+										break;
+									case 1:
+										if (carte[xMur + 3][yMur].getObstacle() == Obstacle::rocher)
+										{
+											cheminSansMur = 100;
+										}
+										else if (carte[xMur + 1][yMur].getObstacle() == Obstacle::rocher )
+										{
+											cheminSansMur = cheminSansMur - 1;
+										}
+										else if (xMur + 1 < 32)
+										{
+											xMur = xMur + 1;
+										}
+										break;
+									case 2:
+										if (carte[xMur][yMur - 3].getObstacle() == Obstacle::rocher)
+										{
+											cheminSansMur = 100;
+										}
+										else if (carte[xMur][yMur - 1].getObstacle() == Obstacle::rocher)
+										{
+											cheminSansMur = cheminSansMur - 1;
+										}
+										else if( yMur - 1 >= 0)
+										{
+											yMur = yMur - 1;
+										}
+										break;
+									case 3:
+										if (carte[xMur][yMur + 3].getObstacle() == Obstacle::rocher)
+										{
+											cheminSansMur = 100;
+										}
+										else if (carte[xMur][yMur + 1].getObstacle() == Obstacle::rocher)
+										{
+											cheminSansMur = cheminSansMur + 1;
+										}
+										else if (yMur + 1 < 32)
+										{
+											yMur = yMur + 1;
+										}
+										break;
+									}
+									cheminSansMur = cheminSansMur + 1;
+								}
+							}
+						}
+					}
+
 				}
 			}
 		}
 	}
 
+
+	/**/
 	Case Carte::getCase(int x, int y)
 	{
 		return carte[x][y];
