@@ -69,15 +69,23 @@ namespace Vue {
 					{
 					case sf::Keyboard::Z:
 						curseur_.deplacerCurseur(sf::Vector2i(0, -1));
+						menuAction_->deplacerAuChoixPrecedant();
 						break;
 					case sf::Keyboard::Q:
 						curseur_.deplacerCurseur(sf::Vector2i(-1, 0));
 						break;
 					case sf::Keyboard::S:
 						curseur_.deplacerCurseur(sf::Vector2i(0, 1));
+						menuAction_->deplacerAuChoixSuivant();
 						break;
 					case sf::Keyboard::D:
 						curseur_.deplacerCurseur(sf::Vector2i(1, 0));
+						break;
+					case sf::Keyboard::Up:
+						menuAction_->deplacerAuChoixPrecedant();
+						break;
+					case sf::Keyboard::Down:
+						menuAction_->deplacerAuChoixSuivant();
 						break;
 					default: break;
 

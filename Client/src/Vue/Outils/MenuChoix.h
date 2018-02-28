@@ -22,6 +22,9 @@ namespace Vue
 		MenuChoix(std::vector<std::string> textes, sf::Font police, int tailletexte, sf::Vector2i position = sf::Vector2i(0, 0));
 		~MenuChoix();
 
+		void deplacerAuChoixPrecedant();
+		void deplacerAuChoixSuivant();
+
 	private:
 		
 		//Methode de Node 
@@ -34,6 +37,7 @@ namespace Vue
 		sf::Font police_;
 		int tailletexte_;
 		std::vector<Choix*> textes_;
+		std::vector<Choix*>::iterator iterateur_;
 
 		//Gestion des couleurs
 		sf::Color couleurSelection_ = sf::Color::Yellow;

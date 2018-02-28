@@ -9,12 +9,12 @@
 
 int main()
 {
-	int client;
-	std::cin >> client; std::cout << std::endl;
+	//int client;
+	//std::cin >> client; std::cout << std::endl;
 
 	Controleur::Fenetre fenetre;
 
-	sf::TcpSocket socket;
+	/*sf::TcpSocket socket;
 	sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
 	if (status != sf::Socket::Done)
 	{
@@ -47,9 +47,9 @@ int main()
 		}
 		std::cout << recus << " octes reçu depuis client 1 : " << deplacement << std::endl;
 
-		fenetre.decodeXml(deplacement);
+		fenetre.decodeXml(deplacement);*/
 
 		fenetre.run();
-	}
+	/*}*/
 	
 }
