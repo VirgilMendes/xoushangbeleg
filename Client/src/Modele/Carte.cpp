@@ -464,7 +464,6 @@ namespace Modele
 								randNbArbre = rand() % 10;
 								carte[i][j].setObstacle(Obstacle::arbre);
 								tabArbreForet.push_back(Vecteur2<int>(i, j));
-								if( i <= 15 &&  )
 							}
 						}
 					}
