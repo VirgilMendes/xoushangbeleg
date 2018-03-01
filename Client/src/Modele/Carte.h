@@ -19,6 +19,9 @@ namespace Modele {
 
 		void genererObstaclesRocheux();
 
+		void genererArbre();
+		
+
 		Case getCase(int x, int y);
 		
 		void setUnite(Unite* unite, int x, int y);
@@ -31,6 +34,7 @@ namespace Modele {
 
 		std::vector<Vecteur2<int>> tabAquatique;
 		std::vector<Vecteur2<int>> tabRocheux;
+		std::vector<Vecteur2<int>> tabArbreForet;
 
 	};
 

@@ -30,6 +30,8 @@ namespace Modele
 		this->genererRocheux(50, 5);
 
 		this->genererObstaclesRocheux();
+
+		this->genererArbre();
 	}
 
 	void Carte::genererEau( int tailleMax) 
@@ -430,8 +432,47 @@ namespace Modele
 		}
 	}
 
+	void Carte::genererArbre()
+	{
+		int randNbArbre;
+		int baseForetX;
+		int baseForetY;
 
-	/**/
+		for (int i = 0; i < 32; i++)
+		{
+			for (int j = 0; j < 32; j++)
+			{
+				if (carte[i][j].getObstacle() == Obstacle::rocher && carte[i][j].getTerrain() == Terrain::rocheux && rand() % 100 >= 90)
+				{
+					carte[i][j].setObstacle(Obstacle::arbre);
+				}
+				if (i == 31 || i == 0 || j == 31 || j == 0)
+				{
+					if (carte[i][j].getTerrain() == Terrain::herbeux || carte[i][j].getTerrain() == Terrain::sableux)
+					{
+						carte[i][j].setObstacle(Obstacle::arbre);
+					}
+				}
+				if (carte[i][j].getTerrain() == Terrain::herbeux && i%2 == 0 && j%2 == 0)
+				{
+					for (int a = i - 1; a <= i + 1; a++)
+					{
+						for (int b = j - 1; b <= j + 1; b++)
+						{
+							if ((carte[a][b].getObstacle() == Obstacle::rocher || a >= 31 || a == (-1) || b >= 31 || b == (-1)) && rand() % 100 >= 85)
+							{
+								randNbArbre = rand() % 10;
+								carte[i][j].setObstacle(Obstacle::arbre);
+								tabArbreForet.push_back(Vecteur2<int>(i, j));
+								if( i <= 15 &&  )
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	Case Carte::getCase(int x, int y)
 	{
 		return carte[x][y];
