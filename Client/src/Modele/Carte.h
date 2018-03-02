@@ -34,7 +34,7 @@ namespace Modele {
 
 		std::vector<Vecteur2<int>> tabAquatique;
 		std::vector<Vecteur2<int>> tabRocheux;
-		std::vector<Vecteur2<int>> tabArbreForet;
+		std::vector<Vecteur2<int>> tabBaseArbreForet;
 
 	};
 

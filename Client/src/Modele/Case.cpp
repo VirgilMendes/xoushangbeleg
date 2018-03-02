@@ -19,7 +19,7 @@ namespace Modele
 
 	Obstacle Case::getObstacle()
 	{
-		return obstacle;
+		return this->obstacle;
 	}
 	void Case::setObstacle(Obstacle obstacle)
 	{
