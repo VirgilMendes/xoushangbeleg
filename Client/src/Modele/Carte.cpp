@@ -348,8 +348,6 @@ namespace Modele
 					{
 						for (int b = j - 1; b <= j + 1; b++)
 						{
-							a = 100;
-							b = 100;
 							randMur = rand() % 100;
 							if (carte[a][b].getObstacle() == Obstacle::rocher && randMur < 5 && limiteMur >= 0)
 							{	
