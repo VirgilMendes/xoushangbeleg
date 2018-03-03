@@ -1,6 +1,5 @@
-#include "Vue/GameStates/VueCombat.h"
+#include "Vue/GameStates/Combat.h"
 #include "Vue/Combat/CarteGUI.h"
-#include "Vue/GameStates/MenuPrincipal.h"
 #include "Vue/GameStates/NouvellePartie.h"
 #include "Vue/GameStates/RejoindrePartie.h"
 #include <thread>

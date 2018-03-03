@@ -12,10 +12,11 @@
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
-    <ClCompile Include="src\Vue\GameStates\VueCombat.h" />
     <ClCompile Include="src\Modele\Case.cpp" />
     <ClCompile Include="src\Modele\Carte.cpp" />
     <ClCompile Include="src\Vue\Combat\CarteGUI.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Combat.h" />
+    <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Unite.h" />

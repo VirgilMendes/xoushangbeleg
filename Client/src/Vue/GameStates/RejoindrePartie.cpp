@@ -4,11 +4,12 @@
 #include <iostream>
 #include <Windows.h>
 #include "RejoindrePartie.h"
+#include "../../Controleur/Navigation.h"
 
 namespace Vue
 {
 
-	RejoindrePartie::RejoindrePartie(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
+	RejoindrePartie::RejoindrePartie(Controleur::Fenetre* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
 		fenetre->setVerticalSyncEnabled(true);
 		fenetre->setFramerateLimit(12);
 

@@ -5,11 +5,12 @@
 #include <Windows.h>
 #include "MenuPrincipal.h"
 #include "../Outils/Jauge.h"
+#include "../../Controleur/Navigation.h"
 
 namespace Vue
 {
 	
-	MenuPrincipal::MenuPrincipal(sf::RenderWindow* fenetre) : GameState(fenetre), choix_(0), toucheLache_(true), sauvegardeExistante_(false)
+	MenuPrincipal::MenuPrincipal(Controleur::Fenetre* fenetre) : GameState(fenetre), choix_(0), toucheLache_(true), sauvegardeExistante_(false)
 	{	
 		//Titre est une texture donc il a un constructeur par défaut et n'a pas besoin d'être initialisé
 
@@ -96,6 +97,7 @@ namespace Vue
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && toucheLache_)
 		{
+			fenetre_->pop();
 			if (choix_ < 3)
 			{
 				if (!sauvegardeExistante_ && choix_ == 1)

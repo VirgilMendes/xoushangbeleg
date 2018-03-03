@@ -4,11 +4,12 @@
 #include <iostream>
 #include <Windows.h>
 #include "NouvellePartie.h"
+#include "../../Controleur/Navigation.h"
 
 namespace Vue
 {
 
-	NouvellePartie::NouvellePartie(sf::RenderWindow* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
+	NouvellePartie::NouvellePartie(Controleur::Fenetre* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
 		fenetre->setVerticalSyncEnabled(true);
 		fenetre->setFramerateLimit(12);
 

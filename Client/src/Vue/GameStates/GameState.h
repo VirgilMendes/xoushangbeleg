@@ -1,6 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+namespace Controleur
+{
+	class Fenetre;
+}
+
 namespace Vue
 {
 
@@ -8,10 +13,10 @@ namespace Vue
 	{
 	public:
 
-		GameState(sf::RenderWindow* fenetre) : fenetre_(fenetre) {};
+		GameState(Controleur::Fenetre* fenetre) : fenetre_(fenetre) {};
 		virtual int run() = 0;
 
 	protected:
-		sf::RenderWindow* fenetre_;
+		Controleur::Fenetre* fenetre_;
 	};
 }

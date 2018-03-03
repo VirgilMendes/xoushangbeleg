@@ -11,7 +11,7 @@ namespace Vue
 	{
 	public:
 
-		NouvellePartie(sf::RenderWindow* fenetre);
+		NouvellePartie(Controleur::Fenetre* fenetre);
 		int run() override;
 
 		void NouvellePartie::setIP();

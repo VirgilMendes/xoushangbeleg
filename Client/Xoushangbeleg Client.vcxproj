@@ -138,16 +138,16 @@
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
     <ClCompile Include="src\Vue\Combat\CarteGUI.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
     <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\Outils\Jauge.cpp" />
     <ClCompile Include="src\Vue\Combat\InterfaceUnite.cpp" />
-    <ClCompile Include="src\Vue\GameStates\VueCombat.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Controleur\Navigation.h" />
+    <ClInclude Include="src\Vue\GameStates\Combat.h" />
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Modele\Carte.h" />
@@ -169,6 +169,7 @@
     <ClInclude Include="src\Vue\Combat\Unite.h" />
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
+	<ClInclude Include="src\Controleur\Navigation.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

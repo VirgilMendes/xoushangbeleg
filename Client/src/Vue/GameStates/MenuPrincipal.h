@@ -15,7 +15,7 @@ namespace Vue
 	{
 	public:
 
-		MenuPrincipal(sf::RenderWindow* fenetre);
+		MenuPrincipal(Controleur::Fenetre* fenetre);
 		int run() override;
 		void setFichiers(bool filesExistant);
 

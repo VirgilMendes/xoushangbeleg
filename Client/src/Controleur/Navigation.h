@@ -4,9 +4,10 @@
 #include <SFML/System.hpp>
 #include "../Vue/GameStates/GameState.h"
 #include <stack>
-#include "../Vue/GameStates/VueCombat.h"
+#include "../Vue/GameStates/Combat.h"
 #include <pugixml.hpp>
 #include <sstream>
+
 
 namespace Controleur
 {
@@ -16,22 +17,31 @@ namespace Controleur
 		Fenetre() : RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg")
 		{
 			setFramerateLimit(60);
-			Vue::VueCombat* vueCombat = new Vue::VueCombat(this);
-			gameStates_.push(vueCombat);
-			vueCombat->deplacerUnite("Archer1", sf::Vector2i(10, 7));
+			Vue::Combat* combat = new Vue::Combat(this);
+			gameStates_.push(combat);
 		}
 
 		void run()
 		{
 			while (isOpen())
 			{
+				if(gameStates_.empty())
+				{
+					break;
+				}
 				gameStates_.top()->run();
 			}
+			close();
 		}
 
 		void ajouterGameState(Vue::GameState* gamestate)
 		{
 			gameStates_.push(gamestate);
+		}
+
+		void pop()
+		{
+			gameStates_.pop();
 		}
 		
 		void decodeXml(std::string str) {
@@ -50,8 +60,8 @@ namespace Controleur
 				//position Y de l'unite
 				position.y = stoi((std::string)root.child("deplacement").child("position").child("y").child_value());
 				
-				Vue::VueCombat* vueCombat = dynamic_cast<Vue::VueCombat*>(gameStates_.top());
-				vueCombat->deplacerUnite(nomUnite, position);
+				Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.top());
+				Combat->deplacerUnite(nomUnite, position);
 			}
 			else if ((std::string)root.first_child().name() == "carte") 
 			{
@@ -67,7 +77,7 @@ namespace Controleur
 
 		std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
 		{
-			Vue::VueCombat* vueCombat = dynamic_cast<Vue::VueCombat*>(gameStates_.top());
+			Vue::Combat* vueCombat = dynamic_cast<Vue::Combat*>(gameStates_.top());
 			vueCombat->deplacerUnite(nom, position);
 
 			pugi::xml_document doc;

@@ -11,7 +11,7 @@ namespace Vue
 	{
 	public:
 
-		RejoindrePartie(sf::RenderWindow* fenetre);
+		RejoindrePartie(Controleur::Fenetre* fenetre);
 		int run() override;
 		std::string RejoindrePartie::getIP();
 
