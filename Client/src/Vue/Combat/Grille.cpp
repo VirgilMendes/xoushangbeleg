@@ -1,4 +1,4 @@
-#include "GrilleGUI.h"
+#include "Grille.h"
 #include "../../Modele/Case.h"
 
 namespace Vue

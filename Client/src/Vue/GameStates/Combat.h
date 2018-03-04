@@ -5,7 +5,7 @@
 #include "../Combat/Unite.h"
 #include "../Combat/InterFaceUnite.h"
 #include "../../modele/Outils/Vecteur2.h"
-#include "../Combat/GrilleGUI.h"
+#include "../Combat/Grille.h"
 #include "../Outils/MenuChoix.h"
 #include "../../Modele/Tank.h"
 #include "../../Modele/Archer.h"

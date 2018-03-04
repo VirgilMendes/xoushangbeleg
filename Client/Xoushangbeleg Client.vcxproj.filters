@@ -16,7 +16,7 @@
     <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
     <ClCompile Include="src\Modele\Case.cpp" />
     <ClCompile Include="src\Modele\Grille.cpp" />
-    <ClCompile Include="src\Vue\Combat\GrilleGUI.cpp" />
+    <ClCompile Include="src\Vue\Combat\Grille.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Unite.h" />
@@ -41,7 +41,7 @@
     <ClInclude Include="src\Vue\GameStates\Combat.h" />
     <ClInclude Include="src\Vue\Outils\GameState.h" />
     <ClInclude Include="src\Modele\Grille.h" />
-    <ClInclude Include="src\Vue\Combat\GrilleGUI.h" />
+    <ClInclude Include="src\Vue\Combat\Grille.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

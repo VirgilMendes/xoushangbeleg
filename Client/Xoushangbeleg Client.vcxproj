@@ -92,6 +92,8 @@
       </AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>lib/SFML-2.4.2/include;lib/pugixml/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>lib/SFML-2.4.2/lib;lib/pugixml/lib;</AdditionalLibraryDirectories>
@@ -138,7 +140,7 @@
     <ClCompile Include="src\Modele\Grille.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
-    <ClCompile Include="src\Vue\Combat\GrilleGUI.cpp" />
+    <ClCompile Include="src\Vue\Combat\Grille.cpp" />
     <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
     <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
@@ -156,7 +158,7 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
-    <ClInclude Include="src\Vue\Combat\GrilleGUI.h" />
+    <ClInclude Include="src\Vue\Combat\Grille.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
     <ClInclude Include="src\Vue\Combat\Curseur.h" />
     <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
