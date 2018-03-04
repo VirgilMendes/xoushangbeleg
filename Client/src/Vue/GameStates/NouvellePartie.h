@@ -1,8 +1,8 @@
-#ifndef DEF_NOUVELLEPARTIE
-#define DEF_NOUVELLEPARTIE
+#pragma once
+
 #include "GameState.h"
 #include <string>
-#pragma once
+#include "../Outils/Animation.h"
 
 namespace Vue
 {
@@ -11,8 +11,10 @@ namespace Vue
 	{
 	public:
 
-		NouvellePartie(Controleur::Fenetre* fenetre);
-		int run() override;
+		NouvellePartie();
+		void handleEvent(sf::Event event) override;
+		void update() override;
+		void draw() override;
 
 		void NouvellePartie::setIP();
 		void NouvellePartie::setIP(std::string std);
@@ -21,22 +23,21 @@ namespace Vue
 
 
 	private:
-		int choix;
+		int choix_;
 
-		int frame;
+		sf::Texture textureLogo_;
+		sf::Sprite logo_;
+		Animation animationtitre_;
 
-		sf::Texture titre;
-		sf::Sprite sprite;
-		sf::IntRect animation[11];
-		std::string str;
-		sf::Text titreCrea;
-		sf::Text numIP;
-		std::string chaineNom;
-		sf::Font font;
-		sf::Text TabMenu[3];
+		sf::Text menu_[3];
+		sf::Font font_;
 
-		bool toucheLache;
+		sf::Text titreMenu_;
+		sf::Text ip_;
+		std::string nomPartie_;
+
+
+		bool toucheLache_;
 	};
 
 }
-#endif

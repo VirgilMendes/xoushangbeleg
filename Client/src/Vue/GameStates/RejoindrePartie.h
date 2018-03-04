@@ -1,8 +1,9 @@
-#ifndef DEF_REJOINDREPARTIE
-#define DEF_REJOINDREPARTIE
+#pragma once
+
 #include "GameState.h"
 #include <string>
-#pragma once
+#include "../Outils/Animation.h"
+
 
 namespace Vue
 {
@@ -12,29 +13,37 @@ namespace Vue
 	public:
 
 		RejoindrePartie(Controleur::Fenetre* fenetre);
-		int run() override;
+		void handleEvent(sf::Event event) override;
+		void update() override;
+		void draw() override;
 		std::string RejoindrePartie::getIP();
 
 
 
 	private:
-		int choix;
+		
+		int choix_;
 
-		int frame;
-		bool ipRemplie;
+		bool ipRemplie_;
+		
 		sf::Color gris = sf::Color(100, 100, 100);
-		sf::Texture titre;
-		sf::Sprite sprite;
-		sf::IntRect animation[11];
+		
 		std::string str;
-		sf::Text titreCrea;
-		sf::Text numIP;
-		std::string chaineNom;
-		sf::Font font;
-		sf::Text TabMenu[3];
 
-		bool toucheLache;
+		sf::Texture textureLogo_;
+		sf::Sprite logo_;
+		Animation animationtitre_;
+
+		sf::Text menu_[3];
+		sf::Font font_;
+
+		sf::Text titreMenu_;
+		sf::Text ip_;
+		std::string ipPartie_;
+
+
+		bool toucheLache_;
 	};
 
 }
-#endif
+

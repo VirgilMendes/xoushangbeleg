@@ -28,7 +28,7 @@ namespace Vue
 	private:
 		
 		//Methode de Node 
-		void dessinerNode(sf::RenderTarget& target, const sf::Transform& transform) override;
+		void dessinerNode(sf::RenderTarget* target, const sf::Transform& transform) override;
 		virtual void setPositionElements(sf::Vector2i position) override;
 		virtual void setTailleElements(sf::Vector2i taille) override{}
 		virtual void setRotationElements(int rotation) override{}

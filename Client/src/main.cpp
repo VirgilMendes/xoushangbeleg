@@ -11,7 +11,8 @@ int main()
 	//int client;
 	//std::cin >> client; std::cout << std::endl;
 
-	Controleur::Fenetre fenetre;
+	Controleur::Fenetre::initialiser();
+	Controleur::Fenetre::run();
 
 	/*sf::TcpSocket socket;
 	sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
@@ -47,8 +48,6 @@ int main()
 		std::cout << recus << " octes reçu depuis client 1 : " << deplacement << std::endl;
 
 		fenetre.decodeXml(deplacement);*/
-
-		fenetre.run();
 	/*}*/
 	
 }

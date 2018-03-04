@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modele\Archer.cpp" />
     <ClCompile Include="src\Modele\Soldat.cpp" />
@@ -169,7 +170,7 @@
     <ClInclude Include="src\Vue\Combat\Unite.h" />
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
-	<ClInclude Include="src\Controleur\Navigation.h" />
+    <ClInclude Include="src\Controleur\Navigation.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

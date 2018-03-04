@@ -84,11 +84,11 @@ namespace Vue
 		choix->texte.setFillColor(couleurSelection_);
 	}
 
-	void MenuChoix::dessinerNode(sf::RenderTarget& target, const sf::Transform& transform)
+	void MenuChoix::dessinerNode(sf::RenderTarget* target, const sf::Transform& transform)
 	{
 		for (Choix* choix : textes_)
 		{
-			target.draw(choix->texte, transform);
+			target->draw(choix->texte, transform);
 		}
 	}
 

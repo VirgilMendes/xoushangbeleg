@@ -1,10 +1,7 @@
-#ifndef DEF_MENUPRINCIPAL
-#define DEF_MENUPRINCIPAL
-#include "GameState.h"
-#include "../Outils/Jauge.h"
 #pragma once
 
-
+#include "GameState.h"
+#include "../Outils/Jauge.h"
 #include <string>
 #include "../Outils/Animation.h"
 
@@ -15,8 +12,10 @@ namespace Vue
 	{
 	public:
 
-		MenuPrincipal(Controleur::Fenetre* fenetre);
-		int run() override;
+		MenuPrincipal();
+		void handleEvent(sf::Event event) override;
+		void update() override;
+		void draw() override;
 		void setFichiers(bool filesExistant);
 
 	private:
@@ -38,4 +37,3 @@ namespace Vue
 	};
 
 }
-#endif

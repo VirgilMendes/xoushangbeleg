@@ -76,7 +76,7 @@ namespace Vue
 		}
 		
 		//Dessin
-		virtual  void dessiner(sf::RenderTarget& cible, const sf::Transform& transformationParent) final
+		virtual  void dessiner(sf::RenderTarget* cible, const sf::Transform& transformationParent) final
 		{
 			sf::Transform transformationFinale = transformationParent * transformation_;
 
@@ -88,7 +88,7 @@ namespace Vue
 
 	protected:
 
-		virtual void dessinerNode(sf::RenderTarget& target, const sf::Transform& transform) = 0;
+		virtual void dessinerNode(sf::RenderTarget* target, const sf::Transform& transform) = 0;
 		virtual void setPositionElements(sf::Vector2i position) = 0;
 		virtual void setTailleElements(sf::Vector2i taille) = 0;
 		virtual void setRotationElements(int rotation) = 0;

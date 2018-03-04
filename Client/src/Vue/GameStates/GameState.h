@@ -13,10 +13,10 @@ namespace Vue
 	{
 	public:
 
-		GameState(Controleur::Fenetre* fenetre) : fenetre_(fenetre) {};
-		virtual int run() = 0;
+		GameState() {};
+		virtual void handleEvent(sf::Event event) = 0;
+		virtual void update() = 0;
+		virtual void draw() = 0;
 
-	protected:
-		Controleur::Fenetre* fenetre_;
 	};
 }

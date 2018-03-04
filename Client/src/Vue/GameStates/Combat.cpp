@@ -4,10 +4,10 @@
 #include "Combat.h"
 
 
-namespace Vue {
-
-	Combat::Combat(Controleur::Fenetre* window) : GameState(window), interfaceUnite(&Modele::Tank(Modele::Equipe::Rouge, std::string("Benoit"), 0, 0)),
-		grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
+namespace Vue
+{
+	Combat::Combat() : interfaceUnite(&Modele::Tank(Modele::Equipe::Rouge, std::string("Benoit"), 0, 0)),
+	                   grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
 	{
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
@@ -15,9 +15,9 @@ namespace Vue {
 
 		ajouterUnite("Archer1", "ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
 
-		for (int i(0); i < LONGUEUR_GRILLE; i++)
+		for(int i(0); i < LONGUEUR_GRILLE; i++)
 		{
-			for (int j(0); j < LARGEUR_GRILLE; j++)
+			for(int j(0); j < LARGEUR_GRILLE; j++)
 			{
 				sf::Sprite* sprite = &grille_[i][j];
 				sprite->setTexture(textureSol_);
@@ -35,7 +35,7 @@ namespace Vue {
 	Combat::~Combat()
 	{
 		auto iterateur = textures_.begin();
-		while (iterateur != textures_.end())
+		while(iterateur != textures_.end())
 		{
 			delete iterateur->second;
 			++iterateur;
@@ -43,77 +43,69 @@ namespace Vue {
 		delete menuAction_;
 	}
 
-	int Combat::run()
+	void Combat::handleEvent(sf::Event event)
 	{
-		sf::Event event;
-		while (fenetre_->pollEvent(event))
+		switch (event.type)
 		{
-			switch (event.type)
+
+		case sf::Event::KeyPressed:
+			switch (event.key.code)
 			{
-			case sf::Event::Closed:
-				fenetre_->close();
+			case sf::Keyboard::Z:
+				curseur_.deplacerCurseur(sf::Vector2i(0, -1));
+				menuAction_->deplacerAuChoixPrecedant();
 				break;
-
-			case sf::Event::KeyPressed:
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Z:
-					curseur_.deplacerCurseur(sf::Vector2i(0, -1));
-					menuAction_->deplacerAuChoixPrecedant();
-					//fenetre_->pop();
-					break;
-				case sf::Keyboard::Q:
-					curseur_.deplacerCurseur(sf::Vector2i(-1, 0));
-					break;
-				case sf::Keyboard::S:
-					curseur_.deplacerCurseur(sf::Vector2i(0, 1));
-					menuAction_->deplacerAuChoixSuivant();
-					break;
-				case sf::Keyboard::D:
-					curseur_.deplacerCurseur(sf::Vector2i(1, 0));
-					break;
-				case sf::Keyboard::Up:
-					menuAction_->deplacerAuChoixPrecedant();
-					break;
-				case sf::Keyboard::Down:
-					menuAction_->deplacerAuChoixSuivant();
-					break;
-				default: break;
-
-
-				}
-
+			case sf::Keyboard::Q:
+				curseur_.deplacerCurseur(sf::Vector2i(-1, 0));
+				break;
+			case sf::Keyboard::S:
+				curseur_.deplacerCurseur(sf::Vector2i(0, 1));
+				menuAction_->deplacerAuChoixSuivant();
+				break;
+			case sf::Keyboard::D:
+				curseur_.deplacerCurseur(sf::Vector2i(1, 0));
+				break;
+			case sf::Keyboard::Up:
+				menuAction_->deplacerAuChoixPrecedant();
+				break;
+			case sf::Keyboard::Down:
+				menuAction_->deplacerAuChoixSuivant();
+				break;
+			default: break;
 			}
 		}
+	}
 
-		fenetre_->clear(sf::Color::Black);
+	void Combat::update()
+	{
+		
+	}
+
+	void Combat::draw()
+	{
 		/*
 		for (auto colone : grille_)
 		{
 		for (sf::Sprite sprite : colone)
 		{
-		fenetre_->draw(sprite);
+		fenetre->draw(sprite);
 		}
 		}*/
 
-		fenetre_->draw(carte);
+		Controleur::Fenetre::fenetre->draw(carte_);
 
-		fenetre_->draw(curseur_);
+		Controleur::Fenetre::fenetre->draw(curseur_);
 		for (Unite unite : unites_)
-			fenetre_->draw(unite);
-		fenetre_->draw(interfaceUnite);
+			Controleur::Fenetre::fenetre->draw(unite);
+		Controleur::Fenetre::fenetre->draw(interfaceUnite);
 
-		menuAction_->dessiner(*fenetre_, sf::Transform());
-
-
-		fenetre_->display();
-		return 0;
+		menuAction_->dessiner(Controleur::Fenetre::fenetre, sf::Transform());
 	}
 
 	void Combat::ajouterUnite(std::string nom, std::string cheminTexture, Modele::Vecteur2<int> position)
 	{
 		sf::Texture* texture;
-		if (textures_.find(cheminTexture) == textures_.end())
+		if(textures_.find(cheminTexture) == textures_.end())
 		{
 			sf::Image image;
 			image.loadFromFile(cheminTexture);
@@ -135,20 +127,19 @@ namespace Vue {
 		Unite* unite = nullptr;
 
 		auto iterateur = unites_.begin();
-		while (iterateur != unites_.end())
+		while(iterateur != unites_.end())
 		{
-			if (iterateur->getNom() == nom)
+			if(iterateur->getNom() == nom)
 			{
 				unite = &*iterateur;
 				break;
 			}
 			++iterateur;
 		}
-		if (iterateur == unites_.end()) return;
+		if(iterateur == unites_.end()) return;
 		unite->setPosition(position);
 		Modele::Unite* test = new Modele::Archer(Modele::Equipe::Bleu, "Archer", 4, 3);
 		test->setPosition(Modele::Vecteur2<int>(10, 3));
 		delete test;
 	}
-
 }

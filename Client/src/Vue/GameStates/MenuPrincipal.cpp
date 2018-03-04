@@ -10,9 +10,8 @@
 namespace Vue
 {
 	
-	MenuPrincipal::MenuPrincipal(Controleur::Fenetre* fenetre) : GameState(fenetre), choix_(0), toucheLache_(true), sauvegardeExistante_(false)
+	MenuPrincipal::MenuPrincipal() : choix_(0), toucheLache_(true), sauvegardeExistante_(false)
 	{	
-		//Titre est une texture donc il a un constructeur par défaut et n'a pas besoin d'être initialisé
 
 		if (!textureTitre_.loadFromFile("ressources/sprite/titre.png"))
 		{
@@ -40,8 +39,6 @@ namespace Vue
 
 		titre_.setPosition(300, 100);
 
-		// GESTION DE L'ECRITURE
-
 		if (!font_.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
 		{
 			std::cout << "impossible d'ouvrir la police" << std::endl;
@@ -54,8 +51,8 @@ namespace Vue
 
 		for (int i = 0; i < 4; i++)
 		{
-			TabMenu_[i].setFont(font_);// choix de la police à utiliser
-			TabMenu_[i].setCharacterSize(24);// choix de la taille des caractères
+			TabMenu_[i].setFont(font_);
+			TabMenu_[i].setCharacterSize(24);
 			TabMenu_[i].setFillColor(sf::Color::White);
 			TabMenu_[i].setPosition(450, i * 50 + 400);
 		}
@@ -66,17 +63,8 @@ namespace Vue
 		sauvegardeExistante_ = sauvegardeExistante;
 	}
 
-	int MenuPrincipal::run()
+	void MenuPrincipal::handleEvent(sf::Event event)
 	{
-		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
-		sf::Event event;
-		while (fenetre_->pollEvent(event))
-		{
-			// évènement "fermeture demandée" : on ferme la fenêtre
-			if (event.type == sf::Event::Closed)
-				fenetre_->close();
-		}
-		fenetre_->clear(sf::Color::Black);
 
 		TabMenu_[choix_].setFillColor(sf::Color::White);
 
@@ -97,7 +85,6 @@ namespace Vue
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && toucheLache_)
 		{
-			fenetre_->pop();
 			if (choix_ < 3)
 			{
 				if (!sauvegardeExistante_ && choix_ == 1)
@@ -119,10 +106,12 @@ namespace Vue
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 		{
-			return choix_;
 		}
+	}
 
-		if (!sauvegardeExistante_) // charger grisé
+	void MenuPrincipal::update()
+	{
+		if (!sauvegardeExistante_) // charger gris
 		{
 			TabMenu_[2].setFillColor(gris_);
 		}
@@ -131,23 +120,22 @@ namespace Vue
 			TabMenu_[2].setFillColor(sf::Color::White);
 		}
 		TabMenu_[choix_].setFillColor(sf::Color::Yellow);
-		// c'est ici qu'on dessine tout
-		// window.draw(...);
+	}
+
+	void MenuPrincipal::draw()
+	{
 		for (int i = 0; i < 4; i++)
 		{
-			fenetre_->draw(TabMenu_[i]);
+			Controleur::Fenetre::fenetre->draw(TabMenu_[i]);
 		}
 
-		fenetre_->draw(titre_);
+		Controleur::Fenetre::fenetre->draw(titre_);
 
 		titre_.setTextureRect(animationtitre_.getFrame());
 
-
-		// fin de la frame courante, affichage de tout ce qu'on a dessiné
-		fenetre_->display();
-
-		return 0;
 	}
-	//return 3;
 
 }
+
+
+

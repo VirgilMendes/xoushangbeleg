@@ -17,10 +17,12 @@ namespace Vue {
 	{
 	public:
 
-		Combat(Controleur::Fenetre* window);
+		Combat();
 		virtual ~Combat();
 
-		int run() override;
+		void handleEvent(sf::Event event) override;
+		void update() override;
+		void draw() override;
 		
 		void ajouterUnite(std::string nom, std::string cheminTexture, Modele::Vecteur2<int> position);
 		void deplacerUnite(std::string nom, Modele::Vecteur2<int> position);
@@ -40,7 +42,7 @@ namespace Vue {
 		InterfaceUnite interfaceUnite;
 		sf::Texture textureSol_;
 
-		CarteGUI carte;
+		CarteGUI carte_;
 		MenuChoix* menuAction_;
 
 	};

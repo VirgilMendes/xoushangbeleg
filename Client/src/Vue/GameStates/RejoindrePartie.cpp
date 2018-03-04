@@ -9,167 +9,153 @@
 namespace Vue
 {
 
-	RejoindrePartie::RejoindrePartie(Controleur::Fenetre* fenetre) : GameState(fenetre), frame(-1), choix(1), toucheLache(true) {
-		fenetre->setVerticalSyncEnabled(true);
-		fenetre->setFramerateLimit(12);
+	RejoindrePartie::RejoindrePartie(Controleur::Fenetre* fenetre) : choix_(1), toucheLache_(true), ipRemplie_(false) {
 
-		chaineNom = "IP de la partie : ";
-		if (!titre.loadFromFile("ressources/sprite/titre.png"))
+		ipPartie_ = "IP de la partie : ";
+		if (!textureLogo_.loadFromFile("ressources/sprite/titre.png"))
 		{
 			std::cout << "error img titre" << std::endl;
 		}
-		titre.setSmooth(false);
-		sprite.setTexture(titre);
-		ipRemplie = false;
+		textureLogo_.setSmooth(false);
+		logo_.setTexture(textureLogo_);
+		ipRemplie_ = false;
 
-		sf::IntRect animation[11];
-		animation[0] = sf::IntRect(0, 0, 256, 512);
-		animation[1] = sf::IntRect(256, 0, 256, 512);
-		animation[2] = sf::IntRect(512, 0, 256, 512);
-		animation[3] = sf::IntRect(1024, 0, 256, 512);
-		animation[4] = sf::IntRect(2048, 0, 256, 512);
-		animation[5] = sf::IntRect(2048 * 2, 0, 256, 512);
-		animation[6] = sf::IntRect(2048 * 4, 0, 256, 512);
-		animation[7] = sf::IntRect(2048 * 8, 0, 256, 512);
-		animation[8] = sf::IntRect(2048 * 16, 0, 256, 512);
-		animation[9] = sf::IntRect(2048 * 32, 0, 256, 512);
-		animation[10] = sf::IntRect(2048 * 64, 0, 256, 512);
+		std::vector<sf::IntRect> animation
+		{
+			sf::IntRect(0, 0, 512, 256),
+			sf::IntRect(0, 256, 512, 256),
+			sf::IntRect(0, 256 * 2, 512, 256),
+			sf::IntRect(0, 256 * 3, 512, 256),
+			sf::IntRect(0, 256 * 4, 512, 256),
+			sf::IntRect(0, 256 * 5, 512, 256),
+			sf::IntRect(0, 256 * 6, 512, 256),
+			sf::IntRect(0, 256 * 7, 512, 256),
+			sf::IntRect(0, 256 * 8, 512, 256),
+			sf::IntRect(0, 256 * 9, 512, 256),
+			sf::IntRect(0, 256 * 10, 512, 256)
+		};
+		animationtitre_.initialiser(animation, 100);
 
-		sprite.setPosition(270, -50);
+		logo_.setPosition(300, 100);
 
-		// GESTION DE L'ECRITURE
-		if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
+		if (!font_.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
 		{
 			std::cout << "error font" << std::endl;
 		}
 
-		TabMenu[0].setString("Rejoindre");
-		TabMenu[1].setString(chaineNom);
-		TabMenu[2].setString("Retour");
-		titreCrea.setString("Rejoindre une partie");
+		menu_[0].setString("Rejoindre");
+		menu_[1].setString(ipPartie_);
+		menu_[2].setString("Retour");
+		
+		titreMenu_.setString("Rejoindre une partie");
 
 		for (int i = 0; i < 3; i++)
 		{
-			TabMenu[i].setFont(font);// choix de la police à utiliser
-			TabMenu[i].setCharacterSize(24);// choix de la taille des caractères
-			TabMenu[i].setFillColor(sf::Color::White);
-			TabMenu[i].setPosition(310, i * 50 + 320);
+			menu_[i].setFont(font_);
+			menu_[i].setCharacterSize(24);
+			menu_[i].setFillColor(sf::Color::White);
+			menu_[i].setPosition(310, i * 50 + 320);
 		}
 
-		//FIN GESTION DE L'ECRITURE
+		titreMenu_.setFont(font_);
+		titreMenu_.setCharacterSize(36);
+		titreMenu_.setFillColor(sf::Color::White);
+		titreMenu_.setPosition(350, 230);
+
+
+		ip_.setFont(font_);
+		ip_.setCharacterSize(24);
+		ip_.setFillColor(sf::Color::White);
+		ip_.setPosition(30, 650);
 	}
-	int RejoindrePartie::run() {
-		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
-		sf::Event event;
-		while (fenetre_->pollEvent(event))
-		{
-			// évènement "fermeture demandée" : on ferme la fenêtre
-			if (event.type == sf::Event::Closed)
-				return 3;
-		}
-		fenetre_->clear(sf::Color::Black);
+	void RejoindrePartie::handleEvent(sf::Event event)
+	{
 
-		frame = frame + 1;
-		if (frame == 11)
-		{
-			frame = 0;
-		}
+		menu_[choix_].setFillColor(sf::Color::White);
 
-		sprite.setTextureRect(sf::IntRect(0, 256 * frame, 512, 256));
+		ipRemplie_ = (ipPartie_.size() == 30);
 
-		TabMenu[choix].setFillColor(sf::Color::White);
-		ipRemplie = chaineNom.size() == 30;
-
-		if (ipRemplie) {
-			TabMenu[0].setFillColor(sf::Color::White);
+		if (ipRemplie_) {
+			menu_[0].setFillColor(sf::Color::White);
 		}
 		else {
-			TabMenu[0].setFillColor(gris);
+			menu_[0].setFillColor(gris);
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && toucheLache)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && toucheLache_)
 		{
-			if(choix == 1 && !ipRemplie){}
+			if (choix_ == 1 && !ipRemplie_) {}
 			else {
-				if (choix > 0)
+				if (choix_ > 0)
 				{
-					choix -= 1;
+					choix_ -= 1;
 				}
 			}
-			toucheLache = false;
+			toucheLache_ = false;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && toucheLache)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && toucheLache_)
 		{
-			if (choix < 2)
+			if (choix_ < 2)
 			{
-				choix += 1;
+				choix_ += 1;
 			}
-			toucheLache = false;
+			toucheLache_ = false;
 		}
 
 		if (event.type == sf::Event::TextEntered)
 		{
-			if (choix == 1)
+			if (choix_ == 1)
 			{
 
-				if (event.type == sf::Event::TextEntered && chaineNom.size() < 30 && !sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+				if (event.type == sf::Event::TextEntered && ipPartie_.size() < 30 && !sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
 				{
-					// Handle ASCII characters only
+					// ASCII Seulement
 					if ((event.text.unicode < 58 && event.text.unicode > 47) || (event.text.unicode == 46))
 					{
-						chaineNom += static_cast<char>(event.text.unicode);
-						TabMenu[1].setString(chaineNom);
+						ipPartie_ += static_cast<char>(event.text.unicode);
+						menu_[1].setString(ipPartie_);
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && chaineNom.size() > 18)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && ipPartie_.size() > 18)
 				{
-					chaineNom.erase(chaineNom.end() - 1);
-					TabMenu[1].setString(chaineNom);
+					ipPartie_.erase(ipPartie_.end() - 1);
+					menu_[1].setString(ipPartie_);
 				}
 			}
-			else if (choix == 2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			else if (choix_ == 2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 			{
-				return 3;
 			}
-			toucheLache = false;
+			toucheLache_ = false;
 		}
 
 		if (event.type == sf::Event::KeyReleased)
 		{
-			toucheLache = true;
+			toucheLache_ = true;
 		}
-		titreCrea.setFont(font);// choix de la police à utiliser
-		titreCrea.setCharacterSize(36);// choix de la taille des caractères
-		titreCrea.setFillColor(sf::Color::White);
-		titreCrea.setPosition(350, 230);
-		fenetre_->draw(titreCrea);
+	}
+	
+	void RejoindrePartie::update()
+	{
+		menu_[choix_].setFillColor(sf::Color::Yellow);
+		logo_.setTextureRect(animationtitre_.getFrame());
+	}
 
-		numIP.setFont(font);// choix de la police à utiliser
-		numIP.setCharacterSize(24);// choix de la taille des caractères
-		numIP.setFillColor(sf::Color::White);
-		numIP.setPosition(30, 650);
-		fenetre_->draw(numIP);
+	void RejoindrePartie::draw()
+	{
+		Controleur::Fenetre::fenetre->draw(titreMenu_);
+		Controleur::Fenetre::fenetre->draw(ip_);
 
-
-		TabMenu[choix].setFillColor(sf::Color::Yellow);
-		// c'est ici qu'on dessine tout
-		// window.draw(...);
 		for (int i(0); i < 3; i++)
 		{
-			fenetre_->draw(TabMenu[i]);
+			Controleur::Fenetre::fenetre->draw(menu_[i]);
 		}
 
-		fenetre_->draw(sprite);
-
-		sprite.setTextureRect(animation[frame]);
-		// fin de la frame courante, affichage de tout ce qu'on a dessiné
-		fenetre_->display();
-		return 0;
+		Controleur::Fenetre::fenetre->draw(logo_);
 	}
 
 
 	std::string RejoindrePartie::getIP() {
-		return numIP.getString();
+		return ip_.getString();
 
 	}
 

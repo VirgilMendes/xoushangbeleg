@@ -11,40 +11,20 @@
 
 namespace Controleur
 {
-	class Fenetre : public sf::RenderWindow
+	class Fenetre
 	{
 	public:
-		Fenetre() : RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg")
-		{
-			setFramerateLimit(60);
-			Vue::Combat* combat = new Vue::Combat(this);
-			gameStates_.push(combat);
-		}
 
-		void run()
-		{
-			while (isOpen())
-			{
-				if(gameStates_.empty())
-				{
-					break;
-				}
-				gameStates_.top()->run();
-			}
-			close();
-		}
 
-		void ajouterGameState(Vue::GameState* gamestate)
-		{
-			gameStates_.push(gamestate);
-		}
+		static void initialiser();
 
-		void pop()
-		{
-			gameStates_.pop();
-		}
+		static void run();
+
+		static void empilerGameState(Vue::GameState* gamestate);
 		
-		void decodeXml(std::string str) {
+		static void depilerGameState();
+		
+		static void decodeXml(std::string str) {
 			pugi::xml_document doc;
 			pugi::xml_parse_result result = doc.load_buffer(str.c_str(), str.length());
 			pugi::xml_node root = doc.document_element();
@@ -75,7 +55,7 @@ namespace Controleur
 
 		}
 
-		std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
+		static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
 		{
 			Vue::Combat* vueCombat = dynamic_cast<Vue::Combat*>(gameStates_.top());
 			vueCombat->deplacerUnite(nom, position);
@@ -95,7 +75,7 @@ namespace Controleur
 			doc.print(flux);
 			return flux.str();
 		}
-		std::string initialisatonCarteUnite() {
+		static std::string initialisatonCarteUnite() {
 			pugi::xml_document doc;
 			auto root = doc.append_child("paquet");
 			pugi::xml_node nodeCarte = root.append_child("carte");
@@ -139,8 +119,12 @@ namespace Controleur
 			return flux.str();
 		}
 
+		static sf::RenderWindow* fenetre;
+
 	private:
 
-		std::stack<Vue::GameState*> gameStates_;
+		static std::stack<Vue::GameState*> gameStates_;
 	};
+
+	
 }
