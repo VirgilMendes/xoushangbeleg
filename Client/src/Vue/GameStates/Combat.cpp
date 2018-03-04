@@ -11,7 +11,7 @@ namespace Vue
 	{
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
-		CarteGUI carte;
+		Grille carte;
 
 		ajouterUnite("Archer1", "ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
 

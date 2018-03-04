@@ -1,10 +1,9 @@
-#include "CarteGUI.h"
+#include "GrilleGUI.h"
 #include "../../Modele/Case.h"
-#include "../../Modele/Carte.h"
 
 namespace Vue
 {
-	CarteGUI::CarteGUI() 
+	Grille::Grille() 
 	{
 		int largeur = 32 , hauteur = 32;
 
@@ -26,7 +25,7 @@ namespace Vue
 		for (unsigned int i = 0; i < largeur; ++i)
 			for (unsigned int j = 0; j < hauteur; ++j)
 			{
-				caseTemp = carte.getCase(i, j);
+				caseTemp = grille_.getCase(i, j);
 
 
 				// on récupère le code de tuile courant
@@ -79,7 +78,7 @@ namespace Vue
 			}
 	}
 
-	void CarteGUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void Grille::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		// on applique la transformation du sol
 		states.transform *= getTransform();

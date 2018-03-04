@@ -1,6 +1,4 @@
 #pragma once
-#ifndef DEF_UNITE
-#define DEF_UNITE
 
 #include "SFML/Graphics.hpp"
 #include <iostream>
@@ -66,4 +64,3 @@ namespace Modele
 		Vecteur2<int> position;
 	};
 }
-#endif

@@ -93,7 +93,7 @@ namespace Controleur
 			pugi::xml_node nodePositionXUnite;
 			pugi::xml_node nodePositionYUnite;
 			Modele::Vecteur2<int> position;
-			//utiliser listeUnite de Carte.h
+			//utiliser listeUnite de Grille.h
 			//for(listeUnite){
 				//position = unite.getPosition();
 				//nodeNomUnite = nodeUnite.append_child(unite.getNom());

@@ -1,5 +1,6 @@
-//_CRT_SECURE_NO_WARNINGS
-#include "Carte.h";
+#pragma once
+
+#include "Grille.h";
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -8,7 +9,7 @@
 
 namespace Modele
 {
-	Carte::Carte()
+	Grille::Grille()
 	{
 		srand((unsigned) time(NULL));
 
@@ -34,7 +35,7 @@ namespace Modele
 		this->genererArbre();
 	}
 
-	void Carte::genererEau( int tailleMax) 
+	void Grille::genererEau( int tailleMax) 
 	{
 		int nbCaseAquatique = 0;
 		
@@ -76,7 +77,7 @@ namespace Modele
 		}
 	}
 
-	void Carte::genererPlage( int circonferenceMax)
+	void Grille::genererPlage( int circonferenceMax)
 	{
 		int tailleVoisinageEau;
 		int i = 0;
@@ -127,7 +128,7 @@ namespace Modele
 		}
 	}
 
-	void Carte::genererRocheux(int taille, int epaisseur)
+	void Grille::genererRocheux(int taille, int epaisseur)
 	{
 		int i ;
 		int j ;
@@ -287,7 +288,7 @@ namespace Modele
 		}
 	}
 
-	void Carte::genererObstaclesRocheux()
+	void Grille::genererObstaclesRocheux()
 	{
 		// generer murs terrains rocheux
 		int randRocher;
@@ -432,7 +433,7 @@ namespace Modele
 		}
 	}
 
-	void Carte::genererArbre()
+	void Grille::genererArbre()
 	{
 		/*int randNbArbre = 0;
 		int randDirArbre = 1;
@@ -595,7 +596,7 @@ namespace Modele
 		}*/
 	}
 
-	Case Carte::getCase(int x, int y)
+	Case Grille::getCase(int x, int y)
 	{
 		return carte[x][y];
 	}

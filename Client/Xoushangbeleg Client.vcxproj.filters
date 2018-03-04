@@ -13,10 +13,10 @@
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
-    <ClCompile Include="src\Modele\Case.cpp" />
-    <ClCompile Include="src\Modele\Carte.cpp" />
-    <ClCompile Include="src\Vue\Combat\CarteGUI.cpp" />
     <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
+    <ClCompile Include="src\Modele\Case.cpp" />
+    <ClCompile Include="src\Modele\Grille.cpp" />
+    <ClCompile Include="src\Vue\Combat\GrilleGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Unite.h" />
@@ -36,12 +36,12 @@
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
-    <ClInclude Include="src\Vue\Combat\CarteGUI.h" />
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Modele\Outils\enum.h" />
     <ClInclude Include="src\Vue\GameStates\Combat.h" />
     <ClInclude Include="src\Vue\Outils\GameState.h" />
-    <ClInclude Include="src\Modele\Carte.h" />
+    <ClInclude Include="src\Modele\Grille.h" />
+    <ClInclude Include="src\Vue\Combat\GrilleGUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

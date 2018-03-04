@@ -5,7 +5,7 @@
 #include "../Combat/Unite.h"
 #include "../Combat/InterFaceUnite.h"
 #include "../../modele/Outils/Vecteur2.h"
-#include "../Combat/CarteGUI.h"
+#include "../Combat/GrilleGUI.h"
 #include "../Outils/MenuChoix.h"
 #include "../../Modele/Tank.h"
 #include "../../Modele/Archer.h"
@@ -42,7 +42,7 @@ namespace Vue {
 		InterfaceUnite interfaceUnite;
 		sf::Texture textureSol_;
 
-		CarteGUI carte_;
+		Grille carte_;
 		MenuChoix* menuAction_;
 
 	};

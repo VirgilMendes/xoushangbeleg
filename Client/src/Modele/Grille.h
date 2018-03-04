@@ -5,11 +5,11 @@
 
 namespace Modele {
 
-	class Carte {
+	class Grille {
 
 	public :
 		
-		Carte();
+		Grille();
 
 		void genererEau(int tailleMax);
 
