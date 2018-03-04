@@ -163,7 +163,7 @@
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
     <ClInclude Include="src\Vue\Outils\MenuChoix.h" />
     <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
-    <ClInclude Include="src\Vue\GameStates\GameState.h" />
+    <ClInclude Include="src\Vue\Outils\GameState.h" />
     <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
     <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />

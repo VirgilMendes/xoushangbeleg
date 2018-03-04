@@ -17,6 +17,10 @@ namespace Vue
 		virtual void handleEvent(sf::Event event) = 0;
 		virtual void update() = 0;
 		virtual void draw() = 0;
+		virtual bool estInterfaceUtilisateur() { return interfaceUtilisateur; }
+
+	protected:
+		bool interfaceUtilisateur = false;
 
 	};
 }

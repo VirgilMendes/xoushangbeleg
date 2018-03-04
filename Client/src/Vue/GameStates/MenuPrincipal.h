@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GameState.h"
 #include "../Outils/Jauge.h"
 #include <string>
 #include "../Outils/Animation.h"
+#include "../Outils/GameState.h"
 
 namespace Vue
 {

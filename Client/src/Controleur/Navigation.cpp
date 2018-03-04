@@ -6,14 +6,14 @@ namespace Controleur
 {
 
 	sf::RenderWindow* Fenetre::fenetre = nullptr;
-	std::stack<Vue::GameState*> Fenetre::gameStates_;
+	std::list<Vue::GameState*> Fenetre::gameStates_;
 
 	void Fenetre::initialiser()
 	{
 		fenetre = new sf::RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		fenetre->setFramerateLimit(60);
 		Vue::Combat* combat = new Vue::Combat();
-		gameStates_.push(combat);
+		gameStates_.push_back(combat);
 	}
 
 	void Fenetre::run()
@@ -35,26 +35,38 @@ namespace Controleur
 					fenetre->close();
 					break;
 				default:
-					gameStates_.top()->handleEvent(event);
+					gameStates_.back()->handleEvent(event);
 				}
 			}
-				gameStates_.top()->update();
+			
+			std::list<Vue::GameState*>::reverse_iterator iterateur(gameStates_.rbegin());
 
-				fenetre->clear(sf::Color::Black);
-				gameStates_.top()->draw();
-				fenetre->display();
+			fenetre->clear(sf::Color::Black);
+
+			while ((*iterateur)->estInterfaceUtilisateur() && iterateur != gameStates_.rend())
+				++iterateur;
+			while(iterateur != gameStates_.rbegin())
+			{
+				(*iterateur)->update();
+				(*iterateur)->draw();
+				--iterateur;
+			}
+			(*iterateur)->update();
+			(*iterateur)->draw();
+
+			fenetre->display();
 			
 		}
 	}
 
 	void Fenetre::empilerGameState(Vue::GameState* gamestate)
 	{
-		gameStates_.push(gamestate);
+		gameStates_.push_back(gamestate);
 	}
 
 	void Fenetre::depilerGameState()
 	{
-		delete gameStates_.top();
-		gameStates_.pop();
+		delete gameStates_.back();
+		gameStates_.back();
 	}
 }

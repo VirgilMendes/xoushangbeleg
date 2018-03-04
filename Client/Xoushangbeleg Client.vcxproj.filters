@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
-	<ClCompile Include="src\Modele\Unite.cpp" />
+    <ClCompile Include="src\Modele\Unite.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Archer.cpp" />
     <ClCompile Include="src\Modele\Soldat.cpp" />
@@ -17,7 +17,6 @@
     <ClCompile Include="src\Modele\Carte.cpp" />
     <ClCompile Include="src\Vue\Combat\CarteGUI.cpp" />
     <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Modele\Unite.h" />
@@ -32,17 +31,17 @@
     <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
     <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
     <ClInclude Include="src\Vue\Combat\Unite.h" />
-    <ClInclude Include="src\Vue\GameStates\GameState.h" />
     <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
     <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
-    <ClInclude Include="src\Modele\Carte.h" />
     <ClInclude Include="src\Vue\Combat\CarteGUI.h" />
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Modele\Outils\enum.h" />
     <ClInclude Include="src\Vue\GameStates\Combat.h" />
+    <ClInclude Include="src\Vue\Outils\GameState.h" />
+    <ClInclude Include="src\Modele\Carte.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />
