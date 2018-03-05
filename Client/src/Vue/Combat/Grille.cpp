@@ -5,7 +5,7 @@
 
 namespace Vue
 {
-	Grille::Grille(Modele::Grille* grille) : grille_(grille)
+	Grille::Grille(Modele::Grille* grille) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1000, 700)), grille_(grille)
 	{
 
 		if (!textureGrille_.loadFromFile("ressources/sprite/map.png"))
@@ -50,6 +50,18 @@ namespace Vue
 		setCenter(0, 0);
 	}
 
+	Grille::~Grille()
+	{
+		auto iterateur = textures_.begin();
+		while (iterateur != textures_.end())
+		{
+			delete iterateur->second;
+			++iterateur;
+		}
+
+		delete grille_; 
+	}
+
 	void Grille::setPositionCurseur(Modele::Vecteur2<int> position)
 	{
 		curseur_.setPosition(position);
@@ -62,6 +74,38 @@ namespace Vue
 		setCenter(getCenter()+sf::Vector2f(deplacement.x*64, deplacement.y*64));
 	}
 
+	void Grille::ajouterUnite(std::string nom, std::string cheminTexture, Modele::Vecteur2<int> position)
+	{
+		sf::Texture* texture;
+		if (textures_.find(cheminTexture) == textures_.end())
+		{
+			sf::Image image;
+			image.loadFromFile(cheminTexture);
+			image.createMaskFromColor(sf::Color::Transparent, 0);
+
+			texture = new sf::Texture;
+			texture->loadFromImage(image);
+		}
+		else
+		{
+			texture = textures_[cheminTexture];
+		}
+
+		unites_.push_back(Unite(nom, texture, position));
+	}
+
+	void Grille::deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
+	{
+		for(auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur )
+		{
+			if (iterateur->getNom() == nom)
+			{
+				iterateur->setPosition(position);
+				return;
+			}
+		}
+	}
+
 	void Grille::dessiner(sf::RenderTarget& target, sf::RenderStates states)
 	{
 		target.setView(*this);
@@ -72,6 +116,9 @@ namespace Vue
 		target.draw(sommets_, states);
 
 		target.draw(curseur_);
+
+		for (Unite unite : unites_)
+			target.draw(unite);
 
 		target.setView(target.getDefaultView());
 	}

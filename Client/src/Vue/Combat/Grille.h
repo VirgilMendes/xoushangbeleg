@@ -3,6 +3,7 @@
 #include "../../Modele/Grille.h"
 #include "../Outils/Node.h"
 #include "Curseur.h"
+#include "Unite.h"
 
 namespace Vue
 {
@@ -13,10 +14,13 @@ namespace Vue
 	{
 	public :
 		Grille(Modele::Grille* grille);
-		virtual ~Grille() { delete grille_; }
+		virtual ~Grille();
 
 		void setPositionCurseur(Modele::Vecteur2<int> position);
 		void deplacerCurseur(Modele::Vecteur2<int> deplacement);
+
+		void ajouterUnite(std::string nom, std::string cheminTexture, Modele::Vecteur2<int> position);
+		void deplacerUnite(std::string nom, Modele::Vecteur2<int> position);
 
 		void dessiner(sf::RenderTarget& target, sf::RenderStates states);
 
@@ -28,9 +32,13 @@ namespace Vue
 
 		private :
 
+			std::map<std::string, sf::Texture*> textures_;
+
 			Curseur curseur_;
 
 			Modele::Grille* grille_;
+
+			std::vector<Unite> unites_;
 
 			sf::Texture textureGrille_;
 			sf::Texture textureObstacle_;

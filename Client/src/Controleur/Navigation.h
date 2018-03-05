@@ -42,7 +42,7 @@ namespace Controleur
 				position.y = stoi((std::string)root.child("deplacement").child("position").child("y").child_value());
 				
 				Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
-				Combat->deplacerUnite(nomUnite, position);
+				//Combat->deplacerUnite(nomUnite, position);
 			}
 			else if ((std::string)root.first_child().name() == "carte") 
 			{
@@ -59,7 +59,7 @@ namespace Controleur
 		static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
 		{
 			Vue::Combat* vueCombat = dynamic_cast<Vue::Combat*>(gameStates_.back());
-			vueCombat->deplacerUnite(nom, position);
+			//vueCombat->deplacerUnite(nom, position);
 
 			pugi::xml_document doc;
 			auto root = doc.append_child("paquet");

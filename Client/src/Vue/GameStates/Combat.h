@@ -23,26 +23,12 @@ namespace Vue {
 		void handleEvent(sf::Event event) override;
 		void update() override;
 		void draw() override;
-		
-		void ajouterUnite(std::string nom, std::string cheminTexture, Modele::Vecteur2<int> position);
-		void deplacerUnite(std::string nom, Modele::Vecteur2<int> position);
-		
 
 	protected:
 
-		std::map<std::string, sf::Texture*> textures_;
-
-		const int LONGUEUR_GRILLE = 10;
-		const int LARGEUR_GRILLE = 10;
-
-		std::vector<std::vector<sf::Sprite>> grille_;
-
-		std::vector<Unite> unites_;
-		Curseur curseur_;
 		InterfaceUnite interfaceUnite;
-		sf::Texture textureSol_;
 
-		Grille carte_;
+		Grille grille_;
 		MenuChoix* menuAction_;
 
 	};
