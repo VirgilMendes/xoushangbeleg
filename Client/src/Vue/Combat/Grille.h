@@ -4,6 +4,7 @@
 #include "../Outils/Node.h"
 #include "Curseur.h"
 #include "Unite.h"
+#include "InterFaceUnite.h"
 
 namespace Vue
 {
@@ -35,6 +36,8 @@ namespace Vue
 			std::map<std::string, sf::Texture*> textures_;
 
 			Curseur curseur_;
+
+			InterfaceUnite* interfaceUnite_;
 
 			Modele::Grille* grille_;
 

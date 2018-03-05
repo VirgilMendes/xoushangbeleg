@@ -36,6 +36,8 @@ namespace Modele
 		for (auto ligne : cases_)
 			for (Case* caseGrille : ligne)
 				delete caseGrille;
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); iterateur++)
+			delete *iterateur;
 	}
 
 	Case* Grille::getCase(const Vecteur2<int>& coordonees)
@@ -61,6 +63,7 @@ namespace Modele
 	void Grille::ajouterUnite(Unite* unite)
 	{
 		unites_.insert(unite);
+		getCase(unite->getPosition())->setUnite(unite);
 	}
 
 	void Grille::relancerOrdreDeJeu()

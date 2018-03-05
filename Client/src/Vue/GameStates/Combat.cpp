@@ -6,8 +6,7 @@
 
 namespace Vue
 {
-	Combat::Combat() : interfaceUnite(&Modele::Tank(Modele::Equipe::Rouge, std::string("Benoit"), 0, 0)),
-		grille_(new Modele::Grille(Modele::Vecteur2<int>(32,32)))
+	Combat::Combat() : grille_(new Modele::Grille(Modele::Vecteur2<int>(32,32)))
 	{
 		grille_.ajouterUnite("Archer1", "ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
 
@@ -58,7 +57,7 @@ namespace Vue
 	{
 		grille_.dessiner(*Controleur::Fenetre::fenetre, sf::Transform());
 		
-		Controleur::Fenetre::fenetre->draw(interfaceUnite);
+	
 
 		menuAction_->dessiner(Controleur::Fenetre::fenetre, sf::Transform());
 	}

@@ -5,9 +5,8 @@
 
 namespace Vue
 {
-	Grille::Grille(Modele::Grille* grille) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1000, 700)), grille_(grille)
+	Grille::Grille(Modele::Grille* grille) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1000, 700)), grille_(grille), interfaceUnite_(nullptr)
 	{
-
 		if (!textureGrille_.loadFromFile("ressources/sprite/map.png"))
 		{
 			std::cout << "erreur chargement Texture TextureGrille.png" << std::endl;
@@ -70,7 +69,17 @@ namespace Vue
 
 	void Grille::deplacerCurseur(Modele::Vecteur2<int> deplacement)
 	{
+		if (interfaceUnite_ != nullptr)
+		{
+			delete interfaceUnite_;
+			interfaceUnite_ = nullptr;
+		}
 		curseur_.deplacerCurseur(deplacement);
+		if (grille_->getCase(curseur_.getPosition())->getUnite() != nullptr)
+		{
+			std::cout << "a" << std::endl;
+			interfaceUnite_ = new InterfaceUnite(grille_->getCase(curseur_.getPosition())->getUnite());
+		}
 		setCenter(getCenter()+sf::Vector2f(deplacement.x*64, deplacement.y*64));
 	}
 
@@ -90,7 +99,8 @@ namespace Vue
 		{
 			texture = textures_[cheminTexture];
 		}
-
+		Modele::Unite* unite = new Modele::Tank(Modele::Equipe::Rouge, nom, position.x, position.y);
+		grille_->ajouterUnite(unite);
 		unites_.push_back(Unite(nom, texture, position));
 	}
 
@@ -101,6 +111,7 @@ namespace Vue
 			if (iterateur->getNom() == nom)
 			{
 				iterateur->setPosition(position);
+				grille_->deplacerUnite(nom, position);
 				return;
 			}
 		}
@@ -121,5 +132,7 @@ namespace Vue
 			target.draw(unite);
 
 		target.setView(target.getDefaultView());
+		if (interfaceUnite_ != nullptr)
+			target.draw(*interfaceUnite_);
 	}
 }

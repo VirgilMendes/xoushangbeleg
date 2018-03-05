@@ -26,8 +26,6 @@ namespace Vue {
 
 	protected:
 
-		InterfaceUnite interfaceUnite;
-
 		Grille grille_;
 		MenuChoix* menuAction_;
 
