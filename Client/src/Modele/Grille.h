@@ -19,8 +19,9 @@ namespace Modele {
 
 		void genererObstaclesRocheux();
 
-		void genererArbre();
+		void genererArbre( int intensite);
 		
+		void genererAutreAsset( int nbTotal); // generer les buissons ou autres frioritures
 
 		Case getCase(int x, int y);
 		

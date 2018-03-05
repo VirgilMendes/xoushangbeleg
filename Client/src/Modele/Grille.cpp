@@ -32,7 +32,9 @@ namespace Modele
 
 		this->genererObstaclesRocheux();
 
-		this->genererArbre();
+		this->genererArbre( 20);
+
+		this->genererAutreAsset(50);
 	}
 
 	void Grille::genererEau( int tailleMax) 
@@ -433,9 +435,9 @@ namespace Modele
 		}
 	}
 
-	void Grille::genererArbre()
+	void Grille::genererArbre(int intensite)
 	{
-		/*int randNbArbre = 0;
+		int randNbArbre = 0;
 		int randDirArbre = 1;
 		int nbEssaisArbre;
 		 
@@ -447,153 +449,204 @@ namespace Modele
 		{
 			for (int j = 0; j < 32; j++)
 			{
-				if (carte_[i][j].getObstacle() == Obstacle::rocher && carte_[i][j].getTerrain() == Terrain::rocheux && rand() % 100 >= 90) //pour les arbres dans les grottes
+				if (carte[i][j].getObstacle() == Obstacle::rocher && carte[i][j].getTerrain() == Terrain::rocheux && rand() % 100 >= 90) //pour les arbres dans les grottes
 				{
-					carte_[i][j].setObstacle(Obstacle::arbre); 
+					carte[i][j].setObstacle(Obstacle::arbre); 
 				}
-				/*if (carte_[i][j].getTerrain() == Terrain::sableux && rand() % 100 >= 95) //pour les arbres dans les plages
+				if (carte[i][j].getTerrain() == Terrain::sableux && rand() % 100 >= 98) //pour les arbres dans les plages
 				{
-					carte_[i][j].setObstacle(Obstacle::arbre);
+					carte[i][j].setObstacle(Obstacle::arbre);
 				}
 				if (i == 31 || i == 0 || j == 31 || j == 0 )
 				{
-					if (carte_[i][j].getTerrain() == Terrain::herbeux || carte_[i][j].getTerrain() == Terrain::sableux) //pour les arbres sur les limites de terrain
+					if (carte[i][j].getTerrain() == Terrain::herbeux || carte[i][j].getTerrain() == Terrain::sableux) //pour les arbres sur les limites de terrain
 					{
-						carte_[i][j].setObstacle(Obstacle::arbre);
+						carte[i][j].setObstacle(Obstacle::arbre);
+					}
+					if (rand() % 100 >= 70 && carte[i][j].getTerrain() == Terrain::herbeux )
+					{
+						if (i == 31 && j % 2 == 0 && j != 0)
+						{
+							carte[i-1][j].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i-1, j ));
+	
+						}
+						else if (i == 0 && j % 2 == 0 && j != 0)
+						{
+							carte[i + 2][j ].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i + 2, j));
+						
+						}
+						 else if ( i % 2 == 0 && i != 0 && j == 0 )
+						{
+							carte[i ][j + 2].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i , j+ 2 ));
+						
+						}
+						 else if (i % 2 == 0 && i != 0 && j == 31 )
+						{
+							carte[i][j-1].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i, j-1));
+					
+						}
 					}
 				}
-				else if (carte_[i][j].getTerrain() == Terrain::herbeux && i%2 == 0 && j%2 == 0)
+				else if (carte[i][j].getTerrain() == Terrain::rocheux && carte[i][j].getObstacle() == Obstacle::rocher)
 				{
 					for (int a = i - 1; a <= i + 1; a++)
 					{
 						for (int b = j - 1; b <= j + 1; b++)
 						{
-							std::cout << "   i  =  " << i << "   j  =  " << j ;
-							std::cout << "  /   a  =  " << a << "   b  =  " << b << std::endl;
-							/*if (( carte_[a][b].getObstacle() == Obstacle::rocher)  && rand() % 100 >= 85)
+							if (carte[a][b].getTerrain() == Terrain::herbeux  && rand() % 100 >= 0 && a % 2 == 0 && b % 2 == 0)
 							{
 								nbEssaisArbre = 0;
-								std::cout << "		 base démarrée aux coord : i = " << i << "  /  j = " << j << std::endl;
-								carte_[i][j].setObstacle(Obstacle::arbre);
-								tabBaseArbreForet.push_back(Vecteur2<int>(i, j));
+						
+								carte[a][b].setObstacle(Obstacle::arbre);
+								tabBaseArbreForet.push_back(Vecteur2<int>(a, b));
 
-								/*randNbArbre = rand() % 20;
-								while (randDirArbre % 2 != 0)
-								{
-									randDirArbre = rand() % 7;
-
-								}
-								while (randNbArbre != 0 && nbEssaisArbre < 100)
-								{
-									std::cout << "  /  randNbArbre au debut  =  " << randNbArbre<< std::endl;
-									switch (rand() % 8)
-									{
-									case (0) :
-										if (carte_[i + randDirArbre][j].getTerrain() == Terrain::herbeux && i + randDirArbre < 32)
-										{
-											std::cout << "  / arbre placé aux coord : i + = " << i + randDirArbre << "  /  j = " << j << std::endl;
-											carte_[i + randDirArbre][j].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout <<"  / case 0 refuse : "<< carte_[i + randDirArbre][j].getObstacle()<<  std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (1) :
-										if (carte_[i ][j + randDirArbre].getTerrain() == Terrain::herbeux  && j + randDirArbre < 32)
-										{
-											std::cout << "  / arbre placé aux coord : i  = " << i << "  /  j + = " << j + randDirArbre << std::endl;
-											carte_[i ][j + randDirArbre].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout << " case 1 refuse :" << carte_[i][j + randDirArbre].getObstacle()<< std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (2) :
-										if (carte_[i + randDirArbre][j + randDirArbre].getTerrain() == Terrain::herbeux  && i + randDirArbre < 32 && j + randDirArbre < 32)
-										{
-											std::cout << "  / arbre placé aux coord : i + = " << i + randDirArbre << "  /  j + = " << j + randDirArbre << std::endl;
-											carte_[i + randDirArbre][j + randDirArbre].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout << " case 2 refuse : " << carte_[i + randDirArbre][j + randDirArbre].getObstacle()<< std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (3) :
-										if (carte_[i - randDirArbre][j].getTerrain() == Terrain::herbeux  && i - randDirArbre >= 0)
-										{
-											std::cout << "  / arbre placé aux coord : i - = " << i - randDirArbre << "  /  j = " << j << std::endl;
-											carte_[i - randDirArbre][j].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout << " case 3 refuse :  coord : "<< carte_[i - randDirArbre][j].getObstacle()<< std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (4):
-										if (carte_[i ][j - randDirArbre].getTerrain() == Terrain::herbeux  && j - randDirArbre >= 0)
-										{
-											std::cout << "  / arbre placé aux coord : " << std::endl;
-											carte_[i ][j - randDirArbre].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout << " case 4 refuse :"<< carte_[i][j - randDirArbre].getObstacle()<< std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (5):
-										if (carte_[i - randDirArbre][j - randDirArbre].getTerrain() == Terrain::herbeux && i - randDirArbre >=0 && j - randDirArbre >=0)
-										{
-											std::cout << "  / arbre placé aux coord : i - = " << i - randDirArbre << "  /  j - = " << j - randDirArbre << std::endl;
-											carte_[i - randDirArbre][j - randDirArbre].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout << " case 5 refuse : " << carte_[i - randDirArbre][j - randDirArbre].getObstacle()<< std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (6):
-										if (carte_[i + randDirArbre][j - randDirArbre].getTerrain() == Terrain::herbeux && i + randDirArbre < 32 && j - randDirArbre >= 0)
-										{
-											std::cout << "  / arbre placé aux coord : i + = " << i + randDirArbre << "  /  j - = " << j - randDirArbre << std::endl;
-											carte_[i + randDirArbre][j - randDirArbre].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-										else
-										std::cout << " case 6 refuse : " << carte_[i + randDirArbre][j - randDirArbre].getObstacle()<<std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									case (7):
-										if (carte_[i - randDirArbre][j + randDirArbre].getTerrain() == Terrain::herbeux  && i - randDirArbre >= 0 && j + randDirArbre < 32)
-										{
-											std::cout << "  / arbre placé aux coord : i - = " << i - randDirArbre << "  /  j + = " << j + randDirArbre << std::endl;
-											carte_[i - randDirArbre][j + randDirArbre].setObstacle(Obstacle::arbre);
-											randNbArbre = randNbArbre - 1;
-										}
-
-										std::cout << " case 7 refuse : "<< carte_[i - randDirArbre][j + randDirArbre].getObstacle()<< std::endl;
-										nbEssaisArbre = nbEssaisArbre + 1;
-										break;
-									default:
-										std::cout << " dir trouvee : " << std::endl;
-										break;
-									}
-									
-									randDirArbre = 1;
-									
-								}
-								std::cout << "  /  randNbArbre  =  " << randNbArbre;
-								std::cout << "    /  nbEssaisArbre  =  " << nbEssaisArbre << std::endl;
-								std::cout  << std::endl;
-								
 							}
 						}
 					}
 				}
 			}
-		}*/
+		}
+		int randTailleForet = 0;
+		bool tour = true;
+	
+		for (int i = 0; i < tabBaseArbreForet.size(); i++)
+		{
+			randTailleForet = rand() % intensite;		
+			if (tabBaseArbreForet[i].x < 15 && tabBaseArbreForet[i].y < 15)
+			{
+			
+				for (int t = 0; t < randTailleForet; t++)
+				{
+					if (t % 2 == 0)
+					{
+						if (tour && carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x + 2;
+							tour = false;
+						}
+						else if (carte[tabBaseArbreForet[i].x ][tabBaseArbreForet[i].y+2].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y +2].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y + 2;
+							tour = true;
+						}
+					}
+				}
+			}
+			if (tabBaseArbreForet[i].x >= 15 && tabBaseArbreForet[i].y < 15)
+			{
+				for (int t = 0; t < randTailleForet; t++)
+				{
+					if (t % 2 == 0)
+					{
+						if (tour && carte[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x - 2;
+							tour = false;
+						}
+						else if (carte[tabBaseArbreForet[i].x ][tabBaseArbreForet[i].y+2].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y + 2].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y +2;
+							tour = true;
+						}
+					}
+				}
+			}
+			if (tabBaseArbreForet[i].x < 15 && tabBaseArbreForet[i].y >= 15)
+			{
+				for (int t = 0; t < randTailleForet; t++)
+				{
+					if (t % 2 == 0)
+					{
+						if (tour && carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x + 2;
+							tour = false;
+						}
+						else  if (carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y-2].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y -2].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y - 2;
+							tour = true;
+						}
+					}
+				}
+			}
+			if (tabBaseArbreForet[i].x >= 15 && tabBaseArbreForet[i].y >= 15)
+			{
+				for (int t = 0; t < randTailleForet; t++)
+				{
+					if (t % 2 == 0)
+					{
+						if (tour && carte[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x - 2 ][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x - 2;
+							tour = false;
+						}
+						else  if (carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y-2].getTerrain() == Terrain::herbeux)
+						{
+							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y - 2].setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y - 2;
+							tour = true;
+						}
+					}
+				}
+			}
+			
+		}
+		for (int i = 0; i < 32; i++)
+		{
+			for (int j = 0; j < 32; j++)
+			{
+				if (carte[i][j].getTerrain() == Terrain::rocheux && carte[i][j].getObstacle() == Obstacle::aucun)
+				{
+					for (int a = i - 1; a <= i + 1; a++)
+					{
+						for (int b = j - 1; b <= j + 1; b++)
+						{
+							if (carte[a][b].getTerrain() == Terrain::herbeux)
+							{
+								carte[a][b].setObstacle(Obstacle::aucun);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void Grille::genererAutreAsset( int nbTotal)
+	{
+		int randI;
+		int randJ;
+		int randTypeObstacle;
+		for (int t = 0; t < nbTotal; t++)
+		{
+			randI = rand() % 32;
+			randJ = rand() % 32;
+			switch (rand() % 2)
+			{
+			case 0:
+				carte[randI][randJ].setObstacle(Obstacle::buisson);
+				break;
+			case 1:
+				if (carte[randI][randJ].getTerrain() != Terrain::rocheux)
+				{
+					carte[randI][randJ].setObstacle(Obstacle::rocher);
+				}
+				break;
+			}
+			
+		}
 	}
 
 	Case Grille::getCase(int x, int y)
