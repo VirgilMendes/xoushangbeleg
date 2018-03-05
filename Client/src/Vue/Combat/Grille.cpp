@@ -76,10 +76,8 @@ namespace Vue
 		}
 		curseur_.deplacerCurseur(deplacement);
 		if (grille_->getCase(curseur_.getPosition())->getUnite() != nullptr)
-		{
-			std::cout << "a" << std::endl;
 			interfaceUnite_ = new InterfaceUnite(grille_->getCase(curseur_.getPosition())->getUnite());
-		}
+		
 		setCenter(getCenter()+sf::Vector2f(deplacement.x*64, deplacement.y*64));
 	}
 
