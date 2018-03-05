@@ -2,6 +2,9 @@
 #include "Case.h"
 #include "Outils/Vecteur2.h"
 #include <vector>
+#include <set>
+#include <queue>
+#include <stack>
 
 namespace Modele {
 
@@ -9,32 +12,55 @@ namespace Modele {
 
 	public :
 		
-		Grille();
+		Grille(const Vecteur2<int>& dimension);
+		virtual ~Grille();
 
-		void genererEau(int tailleMax);
+		Vecteur2<int> getDimension() { return dimension_; }
 
-		void genererPlage(int circonferenceMax);
+		Case* getCase(const Vecteur2<int>& coordonees);
+		Case* getCase(const int x, const int y);
+		std::vector<std::vector<Case*>> getCases() { return cases_; }
+		
+		Unite* getUnite(const std::string& nom);
+		std::set<Unite*> getUnites() { return unites_; }
+		void ajouterUnite(Unite* unite);
 
-		void genererRocheux(int tailleMax, int epaisseur);
+		Unite* getUniteActuel() { return ordreDeJeu_.empty() ? ordreDeJeu_.top() : nullptr; }
+		void relancerOrdreDeJeu();
 
+		std::stack<Vecteur2<int>> chercherChemin(const Vecteur2<int>& cible);
+		std::set<Vecteur2<int>> chercherCaseAccessible(const Vecteur2<int>& depart);
+		std::set<Vecteur2<int>> getDerniereRecherche() { return derniereRecherche_; }
+		void nettoyerDerniereRecherche();
+
+		Unite * getProprietaireDerniereRecherche() { return proprietaireDerniereRecherche_; }
+
+		void deplacerUnite(const std::string& nom, const Vecteur2<int>& destination);
+		void deplacerUnite(Unite* unite, const Vecteur2<int>& destination);
+
+		//Generation procedurale	
+		void genererEau(const int tailleMax);
+		void genererPlage(const int circonferenceMax);
+		void genererRocheux(const int tailleMax, const int epaisseur);
 		void genererObstaclesRocheux();
-
+		void genererAutreAsset( int nbTotal);
 		void genererArbre( int intensite);
-		
-		void genererAutreAsset( int nbTotal); // generer les buissons ou autres frioritures
-
-		Case getCase(int x, int y);
-		
-		void setUnite(Unite* unite, int x, int y);
-		bool déplacerUnite(int x, int y, int a, int b); //renvoie true si le déplacement est réussi, deux ccordonnées départ ( x, y ) et deux coordonnées arrivée ( a, b ) 
 
 	private :
 
-		Case carte[32][32];
-		std::vector<Vecteur2<int>> listeUnite;
+		Vecteur2<int> dimension_;
 
-		std::vector<Vecteur2<int>> tabAquatique;
-		std::vector<Vecteur2<int>> tabRocheux;
+		std::vector<std::vector<Case*>> cases_;
+		std::set<Unite*> unites_;
+		std::priority_queue<Unite*> ordreDeJeu_;
+
+		//Sauvegarde Recherche de chemin
+		std::set<Vecteur2<int>> derniereRecherche_;
+		Unite * proprietaireDerniereRecherche_;
+
+		//Generation Procedurale
+		std::vector<Vecteur2<int>> casesAquatiques_;
+		std::vector<Vecteur2<int>> casesRocheuses_;
 		std::vector<Vecteur2<int>> tabBaseArbreForet;
 
 	};

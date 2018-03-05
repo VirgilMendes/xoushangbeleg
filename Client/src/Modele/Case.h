@@ -24,24 +24,34 @@ namespace Modele
 	{
 	public :
 
-		Case();
-		Case(Unite* unite, Terrain terrain, Obstacle obstacle);
+		Case(const Vecteur2<int>& position);
+		Case(const Vecteur2<int>& position, const Terrain& terrain, const Obstacle& obstacle);
 
-		Unite* getUnite();
-		void setUnite( Unite* unite);
+		Terrain getTerrain() { return terrain_; }
+		void setTerrain(const Terrain& terrain) { terrain_ = terrain; }
 
-		Terrain getTerrain();
-		void setTerrain(Terrain terrain);
+		Obstacle getObstacle() { return obstacle_; }
+		void setObstacle(const Obstacle& obstacle) { obstacle_ = obstacle; }
 
-		Obstacle getObstacle();
-		void setObstacle(Obstacle obstacle);
+		Unite* getUnite() { return unite_; }
+		void setUnite(Unite* unite) { unite_ = unite; }
+
+		Vecteur2<int > getPosition() { return position_; }
+		void setPosition(const Vecteur2<int>& position) { position_ = position; }
+
+		Case * getCaseParent() { return caseParent_; }
+		void setCaseParent(Case* caseParent) { caseParent_ = caseParent; }
 
 	private :
 
-		Unite* unite;
-		Terrain terrain;
-		Obstacle obstacle;
+		Vecteur2<int> position_;
 
+		Terrain terrain_;
+		Obstacle obstacle_;
+		
+		Unite* unite_;
+
+		Case* caseParent_;
 	};
 
 }

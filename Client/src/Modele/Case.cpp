@@ -2,37 +2,11 @@
 
 namespace Modele
 {
-	Case::Case()
-	{}
-
-	Case::Case(Unite* unite, Terrain terrain, Obstacle obstacle) : unite(unite), terrain(terrain), obstacle(obstacle)
-	{}
-
-	Unite* Case::getUnite()
+	Case::Case(const Vecteur2<int>& position) : position_(position), terrain_(Terrain::herbeux), obstacle_(Obstacle::aucun)
 	{
-		return unite;
-	}
-	void Case::setUnite(Unite* unite)
-	{
-		this->unite = unite;
 	}
 
-	Obstacle Case::getObstacle()
+	Case::Case(const Vecteur2<int>& position, const Terrain& terrain, const Obstacle& obstacle) : position_( position), terrain_(terrain), obstacle_(obstacle)
 	{
-		return this->obstacle;
 	}
-	void Case::setObstacle(Obstacle obstacle)
-	{
-		this->obstacle = obstacle;
-	}
-
-	Terrain Case::getTerrain()
-	{
-		return terrain;
-	}
-	void Case::setTerrain(Terrain terrain)
-	{
-		this->terrain = terrain;
-	}
-
 }

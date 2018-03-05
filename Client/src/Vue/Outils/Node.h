@@ -6,6 +6,7 @@ namespace Vue
 	class Node
 	{
 	public:
+		virtual ~Node() = default;
 
 		Node(){}
 		

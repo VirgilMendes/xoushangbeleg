@@ -1,93 +1,78 @@
 #include "Grille.h"
 #include "../../Modele/Case.h"
 
+#define RESOLUTION 64
+
 namespace Vue
 {
-	Grille::Grille() 
+	Grille::Grille(Modele::Grille* grille) : grille_(grille)
 	{
-		int largeur = 32 , hauteur = 32;
 
-		if (!map.loadFromFile("ressources/sprite/minimaptest.png"))
+		if (!textureGrille_.loadFromFile("ressources/sprite/map.png"))
 		{
-			std::cout << "erreur chargement Texture map.png" << std::endl;
+			std::cout << "erreur chargement Texture TextureGrille.png" << std::endl;
+		}
+		if (!textureObstacle_.loadFromFile("ressources/sprite/TextureObstacles.png"))
+		{
+			std::cout << "erreur chargement Texture TextureObstacle.png" << std::endl;
 		}
 
-		int resolution = 16;
+		const int largeur(grille_->getDimension().x), hauteur(grille_->getDimension().y);
 
 		// on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
-		tabVertex.setPrimitiveType(sf::Quads);
-		tabVertex.resize(largeur * hauteur * 4);
-
-		int tileNumber = 0;
-		Modele::Case caseTemp;
+		sommets_.setPrimitiveType(sf::Quads);
+		sommets_.resize( largeur * hauteur * 4);
 
 		// on remplit le tableau de vertex, avec un quad par tuile
 		for (unsigned int i = 0; i < largeur; ++i)
 			for (unsigned int j = 0; j < hauteur; ++j)
 			{
-				caseTemp = grille_.getCase(i, j);
-
+				Modele::Case* caseGrille = grille_->getCase(Modele::Vecteur2<int>(i,j));
 
 				// on récupère le code de tuile courant
-				switch (caseTemp.getTerrain())
-				{
-				case Modele::Terrain::herbeux :
-					tileNumber = 0;
-					break;
-				case Modele::Terrain::sableux:
-					tileNumber = 8;
-					break;
-				case Modele::Terrain::aquatique:
-					tileNumber = 16;
-					break;
-				case Modele::Terrain::rocheux:
-					tileNumber = 24;
-					break;
-				}
-
-				switch (caseTemp.getObstacle())
-				{
-				case Modele::Obstacle::aucun:
-					tileNumber = tileNumber + 1;
-					break;
-				case Modele::Obstacle::arbre:
-					tileNumber = tileNumber + 3;
-					break;
-				case Modele::Obstacle::buisson:
-					tileNumber = tileNumber + 5;
-					break;
-				case Modele::Obstacle::rocher:
-					tileNumber = tileNumber + 7;
-					break;
-				}
+				const int caseNombre(caseGrille->getTerrain()._to_integral() * 8 + caseGrille->getObstacle()._to_integral() * 2 + 1);
 
 				// on récupère un pointeur vers le quad à définir dans le tableau de vertex
-				sf::Vertex* quad = &tabVertex[(i + j * largeur) * 4];
+				sf::Vertex* quad = &sommets_[(i + j * largeur) * 4];
 
 				// on définit ses quatre coins
-				quad[0].position = sf::Vector2f(i * resolution, j * resolution);
-				quad[1].position = sf::Vector2f((i + 1) * resolution, j * resolution);
-				quad[2].position = sf::Vector2f((i + 1) * resolution, (j + 1) * resolution);
-				quad[3].position = sf::Vector2f(i * resolution, (j + 1) * resolution);
+				quad[0].position = sf::Vector2f(i * RESOLUTION, j * RESOLUTION);
+				quad[1].position = sf::Vector2f((i + 1) * RESOLUTION, j * RESOLUTION);
+				quad[2].position = sf::Vector2f((i + 1) * RESOLUTION, (j + 1) * RESOLUTION);
+				quad[3].position = sf::Vector2f(i * RESOLUTION, (j + 1) * RESOLUTION);
 
 				// on définit ses quatre coordonnées de texture
-				quad[0].texCoords = sf::Vector2f(tileNumber * resolution, 0);
-				quad[1].texCoords = sf::Vector2f((tileNumber + 1) * resolution, 0);
-				quad[2].texCoords = sf::Vector2f((tileNumber + 1) * resolution, resolution);
-				quad[3].texCoords = sf::Vector2f(tileNumber * resolution, resolution);
+				quad[0].texCoords = sf::Vector2f(caseNombre * RESOLUTION, 0);
+				quad[1].texCoords = sf::Vector2f((caseNombre + 1) * RESOLUTION, 0);
+				quad[2].texCoords = sf::Vector2f((caseNombre + 1) * RESOLUTION, RESOLUTION);
+				quad[3].texCoords = sf::Vector2f(caseNombre * RESOLUTION, RESOLUTION);
 			}
+		setCenter(0, 0);
 	}
 
-	void Grille::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void Grille::setPositionCurseur(Modele::Vecteur2<int> position)
 	{
-		// on applique la transformation du sol
-		states.transform *= getTransform();
+		curseur_.setPosition(position);
+		setCenter(position.x*64, position.y*64);
+	}
 
+	void Grille::deplacerCurseur(Modele::Vecteur2<int> deplacement)
+	{
+		curseur_.deplacerCurseur(deplacement);
+		setCenter(getCenter()+sf::Vector2f(deplacement.x*64, deplacement.y*64));
+	}
+
+	void Grille::dessiner(sf::RenderTarget& target, sf::RenderStates states)
+	{
+		target.setView(*this);
 		// on applique la texture du tileset du sol
-		states.texture = &map;
+		states.texture = &textureGrille_;
 
 		// et on dessine enfin le tableau de vertex du sol 
-		target.draw(tabVertex, states);
+		target.draw(sommets_, states);
 
+		target.draw(curseur_);
+
+		target.setView(target.getDefaultView());
 	}
 }

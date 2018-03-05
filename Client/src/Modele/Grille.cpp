@@ -5,148 +5,206 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
-#include <vector> 
+#include <vector>
 
 namespace Modele
 {
-	Grille::Grille()
+	Grille::Grille(const Vecteur2<int>& dimension) : dimension_(dimension), proprietaireDerniereRecherche_(nullptr)
 	{
-		srand((unsigned) time(NULL));
+		srand((unsigned)time(NULL));
 
-		for (int i = 0; i < 32; i++)
+		for (int i = 0; i < dimension_.y; i++)
 		{
-			for (int j = 0; j < 32; j++)
+			cases_.push_back(std::vector<Case*>());
+			for (int j = 0; j < dimension_.x; j++)
 			{
-				carte[i][j] = Case(nullptr, Terrain::herbeux, Obstacle::aucun);
+				cases_[i].push_back(new Case(Vecteur2<int>(j, i)));
 			}
 		}
 
-		// génération de l'eau
-		this->genererEau(100);
-
-		// génération du sable autour de l'eau
-		this->genererPlage(5);
-
-		// génération du terrain rocheux
-		this->genererRocheux(50, 5);
-
-		this->genererObstaclesRocheux();
-
-		this->genererArbre( 20);
-
-		this->genererAutreAsset(50);
+		//Generation procedurale
+		genererEau(100);
+		genererPlage(5);
+		genererRocheux(50, 5);
+		genererObstaclesRocheux();
+		genererArbre(20);
+		genererAutreAsset(50);
 	}
 
-	void Grille::genererEau( int tailleMax) 
+	Grille::~Grille()
 	{
-		int nbCaseAquatique = 0;
-		
+		for (auto ligne : cases_)
+			for (Case* caseGrille : ligne)
+				delete caseGrille;
+	}
 
-		int testRandi;
-		int testRandj;
+	Case* Grille::getCase(const Vecteur2<int>& coordonees)
+	{
+		return cases_.at(coordonees.y).at(coordonees.x);
+	}
 
-		testRandi = rand() % 32;
-		testRandj = rand() % 32;
-		
-		carte[testRandi][testRandj] = Case(nullptr, Terrain::aquatique, Obstacle::aucun);
-		tabAquatique.push_back(Vecteur2<int>(testRandi, testRandj));
+	Case* Grille::getCase(const int x, const int y)
+	{
+		return cases_.at(y).at(x);
+	}
 
-		int nbEssais = 0;
-		int testRandAquatique;
-		if (tabAquatique.size() != 0)
+	Unite* Grille::getUnite(const std::string& nom)
+	{
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 		{
-			while (nbCaseAquatique < tailleMax && nbEssais < 1000)
-			{
-				testRandAquatique = rand() % tabAquatique.size();
+			if ((*iterateur)->getNom() == nom)
+				return *iterateur;
+		}
+		return nullptr;
+	}
 
-				for (int i = tabAquatique[testRandAquatique].x - 1; i <= tabAquatique[testRandAquatique].x + 1; i++)
+	void Grille::ajouterUnite(Unite* unite)
+	{
+		unites_.insert(unite);
+	}
+
+	void Grille::relancerOrdreDeJeu()
+	{
+	}
+
+	std::stack<Vecteur2<int>> Grille::chercherChemin(const Vecteur2<int>& cible)
+	{
+		return std::stack<Vecteur2<int>>();
+	}
+
+	std::set<Vecteur2<int>> Grille::chercherCaseAccessible(const Vecteur2<int>& depart)
+	{
+		return std::set<Vecteur2<int>>();
+	}
+
+	void Grille::nettoyerDerniereRecherche()
+	{
+	}
+
+	void Grille::deplacerUnite(const std::string& nom, const Vecteur2<int>& destination)
+	{
+	}
+
+	void Grille::deplacerUnite(Unite* unite, const Vecteur2<int>& destination)
+	{
+	}
+
+	void Grille::genererEau(const int tailleMax)
+	{
+		const Vecteur2<int> start(rand() % 32, rand() % 32);
+		getCase(start)->setTerrain(Terrain::aquatique);
+		casesAquatiques_.push_back(start);
+
+		int nombreEssais(0);
+
+		while (casesAquatiques_.size() < tailleMax && nombreEssais < 1000)
+		{
+
+			//on prend une case d'eau aleatoire afin de l'entourer de case d'eau
+			const Vecteur2<int> randomCaseAquatique = casesAquatiques_[rand() % casesAquatiques_.size()];
+
+			for (int i = randomCaseAquatique.x - 1; i <= randomCaseAquatique.x + 1; i++)
+			{
+				for (int j = randomCaseAquatique.y - 1; j <= randomCaseAquatique.y + 1; j++)
 				{
-					for (int j = tabAquatique[testRandAquatique].y - 1; j <= tabAquatique[testRandAquatique].y + 1; j++)
+					if (i < 32 && j < 32 && i >= 0 && j >= 0)
 					{
-						if (i < 32 && j < 32 && i >= 0 && j >= 0)
+						if (getCase(i, j)->getTerrain() == Terrain::herbeux)
 						{
-							if (carte[i][j].getTerrain() == Terrain::herbeux)
-							{
-								carte[i][j].setTerrain(Terrain::aquatique);
-								tabAquatique.push_back(Vecteur2<int>(i, j));
-								nbCaseAquatique = nbCaseAquatique + 1;
-							}
+							getCase(i, j)->setTerrain(Terrain::aquatique);
+							casesAquatiques_.push_back(Vecteur2<int>(i, j));
 						}
-						nbEssais = nbEssais + 1;
 					}
+					nombreEssais = ++nombreEssais;
 				}
 			}
 		}
 	}
 
-	void Grille::genererPlage( int circonferenceMax)
+	void Grille::genererPlage(const int circonferenceMax)
 	{
-		int tailleVoisinageEau;
-		int i = 0;
-		int j = 0;
-		for (int y = 0; y < tabAquatique.size(); y++)
+		for (const Vecteur2<int> caseAquatique : casesAquatiques_)
 		{
-			tailleVoisinageEau = rand() % circonferenceMax + 1;
-			for (int i = tabAquatique[y].x - tailleVoisinageEau; i <= tabAquatique[y].x + tailleVoisinageEau; i++)
+			const int tailleVoisinageEau = rand() % circonferenceMax + 1;
+
+			//on genere une ligne de sable avec pour centre le point d'eau
+			for (int i = caseAquatique.x - tailleVoisinageEau; i <= caseAquatique.x + tailleVoisinageEau; i++)
 			{
-				if (i < 32 && tabAquatique[y].y < 32 && i >= 0 && tabAquatique[y].y >= 0)
+				if (i < 32 && i >= 0)
 				{
-					if (carte[i][tabAquatique[y].y].getTerrain() == Terrain::herbeux)
+					Case* casePotentiel = getCase(i, caseAquatique.y);
+
+					if (casePotentiel->getTerrain() == Terrain::herbeux)
 					{
-						carte[i][tabAquatique[y].y].setTerrain(Terrain::sableux);
+						casePotentiel->setTerrain(Terrain::sableux);
 					}
 				}
 			}
-			for (int j = tabAquatique[y].y - tailleVoisinageEau; j <= tabAquatique[y].y + tailleVoisinageEau; j++)
+
+			//on genere une colonne de sable avec pour centre le point d'eau
+			for (int j = caseAquatique.y - tailleVoisinageEau; j <= caseAquatique.y + tailleVoisinageEau; j++)
 			{
-				if (tabAquatique[y].x < 32 && j < 32 && tabAquatique[y].x >= 0 && j >= 0)
+				if (j < 32 && j >= 0)
 				{
-					if (carte[tabAquatique[y].x][j].getTerrain() == Terrain::herbeux)
+					Case* casePotentiel = getCase(caseAquatique.x, j);
+					if (casePotentiel->getTerrain() == Terrain::herbeux)
 					{
-						carte[tabAquatique[y].x][j].setTerrain(Terrain::sableux);
+						casePotentiel->setTerrain(Terrain::sableux);
 					}
 				}
 			}
-			i = 0 + tailleVoisinageEau;
-			j = 0 - tailleVoisinageEau;
-			while ( j <= tailleVoisinageEau && i >= (-1)*tailleVoisinageEau)
+
+			int i = 0 + tailleVoisinageEau;
+			int j = 0 - tailleVoisinageEau;
+
+			while (j <= tailleVoisinageEau && i >= -tailleVoisinageEau)
 			{
-				if (carte[tabAquatique[y].x + i][tabAquatique[y].y + j].getTerrain() == Terrain::herbeux  && tabAquatique[y].x + i < 32 && tabAquatique[y].x + i >= 0 && tabAquatique[y].y + j < 32 && tabAquatique[y].y + j >= 0)
+				if (caseAquatique.x + i < 32 && caseAquatique.x + i >= 0 && caseAquatique.y + j < 32 && caseAquatique.y + j >= 0)
 				{
-					carte[tabAquatique[y].x + i][tabAquatique[y].y + j].setTerrain(Terrain::sableux);
+					Case* casePotentiel = getCase(caseAquatique.x + i, caseAquatique.y + j);
+
+					if (casePotentiel->getTerrain() == Terrain::herbeux)
+					{
+						casePotentiel->setTerrain(Terrain::sableux);
+					}
 				}
-				i = i - 1;
-				j = j + 1;
+				i -= 1;
+				j += 1;
 			}
+
 			i = 0 - tailleVoisinageEau;
-			while ( i <= tailleVoisinageEau)
+			while (i <= tailleVoisinageEau)
 			{
-				if (carte[tabAquatique[y].x + i][tabAquatique[y].y + i].getTerrain() == Terrain::herbeux && tabAquatique[y].x + i < 32 && tabAquatique[y].x + i >= 0 && tabAquatique[y].y + i < 32 && tabAquatique[y].y + i >= 0)
+				if (caseAquatique.x + i < 32 && caseAquatique.x + i >= 0 && caseAquatique.y + i < 32 && caseAquatique.y + i >= 0)
 				{
-					carte[tabAquatique[y].x + i][tabAquatique[y].y + i].setTerrain(Terrain::sableux);
+					Case* casePotentiel = getCase(caseAquatique.x + i, caseAquatique.y + i);
+
+					if (casePotentiel->getTerrain() == Terrain::herbeux)
+					{
+						casePotentiel->setTerrain(Terrain::sableux);
+					}
 				}
-				i = i + 1;
+				i += 1;
 			}
 		}
 	}
 
 	void Grille::genererRocheux(int taille, int epaisseur)
 	{
-		int i ;
-		int j ;
+		int i;
+		int j;
 		int choixCote;
-		
+
 		choixCote = rand() % 4;
-		switch (choixCote) // là on cherche le côté pour mettre la base collée au mur
+		switch (choixCote) // la on cherche le cote pour mettre la base collee au mur
 		{
 		case 0:
 			i = 0;
 			j = 0;
-			while ( j < 32 )
+			while (j < 32)
 			{
-				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				if (cases_[i][j]->getTerrain() == Terrain::aquatique)
 				{
-					
 					i = 31;
 					j = 100;
 				}
@@ -159,9 +217,8 @@ namespace Modele
 			j = 0;
 			while (j < 32)
 			{
-				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				if (cases_[i][j]->getTerrain() == Terrain::aquatique)
 				{
-
 					i = 0;
 					j = 100;
 				}
@@ -174,9 +231,8 @@ namespace Modele
 			i = 0;
 			while (i < 32)
 			{
-				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				if (cases_[i][j]->getTerrain() == Terrain::aquatique)
 				{
-
 					j = 31;
 					i = 100;
 				}
@@ -189,9 +245,8 @@ namespace Modele
 			i = 0;
 			while (i < 32)
 			{
-				if (carte[i][j].getTerrain() == Terrain::aquatique)
+				if (cases_[i][j]->getTerrain() == Terrain::aquatique)
 				{
-
 					j = 0;
 					i = 100;
 				}
@@ -201,59 +256,69 @@ namespace Modele
 			break;
 		}
 
-		carte[i][j].setTerrain(Terrain::rocheux);
-		tabRocheux.push_back(Vecteur2<int>(i, j));
+		cases_[i][j]->setTerrain(Terrain::rocheux);
+		casesRocheuses_.push_back(Vecteur2<int>(i, j));
 		int essais = 0;
-		while (tabRocheux.size() < taille && essais < 5000)
+		while (casesRocheuses_.size() < taille && essais < 5000)
 		{
 			choixCote = rand() % 4;
+			const Vecteur2<int> caseRocheuse = casesRocheuses_[casesRocheuses_.size() - 1];
 			switch (choixCote)
 			{
 			case 0:
-				if (tabRocheux[tabRocheux.size() - 1].x - 2 >= 0 && tabRocheux[tabRocheux.size() - 1].x - 2 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
+				 
+				if (caseRocheuse.x - 2 >= 0 && caseRocheuse.x - 2 < 32
+					&& caseRocheuse.y < 32 && caseRocheuse.y >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x - 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x - 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
+					if (cases_[caseRocheuse.x - 2][caseRocheuse.y]->getTerrain() != Terrain::aquatique 
+						&& cases_[caseRocheuse.x - 2][caseRocheuse.y]->getTerrain() != Terrain::rocheux)
 					{
-						carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x - 1, tabRocheux[tabRocheux.size() - 1].y));
-						carte[tabRocheux[tabRocheux.size() - 1].x - 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x - 1, tabRocheux[tabRocheux.size() - 1].y));
+						cases_[caseRocheuse.x - 1][caseRocheuse.y]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x - 1, caseRocheuse.y));
+						cases_[caseRocheuse.x - 1][caseRocheuse.y]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x - 1, caseRocheuse.y));
 					}
 				}
 				break;
 			case 1:
-				if (tabRocheux[tabRocheux.size() - 1].x + 2 >= 0 && tabRocheux[tabRocheux.size() - 1].x + 2 < 32 && tabRocheux[tabRocheux.size() - 1].y < 32 && tabRocheux[tabRocheux.size() - 1].y >= 0)
+				if (caseRocheuse.x + 2 >= 0 && caseRocheuse.x + 2 < 32
+					&& caseRocheuse.y < 32 && caseRocheuse.y >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x + 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x + 2][tabRocheux[tabRocheux.size() - 1].y].getTerrain() != Terrain::rocheux)
+					if (cases_[caseRocheuse.x + 2][caseRocheuse.y]->getTerrain() != Terrain::aquatique 
+						&& cases_[caseRocheuse.x + 2][caseRocheuse.y]->getTerrain() != Terrain::rocheux)
 					{
-						carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x + 1, tabRocheux[tabRocheux.size() - 1].y));
-						carte[tabRocheux[tabRocheux.size() - 1].x + 1][tabRocheux[tabRocheux.size() - 1].y].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x + 1, tabRocheux[tabRocheux.size() - 1].y));
+						cases_[caseRocheuse.x + 1][caseRocheuse.y]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x + 1, caseRocheuse.y));
+						cases_[caseRocheuse.x + 1][caseRocheuse.y]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x + 1, caseRocheuse.y));
 					}
 				}
 				break;
 			case 2:
-				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32 && tabRocheux[tabRocheux.size() - 1].y - 2 < 32 && tabRocheux[tabRocheux.size() - 1].y - 2 >= 0)
+				if (caseRocheuse.x >= 0 && caseRocheuse.x < 32 &&
+					caseRocheuse.y - 2 < 32 && caseRocheuse.y - 2 >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].getTerrain() != Terrain::rocheux)
+					if (cases_[caseRocheuse.x][caseRocheuse.y - 1]->getTerrain() != Terrain::aquatique 
+						&& cases_[caseRocheuse.x][caseRocheuse.y - 1]->getTerrain() != Terrain::rocheux)
 					{
-						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y - 1));
-						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y - 1].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y - 1));
+						cases_[caseRocheuse.x][caseRocheuse.y - 1]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x, caseRocheuse.y - 1));
+						cases_[caseRocheuse.x][caseRocheuse.y - 1]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x, caseRocheuse.y - 1));
 					}
 				}
 				break;
 			case 3:
-				if (tabRocheux[tabRocheux.size() - 1].x >= 0 && tabRocheux[tabRocheux.size() - 1].x < 32  && tabRocheux[tabRocheux.size() - 1].y + 2 < 32 && tabRocheux[tabRocheux.size() - 1].y + 2 >= 0)
+				if (caseRocheuse.x >= 0 && caseRocheuse.x < 32 &&
+					caseRocheuse.y + 2 < 32 && caseRocheuse.y + 2 >= 0)
 				{
-					if (carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 2].getTerrain() != Terrain::aquatique && carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 2].getTerrain() != Terrain::rocheux)
+					if (cases_[caseRocheuse.x][caseRocheuse.y + 2]->getTerrain() != Terrain::aquatique
+						&& cases_[caseRocheuse.x][caseRocheuse.y + 2]->getTerrain() != Terrain::rocheux)
 					{
-						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y + 1));
-						carte[tabRocheux[tabRocheux.size() - 1].x][tabRocheux[tabRocheux.size() - 1].y + 1].setTerrain(Terrain::rocheux);
-						tabRocheux.push_back(Vecteur2<int>(tabRocheux[tabRocheux.size() - 1].x, tabRocheux[tabRocheux.size() - 1].y + 1));
+						cases_[caseRocheuse.x][caseRocheuse.y + 1]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x, caseRocheuse.y + 1));
+						cases_[caseRocheuse.x][caseRocheuse.y + 1]->setTerrain(Terrain::rocheux);
+						casesRocheuses_.push_back(Vecteur2<int>(caseRocheuse.x, caseRocheuse.y + 1));
 					}
 				}
 				break;
@@ -262,27 +327,30 @@ namespace Modele
 		}
 
 		
-		for (int e = 0; e < tabRocheux.size(); e++) // on va effectuer un traitement sur tout le chemin de "rocheux" fait precedemment
+		for (int e = 0; e < casesRocheuses_.size(); e++)	
 		{
-			for (int a = tabRocheux[e].x - epaisseur; a <= tabRocheux[e].x + epaisseur ; a++)
+			// on va effectuer un traitement sur tout le chemin de "rocheux" fait precedemment
+
+			const Vecteur2<int> caseRocheuse = casesRocheuses_[e];
+			for (int a = caseRocheuse.x - epaisseur; a <= caseRocheuse.x + epaisseur; a++)
 			{
-				if (a != tabRocheux[e].x - epaisseur && a != tabRocheux[e].x + epaisseur)
+				if (a != caseRocheuse.x - epaisseur && a != caseRocheuse.x + epaisseur)
 				{
-					for (int b = tabRocheux[e].y - epaisseur; b <= tabRocheux[e].y + epaisseur; b++)
+					for (int b = caseRocheuse.y - epaisseur; b <= caseRocheuse.y + epaisseur; b++)
 					{
-						if (carte[a][b].getTerrain() != Terrain::aquatique && a < 32 && b < 32 && a >= 0 && b >= 0)
+						if ( a < 32 && b < 32 && a >= 0 && b >= 0 &&cases_[a][b]->getTerrain() != Terrain::aquatique )
 						{
-							carte[a][b].setTerrain(Terrain::rocheux);
+							cases_[a][b]->setTerrain(Terrain::rocheux);
 						}
 					}
 				}
 				else
 				{
-					for (int b = tabRocheux[e].y - epaisseur +1; b <= tabRocheux[e].y + epaisseur-1; b++)
+					for (int b = caseRocheuse.y - epaisseur + 1; b <= caseRocheuse.y + epaisseur - 1; b++)
 					{
-						if (carte[a][b].getTerrain() != Terrain::aquatique && a < 32 && b < 32 && a >= 0 && b >= 0)
+						if (a < 32 && b < 32 && a >= 0 && b >= 0 && cases_[a][b]->getTerrain() != Terrain::aquatique)
 						{
-							carte[a][b].setTerrain(Terrain::rocheux);
+							cases_[a][b]->setTerrain(Terrain::rocheux);
 						}
 					}
 				}
@@ -301,38 +369,41 @@ namespace Modele
 		{
 			for (int j = 0; j < 32; j++)
 			{
-				if (carte[i][j].getTerrain() == Terrain::rocheux)
+				if (cases_[i][j]->getTerrain() == Terrain::rocheux)
 				{
 					randRocher = rand() % 10;
-					for (int a = i - 1; a <= i + 1; a++) // test des alentours de la case sur la quelle on est positionné
+					for (int a = i - 1; a <= i + 1; a++) // test des alentours de la case sur la quelle on est positionnï¿½
 					{
+						if (!(a < 32 && a >= 0))
+							continue;
 						for (int b = j - 1; b <= j + 1; b++)
 						{
-							if (carte[a][b].getTerrain() != Terrain::rocheux && randRocher <= 7 && rochersALaSuite <= 10)
+							if (!(b < 32 && b >= 0))
+								continue;
+							if (cases_[a][b]->getTerrain() != Terrain::rocheux && randRocher <= 7 && rochersALaSuite <= 10)
 							{
-								carte[i][j].setObstacle(Obstacle::rocher);
+								cases_[i][j]->setObstacle(Obstacle::rocher);
 								rochersALaSuite = rochersALaSuite + 1;
 							}
-							else if (carte[a][b].getTerrain() != Terrain::rocheux && tailleSortie > 4)
+							else if (cases_[a][b]->getTerrain() != Terrain::rocheux && tailleSortie > 4)
 							{
 								rochersALaSuite = 0;
 								tailleSortie = 0;
 							}
-							else if (carte[a][b].getTerrain() != Terrain::rocheux && rochersALaSuite > 10)
+							else if (cases_[a][b]->getTerrain() != Terrain::rocheux && rochersALaSuite > 10)
 							{
 								tailleSortie = tailleSortie + 1;
 							}
-							else if (i == 0 || i == 31 || j == 0 || j == 31 || carte[a][b].getTerrain() == Terrain::aquatique)
+							else if (i == 0 || i == 31 || j == 0 || j == 31 || cases_[a][b]->getTerrain() == Terrain::aquatique)
 							{
-								carte[i][j].setObstacle(Obstacle::rocher);
+								cases_[i][j]->setObstacle(Obstacle::rocher);
 							}
 						}
 					}
-
 				}
 			}
 		}
-//apres avoir mis les frontières des zones rocheuses, on va y ajouter des murs... malheureusement, ça demande de retraverser les cases.
+		//apres avoir mis les frontieres des zones rocheuses, on va y ajouter des murs... malheureusement, ï¿½a demande de retraverser les cases.
 		int randMur;
 		int randTailleMur;
 		int randDirMur;
@@ -345,34 +416,38 @@ namespace Modele
 		{
 			for (int j = 0; j < 32; j++)
 			{
-				if (carte[i][j].getTerrain() == Terrain::rocheux)
+				if (cases_[i][j]->getTerrain() == Terrain::rocheux)
 				{
-					for (int a = i - 1; a <= i + 1; a++) // test des alentours de la case sur la quelle on est positionné
+					for (int a = i - 1; a <= i + 1; a++) // test des alentours de la case sur la quelle on est positionne
 					{
+						if(!(a < 32 && a >= 0))
+							continue;
 						for (int b = j - 1; b <= j + 1; b++)
 						{
+							if(!(b < 32 && b >=0))
+								continue;
 							randMur = rand() % 100;
-							if (carte[a][b].getObstacle() == Obstacle::rocher && randMur < 5 && limiteMur >= 0)
-							{	
+							if (cases_[a][b]->getObstacle() == Obstacle::rocher && randMur < 5 && limiteMur >= 0)
+							{
 								limiteMur = limiteMur - 1;
 
-							
+
 								xMur = i;
 								yMur = j;
 								randTailleMur = rand() % 25;
 								cheminSansMur = 0;
-								while( cheminSansMur <= randTailleMur )
+								while (cheminSansMur <= randTailleMur)
 								{
-									carte[xMur][yMur].setObstacle(Obstacle::rocher);
+									cases_[xMur][yMur]->setObstacle(Obstacle::rocher);
 									randDirMur = rand() % 4;
-									switch (randDirMur) // là on donne à chaque fois une nouvelle direction au mur
+									switch (randDirMur) // la on donne a chaque fois une nouvelle direction au mur
 									{
 									case 0:
-										if (carte[xMur - 3][yMur].getObstacle() == Obstacle::rocher )
+										if ((xMur - 3) >= 0 && cases_[xMur - 3][yMur]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = 100;
 										}
-										else if (carte[xMur - 1][yMur].getObstacle() == Obstacle::rocher)
+										else if ((xMur - 1) >=0 &&  cases_[xMur - 1][yMur]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = cheminSansMur - 1;
 										}
@@ -382,11 +457,11 @@ namespace Modele
 										}
 										break;
 									case 1:
-										if (carte[xMur + 3][yMur].getObstacle() == Obstacle::rocher)
+										if ((xMur + 3) < 32 && cases_[xMur + 3][yMur]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = 100;
 										}
-										else if (carte[xMur + 1][yMur].getObstacle() == Obstacle::rocher )
+										else if ((xMur + 1) < 32 &&  cases_[xMur + 1][yMur]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = cheminSansMur - 1;
 										}
@@ -396,25 +471,25 @@ namespace Modele
 										}
 										break;
 									case 2:
-										if (carte[xMur][yMur - 3].getObstacle() == Obstacle::rocher)
+										if ((yMur - 3) >=0 &&  cases_[xMur][yMur - 3]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = 100;
 										}
-										else if (carte[xMur][yMur - 1].getObstacle() == Obstacle::rocher)
+										else if ((yMur - 1) >= 0 &&  cases_[xMur][yMur - 1]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = cheminSansMur - 1;
 										}
-										else if( yMur - 1 >= 0)
+										else if (yMur - 1 >= 0)
 										{
 											yMur = yMur - 1;
 										}
 										break;
 									case 3:
-										if (carte[xMur][yMur + 3].getObstacle() == Obstacle::rocher)
+										if ((yMur + 3) < 32 &&  cases_[xMur][yMur + 3]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = 100;
 										}
-										else if (carte[xMur][yMur + 1].getObstacle() == Obstacle::rocher)
+										else if ((yMur + 1) < 32 && cases_[xMur][yMur + 1]->getObstacle() == Obstacle::rocher)
 										{
 											cheminSansMur = cheminSansMur + 1;
 										}
@@ -429,7 +504,6 @@ namespace Modele
 							}
 						}
 					}
-
 				}
 			}
 		}
@@ -440,7 +514,7 @@ namespace Modele
 		int randNbArbre = 0;
 		int randDirArbre = 1;
 		int nbEssaisArbre;
-		 
+
 
 		int nouvelArbreX = 0;
 		int nouvelArbreY;
@@ -449,59 +523,59 @@ namespace Modele
 		{
 			for (int j = 0; j < 32; j++)
 			{
-				if (carte[i][j].getObstacle() == Obstacle::rocher && carte[i][j].getTerrain() == Terrain::rocheux && rand() % 100 >= 90) //pour les arbres dans les grottes
+				if (cases_[i][j]->getObstacle() == Obstacle::rocher && cases_[i][j]->getTerrain() == Terrain::rocheux && rand() % 100 >= 90) //pour les arbres dans les grottes
 				{
-					carte[i][j].setObstacle(Obstacle::arbre); 
+					cases_[i][j]->setObstacle(Obstacle::arbre);
 				}
-				if (carte[i][j].getTerrain() == Terrain::sableux && rand() % 100 >= 98) //pour les arbres dans les plages
+				if (cases_[i][j]->getTerrain() == Terrain::sableux && rand() % 100 >= 98) //pour les arbres dans les plages
 				{
-					carte[i][j].setObstacle(Obstacle::arbre);
+					cases_[i][j]->setObstacle(Obstacle::arbre);
 				}
-				if (i == 31 || i == 0 || j == 31 || j == 0 )
+				if (i == 31 || i == 0 || j == 31 || j == 0)
 				{
-					if (carte[i][j].getTerrain() == Terrain::herbeux || carte[i][j].getTerrain() == Terrain::sableux) //pour les arbres sur les limites de terrain
+					if (cases_[i][j]->getTerrain() == Terrain::herbeux || cases_[i][j]->getTerrain() == Terrain::sableux) //pour les arbres sur les limites de terrain
 					{
-						carte[i][j].setObstacle(Obstacle::arbre);
+						cases_[i][j]->setObstacle(Obstacle::arbre);
 					}
-					if (rand() % 100 >= 70 && carte[i][j].getTerrain() == Terrain::herbeux )
+					if (rand() % 100 >= 70 && cases_[i][j]->getTerrain() == Terrain::herbeux)
 					{
 						if (i == 31 && j % 2 == 0 && j != 0)
 						{
-							carte[i-1][j].setObstacle(Obstacle::arbre);
-							tabBaseArbreForet.push_back(Vecteur2<int>(i-1, j ));
-	
+							cases_[i - 1][j]->setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i - 1, j));
+
 						}
 						else if (i == 0 && j % 2 == 0 && j != 0)
 						{
-							carte[i + 2][j ].setObstacle(Obstacle::arbre);
+							cases_[i + 2][j]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet.push_back(Vecteur2<int>(i + 2, j));
-						
+
 						}
-						 else if ( i % 2 == 0 && i != 0 && j == 0 )
+						else if (i % 2 == 0 && i != 0 && j == 0)
 						{
-							carte[i ][j + 2].setObstacle(Obstacle::arbre);
-							tabBaseArbreForet.push_back(Vecteur2<int>(i , j+ 2 ));
-						
+							cases_[i][j + 2]->setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i, j + 2));
+
 						}
-						 else if (i % 2 == 0 && i != 0 && j == 31 )
+						else if (i % 2 == 0 && i != 0 && j == 31)
 						{
-							carte[i][j-1].setObstacle(Obstacle::arbre);
-							tabBaseArbreForet.push_back(Vecteur2<int>(i, j-1));
-					
+							cases_[i][j - 1]->setObstacle(Obstacle::arbre);
+							tabBaseArbreForet.push_back(Vecteur2<int>(i, j - 1));
+
 						}
 					}
 				}
-				else if (carte[i][j].getTerrain() == Terrain::rocheux && carte[i][j].getObstacle() == Obstacle::rocher)
+				else if (cases_[i][j]->getTerrain() == Terrain::rocheux && cases_[i][j]->getObstacle() == Obstacle::rocher)
 				{
 					for (int a = i - 1; a <= i + 1; a++)
 					{
 						for (int b = j - 1; b <= j + 1; b++)
 						{
-							if (carte[a][b].getTerrain() == Terrain::herbeux  && rand() % 100 >= 0 && a % 2 == 0 && b % 2 == 0)
+							if (cases_[a][b]->getTerrain() == Terrain::herbeux  && rand() % 100 >= 0 && a % 2 == 0 && b % 2 == 0)
 							{
 								nbEssaisArbre = 0;
-						
-								carte[a][b].setObstacle(Obstacle::arbre);
+
+								cases_[a][b]->setObstacle(Obstacle::arbre);
 								tabBaseArbreForet.push_back(Vecteur2<int>(a, b));
 
 							}
@@ -512,26 +586,26 @@ namespace Modele
 		}
 		int randTailleForet = 0;
 		bool tour = true;
-	
+
 		for (int i = 0; i < tabBaseArbreForet.size(); i++)
 		{
-			randTailleForet = rand() % intensite;		
+			randTailleForet = rand() % intensite;
 			if (tabBaseArbreForet[i].x < 15 && tabBaseArbreForet[i].y < 15)
 			{
-			
+
 				for (int t = 0; t < randTailleForet; t++)
 				{
 					if (t % 2 == 0)
 					{
-						if (tour && carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						if (tour && cases_[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x + 2;
 							tour = false;
 						}
-						else if (carte[tabBaseArbreForet[i].x ][tabBaseArbreForet[i].y+2].getTerrain() == Terrain::herbeux)
+						else if (cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y + 2]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y +2].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y + 2]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y + 2;
 							tour = true;
 						}
@@ -544,16 +618,16 @@ namespace Modele
 				{
 					if (t % 2 == 0)
 					{
-						if (tour && carte[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						if (tour && cases_[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x - 2;
 							tour = false;
 						}
-						else if (carte[tabBaseArbreForet[i].x ][tabBaseArbreForet[i].y+2].getTerrain() == Terrain::herbeux)
+						else if (cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y + 2]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y + 2].setObstacle(Obstacle::arbre);
-							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y +2;
+							cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y + 2]->setObstacle(Obstacle::arbre);
+							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y + 2;
 							tour = true;
 						}
 					}
@@ -565,15 +639,15 @@ namespace Modele
 				{
 					if (t % 2 == 0)
 					{
-						if (tour && carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						if (tour && cases_[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x + 2][tabBaseArbreForet[i].y]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x + 2;
 							tour = false;
 						}
-						else  if (carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y-2].getTerrain() == Terrain::herbeux)
+						else  if (cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y - 2]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y -2].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y - 2]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y - 2;
 							tour = true;
 						}
@@ -586,36 +660,40 @@ namespace Modele
 				{
 					if (t % 2 == 0)
 					{
-						if (tour && carte[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y].getTerrain() == Terrain::herbeux)
+						if (tour && cases_[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x - 2 ][tabBaseArbreForet[i].y].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x - 2][tabBaseArbreForet[i].y]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].x = tabBaseArbreForet[i].x - 2;
 							tour = false;
 						}
-						else  if (carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y-2].getTerrain() == Terrain::herbeux)
+						else  if (cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y - 2]->getTerrain() == Terrain::herbeux)
 						{
-							carte[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y - 2].setObstacle(Obstacle::arbre);
+							cases_[tabBaseArbreForet[i].x][tabBaseArbreForet[i].y - 2]->setObstacle(Obstacle::arbre);
 							tabBaseArbreForet[i].y = tabBaseArbreForet[i].y - 2;
 							tour = true;
 						}
 					}
 				}
 			}
-			
+
 		}
 		for (int i = 0; i < 32; i++)
 		{
 			for (int j = 0; j < 32; j++)
 			{
-				if (carte[i][j].getTerrain() == Terrain::rocheux && carte[i][j].getObstacle() == Obstacle::aucun)
+				if (cases_[i][j]->getTerrain() == Terrain::rocheux && cases_[i][j]->getObstacle() == Obstacle::aucun)
 				{
 					for (int a = i - 1; a <= i + 1; a++)
 					{
+						if (!(a < 32 && a >= 0))
+							continue;
 						for (int b = j - 1; b <= j + 1; b++)
 						{
-							if (carte[a][b].getTerrain() == Terrain::herbeux)
+							if (!(b < 32 && b >= 0))
+								continue;
+							if (cases_[a][b]->getTerrain() == Terrain::herbeux)
 							{
-								carte[a][b].setObstacle(Obstacle::aucun);
+								cases_[a][b]->setObstacle(Obstacle::aucun);
 							}
 						}
 					}
@@ -624,7 +702,7 @@ namespace Modele
 		}
 	}
 
-	void Grille::genererAutreAsset( int nbTotal)
+	void Grille::genererAutreAsset(int nbTotal)
 	{
 		int randI;
 		int randJ;
@@ -636,23 +714,16 @@ namespace Modele
 			switch (rand() % 2)
 			{
 			case 0:
-				carte[randI][randJ].setObstacle(Obstacle::buisson);
+				cases_[randI][randJ]->setObstacle(Obstacle::buisson);
 				break;
 			case 1:
-				if (carte[randI][randJ].getTerrain() != Terrain::rocheux)
+				if (cases_[randI][randJ]->getTerrain() != Terrain::rocheux)
 				{
-					carte[randI][randJ].setObstacle(Obstacle::rocher);
+					cases_[randI][randJ]->setObstacle(Obstacle::rocher);
 				}
 				break;
 			}
-			
+
 		}
 	}
-
-	Case Grille::getCase(int x, int y)
-	{
-		return carte[x][y];
-	}
-
-
 }

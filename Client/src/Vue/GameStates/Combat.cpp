@@ -7,11 +7,10 @@
 namespace Vue
 {
 	Combat::Combat() : interfaceUnite(&Modele::Tank(Modele::Equipe::Rouge, std::string("Benoit"), 0, 0)),
-	                   grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite()))
+		grille_(LONGUEUR_GRILLE, std::vector<sf::Sprite>(LARGEUR_GRILLE, sf::Sprite())), carte_(new Modele::Grille(Modele::Vecteur2<int>(32,32)))
 	{
 		textureSol_.loadFromFile("ressources/sprite/map.png");
 		textureSol_.setSmooth(true);
-		Grille carte;
 
 		ajouterUnite("Archer1", "ressources/sprite/Archer_sprite.png", sf::Vector2i(4, 3));
 
@@ -51,25 +50,19 @@ namespace Vue
 		case sf::Event::KeyPressed:
 			switch (event.key.code)
 			{
-			case sf::Keyboard::Z:
-				curseur_.deplacerCurseur(sf::Vector2i(0, -1));
+			case sf::Keyboard::Z: case sf::Keyboard::Up:
+				carte_.deplacerCurseur(Modele::Vecteur2<int>(0,-1));
 				menuAction_->deplacerAuChoixPrecedant();
 				break;
-			case sf::Keyboard::Q:
-				curseur_.deplacerCurseur(sf::Vector2i(-1, 0));
+			case sf::Keyboard::Q: case sf::Keyboard::Left:
+				carte_.deplacerCurseur(Modele::Vecteur2<int>(-1, 0));
 				break;
-			case sf::Keyboard::S:
-				curseur_.deplacerCurseur(sf::Vector2i(0, 1));
+			case sf::Keyboard::S: case sf::Keyboard::Down:
+				carte_.deplacerCurseur(Modele::Vecteur2<int>(0, 1));
 				menuAction_->deplacerAuChoixSuivant();
 				break;
-			case sf::Keyboard::D:
-				curseur_.deplacerCurseur(sf::Vector2i(1, 0));
-				break;
-			case sf::Keyboard::Up:
-				menuAction_->deplacerAuChoixPrecedant();
-				break;
-			case sf::Keyboard::Down:
-				menuAction_->deplacerAuChoixSuivant();
+			case sf::Keyboard::D: case sf::Keyboard::Right:
+				carte_.deplacerCurseur(Modele::Vecteur2<int>(1, 0));
 				break;
 			default: break;
 			}
@@ -92,9 +85,7 @@ namespace Vue
 		}
 		}*/
 
-		Controleur::Fenetre::fenetre->draw(carte_);
-
-		Controleur::Fenetre::fenetre->draw(curseur_);
+		carte_.dessiner(*Controleur::Fenetre::fenetre, sf::Transform());
 		for (Unite unite : unites_)
 			Controleur::Fenetre::fenetre->draw(unite);
 		Controleur::Fenetre::fenetre->draw(interfaceUnite);
