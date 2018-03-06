@@ -7,7 +7,7 @@
 #include "../Vue/GameStates/Combat.h"
 #include <pugixml.hpp>
 #include <sstream>
-#include "../../../../../../../Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/include/list"
+#include "list"
 
 
 namespace Controleur
