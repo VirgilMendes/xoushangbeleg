@@ -7,7 +7,7 @@
 #include "../Vue/GameStates/Combat.h"
 #include <pugixml.hpp>
 #include <sstream>
-#include "list"
+#include <list>
 #include "../Modele/Grille.h"
 
 

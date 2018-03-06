@@ -43,6 +43,8 @@ namespace Vue
 			case sf::Keyboard::D: case sf::Keyboard::Right:
 				grille_.deplacerCurseur(Modele::Vecteur2<int>(1, 0));
 				break;
+			case sf::Keyboard::K: case sf::Keyboard::Return:
+				grille_.afficherCaseAccessible();
 			default: break;
 			}
 		}

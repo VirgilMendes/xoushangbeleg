@@ -23,6 +23,8 @@ namespace Vue
 		void ajouterUnite(std::string nom, std::string cheminTexture, Modele::Vecteur2<int> position);
 		void deplacerUnite(std::string nom, Modele::Vecteur2<int> position);
 
+		void afficherCaseAccessible();
+
 		void dessiner(sf::RenderTarget& target, sf::RenderStates states);
 
 	protected:

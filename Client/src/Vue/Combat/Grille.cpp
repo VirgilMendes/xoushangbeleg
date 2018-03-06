@@ -115,6 +115,13 @@ namespace Vue
 		}
 	}
 
+	void Grille::afficherCaseAccessible()
+	{
+		std::list<Modele::Vecteur2<int>> coordonneeCasesAccessibles = grille_->chercherCasesAccessibles(curseur_.getPosition(), 3);
+		for(auto coordonneeCase : coordonneeCasesAccessibles)
+			std::cout <<  std::to_string(coordonneeCase) << std::endl;
+	}
+
 	void Grille::dessiner(sf::RenderTarget& target, sf::RenderStates states)
 	{
 		target.setView(*this);

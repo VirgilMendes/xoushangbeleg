@@ -5,7 +5,8 @@
 #include <set>
 #include <queue>
 #include <stack>
-#include "forward_list"
+#include <forward_list>
+#include <list>
 
 namespace Modele {
 
@@ -30,10 +31,10 @@ namespace Modele {
 		void relancerOrdreDeJeu();
 
 		std::forward_list<Vecteur2<int>> getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees);
-		std::set<Vecteur2<int>> chercherCaseAccessible(const Vecteur2<int>& depart, const int rayon);
+		std::list<Vecteur2<int>> chercherCasesAccessibles(const Vecteur2<int>& depart, const int rayon);
 		std::stack<Vecteur2<int>> chercherChemin(const Vecteur2<int>& cible);
-		std::set<Vecteur2<int>> getDerniereRecherche() { return derniereRecherche_; }
-		void nettoyerDerniereRecherche() { derniereRecherche_.clear(); }
+		std::list<Vecteur2<int>> getDerniereRecherche() { return derniereRecherche_; }
+		void nettoyerDerniereRecherche();
 
 		Unite * getProprietaireDerniereRecherche() { return proprietaireDerniereRecherche_; }
 
@@ -57,7 +58,7 @@ namespace Modele {
 		std::priority_queue<Unite*> ordreDeJeu_;
 
 		//Sauvegarde Recherche de chemin
-		std::set<Vecteur2<int>> derniereRecherche_;
+		std::list<Vecteur2<int>> derniereRecherche_;
 		Unite * proprietaireDerniereRecherche_;
 
 		//Generation Procedurale

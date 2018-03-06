@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 
+
 namespace Modele
 {
 	Grille::Grille(const Vecteur2<int>& dimension) : dimension_(dimension), proprietaireDerniereRecherche_(nullptr)
@@ -75,6 +76,13 @@ namespace Modele
 		return std::stack<Vecteur2<int>>();
 	}
 
+	void Grille::nettoyerDerniereRecherche()
+	{
+		for(auto iterateur(derniereRecherche_.begin()); iterateur != derniereRecherche_.end(); ++iterateur)
+			getCase(*iterateur)->setCout(INT32_MAX);
+		derniereRecherche_.clear();
+	}
+
 	std::forward_list<Vecteur2<int>> Grille::getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees)
 	{
 		getCase(coordonnees);
@@ -82,16 +90,16 @@ namespace Modele
 		if (coordonnees.y + 1 < dimension_.y)
 			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
 		if (coordonnees.x + 1 < dimension_.x)
-			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
-		if (coordonnees.y - 1 >= 0)
-			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
-		if (coordonnees.x - 1 >= 0)
-			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::EST);
+		if (coordonnees.y > 0)
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::SUD);
+		if (coordonnees.x > 0)
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::OUEST);
 
 		return coordonneeCasesAdjacentes;
 	}	
 
-	std::set<Vecteur2<int>> Grille::chercherCaseAccessible(const Vecteur2<int>& depart, const int rayon)
+	std::list<Vecteur2<int>> Grille::chercherCasesAccessibles(const Vecteur2<int>& depart, const int rayon)
 	{
 		nettoyerDerniereRecherche();
 
@@ -111,14 +119,14 @@ namespace Modele
 			Case* caseCourante = analyser.top();
 			analyser.pop();
 			const int coutCaseCourante = caseCourante->getCout();
-			derniereRecherche_.emplace(caseCourante->getPosition());
+			derniereRecherche_.push_back(caseCourante->getPosition());
 
 			for (const Vecteur2<int> coordonneesCasesAdjacente : getCoordonneesCasesAdjacentes(caseCourante->getPosition()))
 			{
 				Case* caseAdjacente = getCase(coordonneesCasesAdjacente);
-				if(coutCaseCourante + 1 <= rayon && coutCaseCourante + 1 < caseCourante->getCout())
+				if(coutCaseCourante + 1 <= rayon && coutCaseCourante + 1 < caseAdjacente->getCout())
 				{
-					caseCourante->setCout(caseAdjacente->getCout() + 1);
+					caseAdjacente->setCout(caseCourante->getCout() + 1);
 					analyser.push(caseAdjacente);
 				}
 			}
