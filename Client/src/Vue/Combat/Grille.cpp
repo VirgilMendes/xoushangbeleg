@@ -97,7 +97,7 @@ namespace Vue
 		{
 			texture = textures_[cheminTexture];
 		}
-		Modele::Unite* unite = new Modele::Tank(Modele::Equipe::Rouge, nom, position.x, position.y);
+		Modele::Unite* unite = new Modele::Archer(Modele::Equipe::Bleu, nom, position.x, position.y);
 		grille_->ajouterUnite(unite);
 		unites_.push_back(Unite(nom, texture, position));
 	}

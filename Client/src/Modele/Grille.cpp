@@ -75,13 +75,55 @@ namespace Modele
 		return std::stack<Vecteur2<int>>();
 	}
 
-	std::set<Vecteur2<int>> Grille::chercherCaseAccessible(const Vecteur2<int>& depart)
+	std::forward_list<Vecteur2<int>> Grille::getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees)
 	{
-		return std::set<Vecteur2<int>>();
-	}
+		getCase(coordonnees);
+		std::forward_list<Vecteur2<int>> coordonneeCasesAdjacentes;
+		if (coordonnees.y + 1 < dimension_.y)
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
+		if (coordonnees.x + 1 < dimension_.x)
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
+		if (coordonnees.y - 1 >= 0)
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
+		if (coordonnees.x - 1 >= 0)
+			coordonneeCasesAdjacentes.push_front(coordonnees + Vecteur2<int>::NORD);
 
-	void Grille::nettoyerDerniereRecherche()
+		return coordonneeCasesAdjacentes;
+	}	
+
+	std::set<Vecteur2<int>> Grille::chercherCaseAccessible(const Vecteur2<int>& depart, const int rayon)
 	{
+		nettoyerDerniereRecherche();
+
+		auto comparateurCaseCout = [](Case* a, Case* b) {return (a->getCout() > b->getCout()); };
+		std::priority_queue < Case*, std::vector<Case*>, decltype(comparateurCaseCout)> analyser(comparateurCaseCout);
+
+		Case* caseDepart = getCase(depart);
+
+		proprietaireDerniereRecherche_ = caseDepart->getUnite();
+
+		caseDepart->setCout(0);
+
+		analyser.push(caseDepart);
+
+		while (!analyser.empty())
+		{
+			Case* caseCourante = analyser.top();
+			analyser.pop();
+			const int coutCaseCourante = caseCourante->getCout();
+			derniereRecherche_.emplace(caseCourante->getPosition());
+
+			for (const Vecteur2<int> coordonneesCasesAdjacente : getCoordonneesCasesAdjacentes(caseCourante->getPosition()))
+			{
+				Case* caseAdjacente = getCase(coordonneesCasesAdjacente);
+				if(coutCaseCourante + 1 <= rayon && coutCaseCourante + 1 < caseCourante->getCout())
+				{
+					caseCourante->setCout(caseAdjacente->getCout() + 1);
+					analyser.push(caseAdjacente);
+				}
+			}
+		}
+		return derniereRecherche_;
 	}
 
 	void Grille::deplacerUnite(const std::string& nom, const Vecteur2<int>& destination)

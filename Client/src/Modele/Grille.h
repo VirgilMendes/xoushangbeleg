@@ -5,6 +5,7 @@
 #include <set>
 #include <queue>
 #include <stack>
+#include "../../../../../../../Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/include/forward_list"
 
 namespace Modele {
 
@@ -28,10 +29,11 @@ namespace Modele {
 		Unite* getUniteActuel() { return ordreDeJeu_.empty() ? ordreDeJeu_.top() : nullptr; }
 		void relancerOrdreDeJeu();
 
+		std::forward_list<Vecteur2<int>> getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees);
+		std::set<Vecteur2<int>> chercherCaseAccessible(const Vecteur2<int>& depart, const int rayon);
 		std::stack<Vecteur2<int>> chercherChemin(const Vecteur2<int>& cible);
-		std::set<Vecteur2<int>> chercherCaseAccessible(const Vecteur2<int>& depart);
 		std::set<Vecteur2<int>> getDerniereRecherche() { return derniereRecherche_; }
-		void nettoyerDerniereRecherche();
+		void nettoyerDerniereRecherche() { derniereRecherche_.clear(); }
 
 		Unite * getProprietaireDerniereRecherche() { return proprietaireDerniereRecherche_; }
 

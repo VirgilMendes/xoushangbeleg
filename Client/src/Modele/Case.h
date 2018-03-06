@@ -39,6 +39,9 @@ namespace Modele
 		Vecteur2<int > getPosition() { return position_; }
 		void setPosition(const Vecteur2<int>& position) { position_ = position; }
 
+		int getCout() { return cout_; }
+		void setCout(int cout) { cout_ = cout; }
+
 		Case * getCaseParent() { return caseParent_; }
 		void setCaseParent(Case* caseParent) { caseParent_ = caseParent; }
 
@@ -51,6 +54,7 @@ namespace Modele
 		
 		Unite* unite_;
 
+		int cout_ = INT32_MAX;
 		Case* caseParent_;
 	};
 
