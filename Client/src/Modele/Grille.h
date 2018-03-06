@@ -5,8 +5,7 @@
 #include <set>
 #include <queue>
 #include <stack>
-#include "../../../../../../../Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/include/forward_list"
-#include <forward_list>
+#include "forward_list"
 
 namespace Modele {
 
