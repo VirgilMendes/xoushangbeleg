@@ -143,6 +143,16 @@ namespace Vue
 		}
 	}
 
+	void Grille::genererInformationPersonnage(Modele::Unite* unite)
+	{
+		interfaceUnite_ = new InterfaceUnite(unite);
+	}
+
+	void Grille::detruireInfomationPersonnage()
+	{
+		interfaceUnite_ = __nullptr;
+	}
+
 	void Grille::afficherFiltreSurCases(std::list<Modele::Vecteur2<int>> cases)
 	{
 		

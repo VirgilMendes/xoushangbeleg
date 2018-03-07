@@ -5,7 +5,7 @@ namespace Controleur
 {
 	Grille::Grille(Modele::Vecteur2<int> dimension) : modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this))
 	{
-		Modele::Unite* unite = new Modele::Archer(Modele::Equipe::Bleu, "Archer", 3,4);
+		Modele::Unite* unite = new Modele::Tank(Modele::Equipe::Bleu, "Archer", 3,4);
 		modele_->ajouterUnite(unite);
 		vue_->ajouterUnite(unite, Vue::Unite::cheminTextureUnite.at(unite->getClasse()));
 	}
@@ -71,15 +71,23 @@ namespace Controleur
 
 	void Grille::deplacerCurseur(Modele::Vecteur2<int> deplacement)
 	{
+		vue_->detruireInfomationPersonnage();
 		modele_->getCase(positionCurseur_+deplacement);
 		positionCurseur_ += deplacement;
 		vue_->deplacerCurseur(deplacement);
+		Modele::Unite* uniteCurseur = modele_->getCase(positionCurseur_)->getUnite();
+		if (uniteCurseur != nullptr)
+			vue_->genererInformationPersonnage(uniteCurseur);
 	}
 
 	void Grille::setPositionCurseur(Modele::Vecteur2<int> position)
 	{
+		vue_->detruireInfomationPersonnage();
 		modele_->getCase(position);
 		positionCurseur_ = position;
 		vue_->setPositionCurseur(position);
+		Modele::Unite* uniteCurseur = modele_->getCase(positionCurseur_)->getUnite();
+		if (uniteCurseur != nullptr)
+			vue_->genererInformationPersonnage(uniteCurseur);
 	}
 }

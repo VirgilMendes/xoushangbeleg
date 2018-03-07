@@ -32,6 +32,9 @@ namespace Vue
 		void ajouterUnite(Modele::Unite* unite, std::string cheminTexture);
 		void deplacerUnite(Modele::Unite* unite, Modele::Vecteur2<int> deplacement);
 
+		void genererInformationPersonnage(Modele::Unite* unite);
+		void detruireInfomationPersonnage();
+
 		void afficherFiltreSurCases(std::list<Modele::Vecteur2<int>> cases);
 
 		void handleEvent() override;
