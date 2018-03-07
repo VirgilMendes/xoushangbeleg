@@ -3,6 +3,7 @@
 #include "../../Controleur/GameStates/GameState.h"
 #include "../../Controleur/Navigation.h"
 #include "../../Controleur/GameStates/Grille.h"
+#include "../Combat/FiltreCase.h"
 
 #define RESOLUTION 64
 
@@ -153,9 +154,14 @@ namespace Vue
 		interfaceUnite_ = __nullptr;
 	}
 
-	void Grille::afficherFiltreSurCases(std::list<Modele::Vecteur2<int>> cases)
+	void Grille::genererFiltreSurCases(std::list<Modele::Vecteur2<int>> cases)
 	{
-		
+		filtreCase_ = new FiltreCase(cases);
+	}
+
+	void Grille::supprimerFiltreSurCases()
+	{
+		filtreCase_ = nullptr;
 	}
 
 	void Grille::handleEvent()
@@ -214,8 +220,12 @@ namespace Vue
 		for (Unite unite : unites_)
 			unite.dessiner(fenetre, etat);
 
+		if (filtreCase_ != nullptr)
+			filtreCase_->dessiner(fenetre, etat);
+
 		fenetre->setView(fenetre->getDefaultView());
 		if (interfaceUnite_ != nullptr)
 			fenetre->draw(*interfaceUnite_, etat);
+
 	}
 }

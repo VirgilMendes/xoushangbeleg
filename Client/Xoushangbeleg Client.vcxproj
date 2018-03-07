@@ -141,6 +141,7 @@
     <ClCompile Include="src\Modele\Grille.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
+    <ClCompile Include="src\Vue\Combat\FiltreCase.cpp" />
     <ClCompile Include="src\Vue\GameStates\Grille.cpp" />
     <ClCompile Include="src\Vue\Combat\Unite.cpp" />
     <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
+    <ClInclude Include="src\Vue\Combat\FiltreCase.h" />
     <ClInclude Include="src\Vue\GameStates\Grille.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
     <ClInclude Include="src\Vue\Combat\Curseur.h" />

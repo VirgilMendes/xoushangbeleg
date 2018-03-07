@@ -7,6 +7,7 @@
 #include "../Combat/InterFaceUnite.h"
 #include "../../Controleur/GameStates/GameState.h"
 #include "GameState.h"
+#include "../Combat/FiltreCase.h"
 
 namespace Controleur
 {
@@ -35,7 +36,8 @@ namespace Vue
 		void genererInformationPersonnage(Modele::Unite* unite);
 		void detruireInfomationPersonnage();
 
-		void afficherFiltreSurCases(std::list<Modele::Vecteur2<int>> cases);
+		void genererFiltreSurCases(std::list<Modele::Vecteur2<int>> cases);
+		void supprimerFiltreSurCases();
 
 		void handleEvent() override;
 		void update() override;
@@ -64,6 +66,8 @@ namespace Vue
 			sf::Texture textureObstacle_;
 
 			sf::VertexArray sommets_;
+
+			FiltreCase* filtreCase_;
 
 			sf::Clock* horloge_;
 			int frame_;
