@@ -33,21 +33,11 @@ namespace Controleur
 			//verification du premier node
 			if ((std::string)root.first_child().name() == "deplacement") 
 			{
-				//nom de l'unite
-				std::string nomUnite = root.child("deplacement").child("unite").child("nom").child_value();
-
-				Modele::Vecteur2<int> position;
-				//position X de l'unite
-				position.x = stoi((std::string)root.child("deplacement").child("position").child("x").child_value());
-				//position Y de l'unite
-				position.y = stoi((std::string)root.child("deplacement").child("position").child("y").child_value());
-				
-				Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
-				//Combat->deplacerUnite(nomUnite, position);
+				deplacerXml(root);
 			}
-			else if ((std::string)root.first_child().name() == "carte") 
+			else if ((std::string)root.first_child().name() == "initialisation") 
 			{
-				
+				initialiserXml(root);
 			}
 			else 
 			{
@@ -55,6 +45,41 @@ namespace Controleur
 			}
 
 
+		}
+		static void deplacerXml(pugi::xml_node root) {
+			//nom de l'unite
+			std::string nomUnite = root.child("deplacement").child("unite").child("nom").child_value();
+
+			Modele::Vecteur2<int> position;
+			//position X de l'unite
+			position.x = stoi((std::string)root.child("deplacement").child("position").child("x").child_value());
+			//position Y de l'unite
+			position.y = stoi((std::string)root.child("deplacement").child("position").child("y").child_value());
+
+			Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
+			//Combat->deplacerUnite(nomUnite, position);
+		}
+
+		static void initialiserXml(pugi::xml_node root) {
+			//Gerer la carte
+			//root.child("carte")...
+
+			//Unites
+			//Variables pour les unites
+			std::string nomUnite;
+			Modele::Classe classeUnite;
+			Modele::Equipe equipeUnite;
+			int vieMaxUnite;
+			int vieCouranteUnite;
+			int statDefUnite;
+			int statAttUnite;
+			Modele::Vecteur2<int> positionUnite;
+
+			//Cas a part pour chaque unite
+			pugi::xml_node listeUnites = root.child("unites");
+			for (pugi::xml_node uniteXml = listeUnites.child("unite"); uniteXml; uniteXml = uniteXml.next_sibling("unite")) {
+
+			}
 		}
 
 		static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
@@ -95,10 +120,10 @@ namespace Controleur
 			pugi::xml_node nodePositionXUnite;
 			pugi::xml_node nodePositionYUnite;
 			Modele::Vecteur2<int> position;
-			std::vector<Modele::Unite> listeUnite_;
-			//utiliser listeUnite de Carte.h
-			for (unsigned int i = 0; i < listeUnite_.size(); ++i) {
-				Modele::Unite unite = listeUnite_[i];
+			std::set<Modele::Unite> listeUnite_;
+			//utiliser listeUnite de Carte.h{
+			for (auto iterateur(listeUnite_.begin()); iterateur != listeUnite_.end(); iterateur++){
+				Modele::Unite unite = *iterateur;
 				position = unite.getPosition();
 
 				nodeUnite = nodeListeUnite.append_child("unite");
