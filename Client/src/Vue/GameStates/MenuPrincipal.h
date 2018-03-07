@@ -3,7 +3,7 @@
 #include "../Outils/Jauge.h"
 #include <string>
 #include "../Outils/Animation.h"
-#include "../Outils/GameState.h"
+#include "../GameStates/GameState.h"
 
 namespace Vue
 {
@@ -13,9 +13,9 @@ namespace Vue
 	public:
 
 		MenuPrincipal();
-		void handleEvent(sf::Event event) override;
+		void handleEvent() override;
 		void update() override;
-		void draw() override;
+		void dessiner() override;
 		void setFichiers(bool filesExistant);
 
 	private:

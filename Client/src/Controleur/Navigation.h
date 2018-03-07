@@ -2,9 +2,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "../Vue/Outils/GameState.h"
+#include "GameStates/GameState.h"
 #include <stack>
-#include "../Vue/GameStates/Combat.h"
+#include "GameStates/Grille.h"
 #include <pugixml.hpp>
 #include <sstream>
 #include <list>
@@ -22,7 +22,7 @@ namespace Controleur
 
 		static void run();
 
-		static void empilerGameState(Vue::GameState* gamestate);
+		static void empilerGameState(GameState* gamestate);
 		
 		static void depilerGameState();
 		
@@ -56,7 +56,7 @@ namespace Controleur
 			//position Y de l'unite
 			position.y = stoi((std::string)root.child("deplacement").child("position").child("y").child_value());
 
-			Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
+			//Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
 			//Combat->deplacerUnite(nomUnite, position);
 		}
 
@@ -84,7 +84,6 @@ namespace Controleur
 
 		static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
 		{
-			Vue::Combat* vueCombat = dynamic_cast<Vue::Combat*>(gameStates_.back());
 			//vueCombat->deplacerUnite(nom, position);
 
 			pugi::xml_document doc;
@@ -166,7 +165,7 @@ namespace Controleur
 
 	private:
 
-		static std::list<Vue::GameState*> gameStates_;
+		static std::list<GameState*> gameStates_;
 	};
 
 	

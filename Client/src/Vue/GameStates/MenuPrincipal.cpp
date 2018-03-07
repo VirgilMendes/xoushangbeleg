@@ -63,10 +63,10 @@ namespace Vue
 		sauvegardeExistante_ = sauvegardeExistante;
 	}
 
-	void MenuPrincipal::handleEvent(sf::Event event)
+	void MenuPrincipal::handleEvent()
 	{
 
-		TabMenu_[choix_].setFillColor(sf::Color::White);
+		/*TabMenu_[choix_].setFillColor(sf::Color::White);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && toucheLache_)
 		{
@@ -106,7 +106,7 @@ namespace Vue
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 		{
-		}
+		}*/
 	}
 
 	void MenuPrincipal::update()
@@ -122,7 +122,7 @@ namespace Vue
 		TabMenu_[choix_].setFillColor(sf::Color::Yellow);
 	}
 
-	void MenuPrincipal::draw()
+	void MenuPrincipal::dessiner()
 	{
 		for (int i = 0; i < 4; i++)
 		{

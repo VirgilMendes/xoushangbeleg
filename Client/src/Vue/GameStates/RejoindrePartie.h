@@ -2,8 +2,13 @@
 
 #include <string>
 #include "../Outils/Animation.h"
-#include "../Outils/GameState.h"
+#include "../GameStates/GameState.h"
 
+
+namespace Controleur 
+{
+	class Fenetre;
+}
 
 namespace Vue
 {
@@ -13,9 +18,9 @@ namespace Vue
 	public:
 
 		RejoindrePartie(Controleur::Fenetre* fenetre);
-		void handleEvent(sf::Event event) override;
+		void handleEvent() override;
 		void update() override;
-		void draw() override;
+		void dessiner() override;
 		std::string RejoindrePartie::getIP();
 
 

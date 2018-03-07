@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Controleur\GameStates\Grille.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modele\Archer.cpp" />
@@ -140,8 +141,8 @@
     <ClCompile Include="src\Modele\Grille.cpp" />
     <ClCompile Include="src\Modele\Tank.cpp" />
     <ClCompile Include="src\Modele\Unite.cpp" />
-    <ClCompile Include="src\Vue\Combat\Grille.cpp" />
-    <ClCompile Include="src\Vue\GameStates\Combat.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Grille.cpp" />
+    <ClCompile Include="src\Vue\Combat\Unite.cpp" />
     <ClCompile Include="src\Vue\Outils\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
@@ -150,7 +151,7 @@
     <ClCompile Include="src\Vue\Combat\InterfaceUnite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Vue\GameStates\Combat.h" />
+    <ClInclude Include="src\Controleur\GameStates\Grille.h" />
     <ClInclude Include="src\Modele\Archer.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Modele\Grille.h" />
@@ -158,14 +159,15 @@
     <ClInclude Include="src\Modele\Soldat.h" />
     <ClInclude Include="src\Modele\Tank.h" />
     <ClInclude Include="src\Modele\Unite.h" />
-    <ClInclude Include="src\Vue\Combat\Grille.h" />
+    <ClInclude Include="src\Vue\GameStates\Grille.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
     <ClInclude Include="src\Vue\Combat\Curseur.h" />
     <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
+    <ClInclude Include="src\Vue\GameStates\GameState.h" />
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
     <ClInclude Include="src\Vue\Outils\MenuChoix.h" />
     <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
-    <ClInclude Include="src\Vue\Outils\GameState.h" />
+    <ClInclude Include="src\Controleur\GameStates\GameState.h" />
     <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
     <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />

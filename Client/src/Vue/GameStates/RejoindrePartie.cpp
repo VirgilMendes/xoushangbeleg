@@ -68,10 +68,10 @@ namespace Vue
 		ip_.setFillColor(sf::Color::White);
 		ip_.setPosition(30, 650);
 	}
-	void RejoindrePartie::handleEvent(sf::Event event)
+	void RejoindrePartie::handleEvent()
 	{
 
-		menu_[choix_].setFillColor(sf::Color::White);
+		/*menu_[choix_].setFillColor(sf::Color::White);
 
 		ipRemplie_ = (ipPartie_.size() == 30);
 
@@ -131,7 +131,7 @@ namespace Vue
 		if (event.type == sf::Event::KeyReleased)
 		{
 			toucheLache_ = true;
-		}
+		}*/
 	}
 	
 	void RejoindrePartie::update()
@@ -140,7 +140,7 @@ namespace Vue
 		logo_.setTextureRect(animationtitre_.getFrame());
 	}
 
-	void RejoindrePartie::draw()
+	void RejoindrePartie::dessiner()
 	{
 		Controleur::Fenetre::fenetre->draw(titreMenu_);
 		Controleur::Fenetre::fenetre->draw(ip_);

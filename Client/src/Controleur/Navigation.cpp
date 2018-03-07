@@ -6,14 +6,14 @@ namespace Controleur
 {
 
 	sf::RenderWindow* Fenetre::fenetre = nullptr;
-	std::list<Vue::GameState*> Fenetre::gameStates_;
+	std::list<GameState*> Fenetre::gameStates_;
 
 	void Fenetre::initialiser()
 	{
 		fenetre = new sf::RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		fenetre->setFramerateLimit(60);
-		Vue::Combat* combat = new Vue::Combat();
-		gameStates_.push_back(combat);
+		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
+		gameStates_.push_back(grille);
 	}
 
 	void Fenetre::run()
@@ -25,21 +25,10 @@ namespace Controleur
 				fenetre->close();
 				break;
 			}
-
-			sf::Event event;
-			while (fenetre->pollEvent(event))
-			{
-				switch (event.type)
-				{
-				case sf::Event::Closed:
-					fenetre->close();
-					break;
-				default:
-					gameStates_.back()->handleEvent(event);
-				}
-			}
 			
-			std::list<Vue::GameState*>::reverse_iterator iterateur(gameStates_.rbegin());
+			gameStates_.back()->handleEvent();
+
+			std::list<GameState*>::reverse_iterator iterateur(gameStates_.rbegin());
 
 			fenetre->clear(sf::Color::Black);
 
@@ -48,18 +37,18 @@ namespace Controleur
 			while(iterateur != gameStates_.rbegin())
 			{
 				(*iterateur)->update();
-				(*iterateur)->draw();
+				(*iterateur)->dessiner();
 				--iterateur;
 			}
 			(*iterateur)->update();
-			(*iterateur)->draw();
+			(*iterateur)->dessiner();
 
 			fenetre->display();
 			
 		}
 	}
 
-	void Fenetre::empilerGameState(Vue::GameState* gamestate)
+	void Fenetre::empilerGameState(GameState* gamestate)
 	{
 		gameStates_.push_back(gamestate);
 	}

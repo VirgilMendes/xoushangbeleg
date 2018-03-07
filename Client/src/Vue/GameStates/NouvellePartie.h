@@ -2,7 +2,7 @@
 
 #include <string>
 #include "../Outils/Animation.h"
-#include "../Outils/GameState.h"
+#include "../GameStates/GameState.h"
 
 namespace Vue
 {
@@ -12,9 +12,9 @@ namespace Vue
 	public:
 
 		NouvellePartie();
-		void handleEvent(sf::Event event) override;
+		void handleEvent() override;
 		void update() override;
-		void draw() override;
+		void dessiner() override;
 
 		void NouvellePartie::setIP();
 		void NouvellePartie::setIP(std::string std);
