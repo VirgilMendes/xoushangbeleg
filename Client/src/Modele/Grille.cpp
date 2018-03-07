@@ -42,9 +42,10 @@ namespace Modele
 		ajouterUnite(&unite3);
 		pugi::xml_document doc;
 		auto root = doc.append_child("paquet");
-		pugi::xml_node nodeCarte = root.append_child("carte");
+		pugi::xml_node nodeInitialisation = root.append_child("initialisation");
+		pugi::xml_node nodeCarte = nodeInitialisation.append_child("carte");
 		pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
-		pugi::xml_node nodeListeUnite = root.append_child("unites");
+		pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
 		pugi::xml_node nodeUnite;
 		pugi::xml_node nodeNomUnite;
 		pugi::xml_node nodeClasseUnite;
