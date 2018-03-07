@@ -25,6 +25,8 @@ namespace Vue
 
 		void afficherCaseAccessible();
 
+		void miseAJourAnimation();
+
 		void dessiner(sf::RenderTarget& target, sf::RenderStates states);
 
 	protected:
@@ -49,5 +51,8 @@ namespace Vue
 			sf::Texture textureObstacle_;
 
 			sf::VertexArray sommets_;
+			sf::Clock* horloge_;
+			int frame ;
+		
 	};
 }

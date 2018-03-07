@@ -7,6 +7,9 @@ namespace Vue
 {
 	Grille::Grille(Modele::Grille* grille) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1000, 700)), grille_(grille), interfaceUnite_(nullptr)
 	{
+		horloge_ = new sf::Clock;
+		int frame = 0;
+
 		if (!textureGrille_.loadFromFile("ressources/sprite/map.png"))
 		{
 			std::cout << "erreur chargement Texture TextureGrille.png" << std::endl;
@@ -49,6 +52,8 @@ namespace Vue
 		setCenter(0, 0);
 	}
 
+
+
 	Grille::~Grille()
 	{
 		auto iterateur = textures_.begin();
@@ -60,6 +65,41 @@ namespace Vue
 
 		delete grille_; 
 	}
+
+	void Grille::miseAJourAnimation()
+	{
+		if (horloge_->getElapsedTime().asMilliseconds() >= 1000)
+		{
+			if (frame == 1)
+			{
+				frame = 0;
+			}
+			else
+			{
+				frame = 1;
+			}
+			horloge_->restart();
+		}
+		
+		const int largeur(grille_->getDimension().x), hauteur(grille_->getDimension().y);
+
+		for (int i = 0; i < largeur; i++)
+		{
+			for (int j = 0; j < hauteur; j++)
+			{
+				Modele::Case* caseGrille = grille_->getCase(Modele::Vecteur2<int>(i, j));
+				sf::Vertex* quad = &sommets_[(i + j * largeur) * 4];
+				const int caseNombre(caseGrille->getTerrain()._to_integral() * 8 + caseGrille->getObstacle()._to_integral() * 2 + 1);
+
+				// on définit ses quatre coordonnées de texture
+				quad[0].texCoords = sf::Vector2f((caseNombre - 1 + frame) * RESOLUTION, 0);
+				quad[1].texCoords = sf::Vector2f((caseNombre + frame) * RESOLUTION, 0);
+				quad[2].texCoords = sf::Vector2f((caseNombre + frame) * RESOLUTION, RESOLUTION);
+				quad[3].texCoords = sf::Vector2f((caseNombre - 1 + frame) * RESOLUTION, RESOLUTION);
+			}
+		}
+	}
+
 
 	void Grille::setPositionCurseur(Modele::Vecteur2<int> position)
 	{
@@ -102,6 +142,8 @@ namespace Vue
 		unites_.push_back(Unite(nom, texture, position));
 	}
 
+
+
 	void Grille::deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
 	{
 		for(auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur )
@@ -124,6 +166,8 @@ namespace Vue
 
 	void Grille::dessiner(sf::RenderTarget& target, sf::RenderStates states)
 	{
+		Grille::miseAJourAnimation();
+
 		target.setView(*this);
 		// on applique la texture du tileset du sol
 		states.texture = &textureGrille_;
