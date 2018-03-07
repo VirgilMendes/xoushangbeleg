@@ -13,21 +13,31 @@
 
 <!-- Paquet d'initialisation des positions et de la carte -->
 <paquet>
-  <carte>
-    <nom>nom de la carte</nom>
-  </carte>
-  <unites>
-    <"nomdel'unité">
-      <classe>nom de la classe</classe>
-      <equipe>numéro de l'equipe</equipe>
-      <vieMax>vie max</vieMax>
-      <vieCourante>vie courante</vieCourante>
-      <attaque> attaque </attaque>
-      <defense> defense </defense>
-      <position>
-        <x>coordonné x</x>
-        <y>coordonné y</y>
-      </position>
-    </"nomdel'unité">
-  </unite>
+  <initialisation>
+	  <carte>
+		<nom>nom de la carte</nom>
+	  </carte>
+	  <unites>
+		<unite>
+		  <nomunite>nom de l'unite</nomunite>
+		  <classe>nom de la classe</classe>
+		  <equipe>numéro de l'equipe</equipe>
+		  <vieMax>vie max</vieMax>
+		  <vieCourante>vie courante</vieCourante>
+		  <attaque> attaque </attaque>
+		  <defense> defense </defense>
+		  <position>
+			<x>coordonné x</x>
+			<y>coordonné y</y>
+		  </position>
+		</unite>
+		<unite>
+		  <nomunite>nom de l'unite</nomunite>
+		  <classe>nom de la classe</classe>
+		  .
+		  .
+		  .
+		</unite>
+	  </unites>
+	</initialisation>
 </paquet>

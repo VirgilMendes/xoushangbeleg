@@ -6,6 +6,8 @@
 #include <time.h>
 #include <iostream>
 #include <vector>
+#include <pugixml.hpp>
+#include <sstream>
 
 
 namespace Modele
@@ -30,6 +32,73 @@ namespace Modele
 		genererObstaclesRocheux();
 		genererArbre(20);
 		genererAutreAsset(50);
+
+		//Test XML
+		Modele::Unite unite1(Equipe::_from_string("Bleu"), Classe::_from_string("Archer"), "Archer1", 150, 150, 10, 15, Vecteur2<int>(5, 6));
+		ajouterUnite(&unite1);
+		Modele::Unite unite2(Equipe::_from_string("Bleu"), Classe::_from_string("Soldat"), "Soldat1", 200, 200, 15, 13, Vecteur2<int>(8, 7));
+		ajouterUnite(&unite2);
+		Modele::Unite unite3(Equipe::_from_string("Rouge"), Classe::_from_string("Tank"), "Tank1", 300, 300, 7, 20, Vecteur2<int>(10, 12));
+		ajouterUnite(&unite3);
+		pugi::xml_document doc;
+		auto root = doc.append_child("paquet");
+		pugi::xml_node nodeInitialisation = root.append_child("initialisation");
+		pugi::xml_node nodeCarte = nodeInitialisation.append_child("carte");
+		pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
+		pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
+		pugi::xml_node nodeUnite;
+		pugi::xml_node nodeNomUnite;
+		pugi::xml_node nodeClasseUnite;
+		pugi::xml_node nodeEquipeUnite;
+		pugi::xml_node nodeVieMaxUnite;
+		pugi::xml_node nodeVieCouranteUnite;
+		pugi::xml_node nodeAttaqueUnite;
+		pugi::xml_node nodeDefenseUnite;
+		pugi::xml_node nodePositionUnite;
+		pugi::xml_node nodePositionXUnite;
+		pugi::xml_node nodePositionYUnite;
+		Modele::Vecteur2<int> position;
+		std::cout << unites_.size() << std::endl;
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); iterateur++) {
+			Modele::Unite *unite = *iterateur;
+			position = unite->getPosition();
+
+			nodeUnite = nodeListeUnite.append_child("unite");
+
+			nodeNomUnite = nodeUnite.append_child("nomunite");
+			nodeNomUnite.text().set(unite->getNom().c_str());
+
+			nodeClasseUnite = nodeUnite.append_child("classe");
+			nodeClasseUnite.text().set(unite->getClasse()._to_string());
+
+			nodeEquipeUnite = nodeUnite.append_child("equipe");
+			nodeEquipeUnite.text().set(unite->getEquipe()._to_string());
+
+			nodeVieMaxUnite = nodeUnite.append_child("vieMax");
+			nodeVieMaxUnite.text().set(unite->getVieMax());
+
+			nodeVieCouranteUnite = nodeUnite.append_child("vieCourante");
+			nodeVieCouranteUnite.text().set(unite->getVieCourante());
+
+			nodeAttaqueUnite = nodeUnite.append_child("attaque");
+			nodeAttaqueUnite.text().set(unite->getStatAtt());
+
+			nodeDefenseUnite = nodeUnite.append_child("defense");
+			nodeDefenseUnite.text().set(unite->getStatDef());
+
+			nodePositionUnite = nodeUnite.append_child("position");
+
+			nodePositionXUnite = nodePositionUnite.append_child("x");
+			nodePositionXUnite.text().set(position.x);
+
+			nodePositionYUnite = nodePositionUnite.append_child("x");
+			nodePositionYUnite.text().set(position.y);
+
+		}
+		std::stringstream flux;
+		doc.print(flux);
+		std::cout << flux.str() << std::endl;
+		//Fin test XML
 	}
 
 	Grille::~Grille()
