@@ -195,8 +195,11 @@ namespace Modele
 				Case* caseAdjacente = getCase(coordonneesCasesAdjacente);
 				if(coutCaseCourante + 1 <= rayon && coutCaseCourante + 1 < caseAdjacente->getCout())
 				{
-					caseAdjacente->setCout(caseCourante->getCout() + 1);
-					analyser.push(caseAdjacente);
+					if (caseAdjacente->getObstacle()._to_integral() == 0 && caseAdjacente->getTerrain()._to_integral()!=2)
+					{
+						caseAdjacente->setCout(caseCourante->getCout() + 1);
+						analyser.push(caseAdjacente);
+					}
 				}
 			}
 		}
