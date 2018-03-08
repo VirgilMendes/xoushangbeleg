@@ -5,8 +5,6 @@
 #include "../../Controleur/GameStates/Grille.h"
 #include "../Combat/FiltreCase.h"
 
-#define RESOLUTION 64
-
 namespace Vue
 {
 	Grille::Grille(Modele::Grille* modele, Controleur::Grille* controleur) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1000, 700)), modele_(modele), controleur_(controleur), interfaceUnite_(nullptr)
@@ -41,16 +39,16 @@ namespace Vue
 				sf::Vertex* quad = &sommets_[(i + j * largeur) * 4];
 
 				// on definit ses quatre coins
-				quad[0].position = sf::Vector2f(i * RESOLUTION, j * RESOLUTION);
-				quad[1].position = sf::Vector2f((i + 1) * RESOLUTION, j * RESOLUTION);
-				quad[2].position = sf::Vector2f((i + 1) * RESOLUTION, (j + 1) * RESOLUTION);
-				quad[3].position = sf::Vector2f(i * RESOLUTION, (j + 1) * RESOLUTION);
+				quad[0].position = sf::Vector2f(i * RES_TEXTURE_XSB, j * RES_TEXTURE_XSB);
+				quad[1].position = sf::Vector2f((i + 1) * RES_TEXTURE_XSB, j * RES_TEXTURE_XSB);
+				quad[2].position = sf::Vector2f((i + 1) * RES_TEXTURE_XSB, (j + 1) * RES_TEXTURE_XSB);
+				quad[3].position = sf::Vector2f(i * RES_TEXTURE_XSB, (j + 1) * RES_TEXTURE_XSB);
 
 				// on definit ses quatre coordonnées de texture
-				quad[0].texCoords = sf::Vector2f(caseNombre * RESOLUTION, 0);
-				quad[1].texCoords = sf::Vector2f((caseNombre + 1) * RESOLUTION, 0);
-				quad[2].texCoords = sf::Vector2f((caseNombre + 1) * RESOLUTION, RESOLUTION);
-				quad[3].texCoords = sf::Vector2f(caseNombre * RESOLUTION, RESOLUTION);
+				quad[0].texCoords = sf::Vector2f(caseNombre * RES_TEXTURE_XSB, 0);
+				quad[1].texCoords = sf::Vector2f((caseNombre + 1) * RES_TEXTURE_XSB, 0);
+				quad[2].texCoords = sf::Vector2f((caseNombre + 1) * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
+				quad[3].texCoords = sf::Vector2f(caseNombre * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
 			}
 		setCenter(0, 0);
 	}
@@ -92,10 +90,10 @@ namespace Vue
 				sf::Vertex* quad = &sommets_[(i + j * largeur) * 4];
 				const int caseNombre(caseGrille->getTerrain()._to_integral() * 8 + caseGrille->getObstacle()._to_integral() * 2 + 1);
 
-				quad[0].texCoords = sf::Vector2f((caseNombre - 1 + frame_) * RESOLUTION, 0);
-				quad[1].texCoords = sf::Vector2f((caseNombre + frame_) * RESOLUTION, 0);
-				quad[2].texCoords = sf::Vector2f((caseNombre + frame_) * RESOLUTION, RESOLUTION);
-				quad[3].texCoords = sf::Vector2f((caseNombre - 1 + frame_) * RESOLUTION, RESOLUTION);
+				quad[0].texCoords = sf::Vector2f((caseNombre - 1 + frame_) * RES_TEXTURE_XSB, 0);
+				quad[1].texCoords = sf::Vector2f((caseNombre + frame_) * RES_TEXTURE_XSB, 0);
+				quad[2].texCoords = sf::Vector2f((caseNombre + frame_) * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
+				quad[3].texCoords = sf::Vector2f((caseNombre - 1 + frame_) * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
 			}
 		}
 	}

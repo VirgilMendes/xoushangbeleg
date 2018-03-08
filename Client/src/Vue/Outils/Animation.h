@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp" 
 #include "SFML/System.hpp" 
 #include <memory> 
+#include "../Constante.h"
 
 namespace Vue
 {

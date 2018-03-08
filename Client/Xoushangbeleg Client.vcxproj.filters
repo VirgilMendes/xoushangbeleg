@@ -30,7 +30,6 @@
     <ClInclude Include="src\Vue\Outils\MenuChoix.h" />
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
     <ClInclude Include="src\Vue\Combat\Curseur.h" />
-    <ClInclude Include="src\Vue\Combat\InfoPersonnageUI.h" />
     <ClInclude Include="src\Vue\Combat\InterfaceUnite.h" />
     <ClInclude Include="src\Vue\Combat\Unite.h" />
     <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
@@ -46,6 +45,7 @@
     <ClInclude Include="src\Vue\GameStates\GameState.h" />
     <ClInclude Include="src\Vue\GameStates\Grille.h" />
     <ClInclude Include="src\Vue\Combat\FiltreCase.h" />
+    <ClInclude Include="src\Vue\Constante.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

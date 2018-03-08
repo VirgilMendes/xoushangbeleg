@@ -8,6 +8,7 @@
 #include "../../Modele/Archer.h"
 #include "../../Modele/Soldat.h"
 #include "../../Modele/Tank.h"
+#include "../Constante.h"
 
 #include "../Outils/Jauge.h"
 

@@ -39,8 +39,8 @@ namespace Vue
 
 		for (int i = 0; i < 4; i++)
 		{
-			TabStat[i].setFont(font);// choix de la police à utiliser
-			TabStat[i].setCharacterSize(15);// choix de la taille des caractères
+			TabStat[i].setFont(font);// choix de la police a utiliser
+			TabStat[i].setCharacterSize(15);// choix de la taille des caracteres
 			TabStat[i].setFillColor(sf::Color::White);
 			TabStat[i].setPosition(200, i * 32 + 550);
 		}
@@ -49,24 +49,24 @@ namespace Vue
 		fond.scale(2.55f, 0.7f);
 		fond.setPosition(0, 522);
 
-		classeText.setFont(font);// choix de la police à utiliser
-		classeText.setCharacterSize(15);// choix de la taille des caractères
+		classeText.setFont(font);// choix de la police a utiliser
+		classeText.setCharacterSize(15);// choix de la taille des caracteres
 		classeText.setFillColor(sf::Color::White);
 		classeText.setPosition(300, 550);
 
 		vieText.setPosition(530, 582);
-		vieText.setFont(font);// choix de la police à utiliser
-		vieText.setCharacterSize(15);// choix de la taille des caractères
+		vieText.setFont(font);// choix de la police a utiliser
+		vieText.setCharacterSize(15);// choix de la taille des caracteres
 		vieText.setFillColor(sf::Color::White);
 
 		statTextAtt.setPosition(300, 614);
-		statTextAtt.setFont(font);// choix de la police à utiliser
-		statTextAtt.setCharacterSize(15);// choix de la taille des caractères
+		statTextAtt.setFont(font);// choix de la police a utiliser
+		statTextAtt.setCharacterSize(15);// choix de la taille des caracteres
 		statTextAtt.setFillColor(sf::Color::White);
 
 		statTextDef.setPosition(300, 646);
-		statTextDef.setFont(font);// choix de la police à utiliser
-		statTextDef.setCharacterSize(15);// choix de la taille des caractères
+		statTextDef.setFont(font);// choix de la police a utiliser
+		statTextDef.setCharacterSize(15);// choix de la taille des caracteres
 		statTextDef.setFillColor(sf::Color::White);
 	}
 

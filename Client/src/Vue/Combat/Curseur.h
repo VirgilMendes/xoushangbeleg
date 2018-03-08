@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Outils/Animation.h"
 #include <iostream>
+#include "../Constante.h"
 
 namespace Vue
 {
@@ -18,9 +19,9 @@ namespace Vue
 				std::cout << "erreur chargement Texture AnimCurseur.png" << std::endl;
 			}
 
-			sprite_->setPosition(position_.x * 64, position_.y * 64);
+			sprite_->setPosition(position_.x * RES_TEXTURE_XSB, position_.y * RES_TEXTURE_XSB);
 			sprite_->setTexture(*texture_);
-			sprite_->setTextureRect(sf::IntRect(0, 0, 64, 64));
+			sprite_->setTextureRect(sf::IntRect(0, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB));
 			initAnimation();
 		}
 
@@ -33,9 +34,9 @@ namespace Vue
 				std::cout << "erreur chargement Texture AnimCurseur.png" << std::endl;
 			}
 
-			sprite_->setPosition(position_.x * 64, position_.y * 64);
+			sprite_->setPosition(position_.x * RES_TEXTURE_XSB, position_.y * RES_TEXTURE_XSB);
 			sprite_->setTexture(*texture_);
-			sprite_->setTextureRect(sf::IntRect(0, 0, 64, 64));
+			sprite_->setTextureRect(sf::IntRect(0, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB));
 			initAnimation();
 		}
 
@@ -44,14 +45,14 @@ namespace Vue
 		{
 			const std::vector < sf::IntRect > stay =
 			{
-				sf::IntRect(0, 0, 64, 64),
-				sf::IntRect(64, 0, 64, 64),
-				sf::IntRect(128, 0, 64, 64),
-				sf::IntRect(192, 0, 64, 64),
-				sf::IntRect(256, 0, 64, 64),
-				sf::IntRect(320, 0, 64, 64),
-				sf::IntRect(384, 0, 64, 64),
-				sf::IntRect(448, 0, 64, 64)
+				sf::IntRect(0, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(2* RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(3* RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(4* RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(5* RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(6* RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+				sf::IntRect(7* RES_TEXTURE_XSB, 0, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
 			};
 			stay_.initialiser(stay, 100);
 
@@ -60,12 +61,12 @@ namespace Vue
 		void deplacerCurseur(sf::Vector2i positionRelative)
 		{
 			position_ += positionRelative;
-			sprite_->setPosition(position_.x * 64, position_.y * 64);
+			sprite_->setPosition(position_.x * RES_TEXTURE_XSB, position_.y * RES_TEXTURE_XSB);
 		}
 		void setPosition(sf::Vector2i position)
 		{
 			position_ = position;
-			sprite_->setPosition(position.x * 64, position.y * 64);
+			sprite_->setPosition(position.x * RES_TEXTURE_XSB, position.y * RES_TEXTURE_XSB);
 		}
 
 		sf::Vector2i getPosition() { return position_; }

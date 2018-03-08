@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Modele/Outils/Vecteur2.h"
+#include "../Constante.h"
 #include "SFML/Graphics.hpp"
 #include <list>
 

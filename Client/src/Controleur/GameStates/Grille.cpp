@@ -5,9 +5,17 @@ namespace Controleur
 {
 	Grille::Grille(Modele::Vecteur2<int> dimension) : modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this))
 	{
-		Modele::Unite* unite = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
-		modele_->ajouterUnite(unite);
-		vue_->ajouterUnite(unite, Vue::Unite::cheminTextureUnite.at(unite->getClasse()));
+		Modele::Unite* billy = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
+		modele_->ajouterUnite(billy);
+		vue_->ajouterUnite(billy, Vue::Unite::cheminTextureUnite.at(billy->getClasse()));
+
+		Modele::Unite* roger = new Modele::Archer("Roger", Modele::Equipe::Rouge, Modele::Vecteur2<int>(4, 4));
+		modele_->ajouterUnite(roger);
+		vue_->ajouterUnite(roger, Vue::Unite::cheminTextureUnite.at(roger->getClasse()));
+
+		Modele::Unite* gerard = new Modele::Soldat("Gerard", Modele::Equipe::Bleu, Modele::Vecteur2<int>(4, 3));
+		modele_->ajouterUnite(gerard);
+		vue_->ajouterUnite(gerard, Vue::Unite::cheminTextureUnite.at(gerard->getClasse()));
 	}
 
 	Grille::~Grille()

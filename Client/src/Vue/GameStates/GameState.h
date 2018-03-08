@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Modele/Outils/enum.h"
 #include <SFML/Graphics.hpp>
+#include "../Constante.h"
 
 namespace Vue
 {
