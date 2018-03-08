@@ -57,13 +57,13 @@ namespace Vue
 
 	void Unite::deplacerUnite(Modele::Vecteur2<int> deplacement)
 	{
-		sprite_->setPosition(sprite_->getPosition() + sf::Vector2f(deplacement.x * 64, deplacement.y * 64));
+		std::cout << std::to_string(deplacement) << std::endl;
+			sprite_->move(sf::Vector2f(deplacement.x * 64, deplacement.y * 64));
 	}
 
 	void Unite::setPosition(Modele::Vecteur2<int> position)
 	{
 		sprite_->setPosition(position.x*64, position.y*64);
-
 	}
 
 

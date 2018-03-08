@@ -208,10 +208,23 @@ namespace Modele
 
 	void Grille::deplacerUnite(const std::string& nom, const Vecteur2<int>& destination)
 	{
+		Unite* unite = getUnite(nom);
+		if (unite != nullptr)
+		{
+			getCase(unite->getPosition())->setUnite(nullptr);
+			unite->deplacer(destination);
+			getCase(destination)->setUnite(unite);
+		}
 	}
 
-	void Grille::deplacerUnite(Unite* unite, const Vecteur2<int>& destination)
+	void Grille::deplacerUnite(Unite* unite, const Vecteur2<int>& deplacement)
 	{
+		if (std::find(unites_.begin(), unites_.end(), unite) != unites_.end())
+		{
+			getCase(unite->getPosition())->setUnite(nullptr);
+			unite->deplacer(deplacement);
+			getCase(unite->getPosition())->setUnite(unite);
+		}
 	}
 
 	void Grille::genererEau(const int tailleMax)

@@ -39,7 +39,7 @@ namespace Modele {
 		Unite * getProprietaireDerniereRecherche() { return proprietaireDerniereRecherche_; }
 
 		void deplacerUnite(const std::string& nom, const Vecteur2<int>& destination);
-		void deplacerUnite(Unite* unite, const Vecteur2<int>& destination);
+		void deplacerUnite(Unite* unite, const Vecteur2<int>& deplacement);
 
 		//Generation procedurale	
 		void genererEau(const int tailleMax);

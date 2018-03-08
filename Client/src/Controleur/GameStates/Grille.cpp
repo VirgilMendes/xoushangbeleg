@@ -52,12 +52,29 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
+		
 		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRecherche();
 		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
 		{
 			vue_->supprimerFiltreSurCases();
-			std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, 2));
-			vue_->genererFiltreSurCases(casesAccessibles);
+			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
+			if (unite != nullptr)
+			{
+				std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, unite->getPorteeDeplacement()));
+				vue_->genererFiltreSurCases(casesAccessibles);
+			}
+		}
+		else
+		{
+			Modele::Unite* unite = modele_->getProprietaireDerniereRecherche();
+			Modele::Vecteur2<int> anciennePosition = unite->getPosition();
+			Modele::Vecteur2<int> deplacement = positionCurseur_ - anciennePosition;
+
+			modele_->deplacerUnite(unite, deplacement);
+			modele_->nettoyerDerniereRecherche();
+			vue_->deplacerUnite(unite, deplacement);
+			vue_->supprimerFiltreSurCases();
+			vue_->genererInformationPersonnage(unite);
 		}
 	}
 
