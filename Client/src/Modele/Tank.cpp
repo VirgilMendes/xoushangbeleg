@@ -3,6 +3,6 @@
 
 namespace Modele
 {
-	Tank::Tank(Equipe equ, std::string nom, int x, int y): Unite(equ,Classe::Tank,nom, 150, 150, 100, 80, Vecteur2<int>(x,y))
+	Tank::Tank(std::string nom, Equipe equipe, Vecteur2<int> position) : Unite(nom, equipe, Classe::Tank, 150, 100, 80, 2, 1, position)
 	{}
 }

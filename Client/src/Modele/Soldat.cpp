@@ -3,6 +3,6 @@
 
 namespace Modele
 {
-	Soldat::Soldat(Equipe equ, std::string nom, int x, int y) : Unite(equ, Classe::Soldat,nom, 110, 110, 75, 100, Vecteur2<int>(x, y))
+	Soldat::Soldat(std::string nom, Equipe equipe, Vecteur2<int> position) : Unite(nom, equipe, Classe::Soldat, 110, 75, 100, 4, 1, position)
 	{}
 }

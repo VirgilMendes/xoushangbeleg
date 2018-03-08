@@ -3,6 +3,6 @@
 
 namespace Modele
 {
-	Archer::Archer(Equipe equ, std::string nom, int x, int y) : Unite(equ, Classe::Archer, nom, 75, 75, 50, 50, Vecteur2<int>(x, y))
+	Archer::Archer(std::string nom, Equipe equipe, Vecteur2<int> position) : Unite(nom, equipe, Classe::Archer, 75, 50, 50, 3, 5 , position)
 	{}
 }

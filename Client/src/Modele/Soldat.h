@@ -9,7 +9,7 @@ namespace Modele
 	class Soldat : public Unite
 	{
 	public:
-		Soldat(Equipe equ, std::string surnomAmusant,int x, int y);
+		Soldat(std::string nom, Equipe equipe, Vecteur2<int> position);
 
 	};
 

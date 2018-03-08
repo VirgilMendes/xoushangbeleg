@@ -23,44 +23,48 @@ namespace Modele
 	class Unite
 	{
 	public:
-		Unite(Equipe equipe, Classe classe, std::string nom, int vieM, int vieC, int statD, int statA, Vecteur2<int> pos);
+		Unite(const std::string& nom, const Equipe& equipe, const Classe& classe, const int vieMax, const int attaque,
+			const int defense, const int porteeAttaque, const int porteeDeplacement, const Vecteur2<int>& position);
+			
+		std::string getNom() { return nom_; }
+		void setEquipe(Equipe equipe);
+		Equipe getEquipe() { return equipe_; }
+		Classe getClasse() { return classe_; }
+		
+		void setVieMax(int vie) { vieMax_ = vie; }
+		int getVieMax() { return vieMax_; }
+		void prendreDommage(int vie) { vieCourante_ -= vie; }
+		void prendreSoin(int soin) { vieCourante_ += soin; }
+		int getVieCourante() { return vieCourante_; }
 
-		void setEquipe(Equipe BoR);
-		Equipe getEquipe();
+		void setDefense(const int defense) { defense_ = defense; }
+		int getDefense() { return defense_; }
+		void setAttaque(const int attaque) { attaque_ = attaque; }
+		int getAttaque() { return attaque_; }
+		void setPorteeDeplacement(const int portee) { porteeDeplacement_ = portee; }
+		int getPorteeDeplacement() { return porteeDeplacement_; }
+		void setPorteeAttaque(const int portee) { porteeAttaque_ = portee; }
+		int getPorteeAttaque() { return porteeAttaque_; }
 
-		void setClasse(Classe classe);
-		Classe getClasse();
+		void attaquer(Unite* unitee);
 
-		void setNom(std::string nom);
-		std::string getNom();
-
-		void setVieMax(int vie);
-		void setVieCourante(int vie);
-
-		int getVieMax();
-		int getVieCourante();
-
-		void setStatDef(int stat);
-		void setStatAtt(int stat);
-
-		int getStatDef();
-		int getStatAtt();
-
-		void setPosition(Vecteur2<int> pos);
-
-		Vecteur2<int> getPosition();
+		void deplacer(Vecteur2<int> deplacement) { position_ += deplacement; }
+		void setPosition(Vecteur2<int> position) { position_ = position; }
+		Vecteur2<int> getPosition() { return position_; }
 
 	private:
-		Equipe equipe;
-		Classe classe;
-		std::string nom;
 
-		int vieMax;
-		int vieCourante;
+		std::string nom_;
+		Equipe equipe_;
+		Classe  classe_;
 
-		int statDef;
-		int statAtt;
+		int vieMax_;
+		int vieCourante_;
+		int attaque_;
+		int defense_;
+		int porteeDeplacement_;
+		int porteeAttaque_;
 
-		Vecteur2<int> position;
+		Vecteur2<int> position_;
 	};
 }

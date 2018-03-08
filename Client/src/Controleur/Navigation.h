@@ -143,10 +143,10 @@ namespace Controleur
 				nodeVieCouranteUnite.text().set(unite.getVieCourante());
 
 				nodeAttaqueUnite = nodeUnite.append_child("attaque");
-				nodeAttaqueUnite.text().set(unite.getStatAtt());
+				nodeAttaqueUnite.text().set(unite.getAttaque());
 
 				nodeDefenseUnite = nodeUnite.append_child("defense");
-				nodeDefenseUnite.text().set(unite.getStatDef());
+				nodeDefenseUnite.text().set(unite.getDefense());
 
 				nodePositionUnite = nodeUnite.append_child("position");
 

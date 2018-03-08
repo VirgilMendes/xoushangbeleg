@@ -4,135 +4,15 @@
 
 namespace Modele
 {
-
-	Unite::Unite(Equipe equipe, Classe classe, std::string nom, int vieM, int vieC, int statD, int statA, Vecteur2<int> pos)
+	Unite::Unite(const std::string& nom, const Equipe& equipe, const Classe& classe, const int vieMax, const int attaque, 
+		const int defense, const int porteeAttaque, const int porteeDeplacement, const Vecteur2<int>& position):
+	nom_(nom), equipe_(equipe), classe_(classe), vieMax_(vieMax), vieCourante_(vieMax_), attaque_(attaque), defense_(defense),
+	porteeAttaque_(porteeAttaque), porteeDeplacement_(porteeDeplacement), position_(position)
 	{
-		this->nom = nom;
-		this->equipe = equipe;
-		this->classe = classe;
-		vieMax = vieM;
-		vieCourante = vieC;
-		statDef = statD;
-		statAtt = statA;
-		position = pos;
-
-
-		if (vieCourante > vieMax)
-		{
-			vieCourante = vieMax;
-		}
-		if (vieCourante < 0)
-		{
-			vieCourante = 0;
-		}
-
-
-		if (statDef < 0)
-		{
-			statDef = 0;
-		}
-		if (statAtt < 0)
-		{
-			statAtt = 0;
-		}
 	}
 
-	void Unite::setEquipe(Equipe BoR)
+	void Unite::attaquer(Unite* unitee)
 	{
-		equipe = BoR;
-	}
 
-	Classe Unite::getClasse()
-	{
-		return classe;
 	}
-
-	void Unite::setClasse(Classe classe)
-	{
-		this->classe = classe;
-	}
-
-	Equipe Unite::getEquipe()
-	{
-		return equipe;
-	}
-
-	void Unite::setNom(std::string nom)
-	{
-		this->nom = nom;
-	}
-
-	std::string Unite::getNom()
-	{
-		return nom;
-	}
-
-	void Unite::setVieMax(int vie)
-	{
-		vieMax = vie;
-		if (vieMax < vieCourante)
-		{
-			vieCourante = vieMax;
-		}
-	}
-	void Unite::setVieCourante(int vie)
-	{
-		if (vie > vieMax)
-		{
-			vieCourante = vieMax;
-		}
-		else if (vie < vieMax && vie > 0)
-		{
-			vieCourante = vie;
-		}
-		else
-		{
-			vieCourante = 0;
-		}
-	}
-
-	int Unite::getVieMax()
-	{
-		return vieMax;
-	}
-	int Unite::getVieCourante()
-	{
-		return vieCourante;
-	}
-
-	void Unite::setStatDef(int stat)
-	{
-		statDef = stat;
-		if (statDef < 0)
-		{
-			statDef = 0;
-		}
-	}
-	void Unite::setStatAtt(int stat)
-	{
-		statAtt = stat;
-		if (statAtt < 0)
-		{
-			statAtt = 0;
-		}
-	}
-
-	int Unite::getStatDef()
-	{
-		return statDef;
-	}
-	int Unite::getStatAtt()
-	{
-		return statAtt;
-	}
-
-	void Unite::setPosition(Vecteur2<int> pos)
-	{
-		position = pos;
-	}
-	Vecteur2<int> Unite::getPosition()
-	{
-		return position;
-	}
-
 }

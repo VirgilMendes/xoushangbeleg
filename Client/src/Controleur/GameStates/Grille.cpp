@@ -5,7 +5,7 @@ namespace Controleur
 {
 	Grille::Grille(Modele::Vecteur2<int> dimension) : modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this))
 	{
-		Modele::Unite* unite = new Modele::Tank(Modele::Equipe::Bleu, "Archer", 3,4);
+		Modele::Unite* unite = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
 		modele_->ajouterUnite(unite);
 		vue_->ajouterUnite(unite, Vue::Unite::cheminTextureUnite.at(unite->getClasse()));
 	}

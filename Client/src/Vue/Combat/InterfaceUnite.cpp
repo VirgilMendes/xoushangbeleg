@@ -96,8 +96,8 @@ namespace Vue
 		vie.setValeurMax(this->unite->getVieMax());
 		vie.setValeurCourante(this->unite->getVieCourante());
 		vieText.setString(std::to_string(this->unite->getVieCourante()) + "/"+ std::to_string(this->unite->getVieMax()));
-		statTextAtt.setString(std::to_string(this->unite->getStatAtt()));
-		statTextDef.setString(std::to_string(this->unite->getStatDef()));
+		statTextAtt.setString(std::to_string(this->unite->getAttaque()));
+		statTextDef.setString(std::to_string(this->unite->getDefense()));
 	}
 
 	void InterfaceUnite::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -9,7 +9,7 @@ namespace Modele
 	class Archer : public Unite
 	{
 	public:
-		Archer(Equipe equ, std::string surnomAmusant, int x, int y);
+		Archer(std::string nom, Equipe equipe, Vecteur2<int> position);
 
 	};
 
