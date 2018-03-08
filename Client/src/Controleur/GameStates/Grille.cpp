@@ -52,6 +52,7 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
+		vue_->supprimerFiltreSurCases();
 		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, 2));
 		vue_->genererFiltreSurCases(casesAccessibles);
 	}
@@ -71,7 +72,6 @@ namespace Controleur
 	void Grille::deplacerCurseur(Modele::Vecteur2<int> deplacement)
 	{
 		vue_->detruireInfomationPersonnage();
-		vue_->supprimerFiltreSurCases();
 		modele_->getCase(positionCurseur_+deplacement);
 		positionCurseur_ += deplacement;
 		vue_->deplacerCurseur(deplacement);
@@ -83,7 +83,6 @@ namespace Controleur
 	void Grille::setPositionCurseur(Modele::Vecteur2<int> position)
 	{
 		vue_->detruireInfomationPersonnage();
-		vue_->supprimerFiltreSurCases();
 		modele_->getCase(position);
 		positionCurseur_ = position;
 		vue_->setPositionCurseur(position);

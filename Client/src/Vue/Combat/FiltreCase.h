@@ -11,7 +11,7 @@ namespace Vue
 		FiltreCase(std::list<Modele::Vecteur2<int>> cases);
 		~FiltreCase();
 
-		void dessiner(sf::RenderWindow* cible, sf::RenderStates etat);
+		void dessiner(sf::RenderWindow* cible, sf::RenderStates& etat);
 
 	private:
 

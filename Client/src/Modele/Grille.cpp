@@ -34,7 +34,7 @@ namespace Modele
 		genererAutreAsset(50);
 
 		//Test XML
-		Modele::Unite unite1(Equipe::_from_string("Bleu"), Classe::_from_string("Archer"), "Archer1", 150, 150, 10, 15, Vecteur2<int>(5, 6));
+		/*Modele::Unite unite1(Equipe::_from_string("Bleu"), Classe::_from_string("Archer"), "Archer1", 150, 150, 10, 15, Vecteur2<int>(5, 6));
 		ajouterUnite(&unite1);
 		Modele::Unite unite2(Equipe::_from_string("Bleu"), Classe::_from_string("Soldat"), "Soldat1", 200, 200, 15, 13, Vecteur2<int>(8, 7));
 		ajouterUnite(&unite2);
@@ -98,7 +98,7 @@ namespace Modele
 		std::stringstream flux;
 		doc.print(flux);
 		std::cout << flux.str() << std::endl;
-		//Fin test XML
+		//Fin test XML*/
 	}
 
 	Grille::~Grille()
