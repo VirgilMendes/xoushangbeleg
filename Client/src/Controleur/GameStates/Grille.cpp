@@ -56,6 +56,7 @@ namespace Controleur
 		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRecherche();
 		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
 		{
+			modele_->nettoyerDerniereRecherche();
 			vue_->supprimerFiltreSurCases();
 			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
 			if (unite != nullptr)
@@ -63,6 +64,7 @@ namespace Controleur
 				std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, unite->getPorteeDeplacement()));
 				vue_->genererFiltreSurCases(casesAccessibles);
 			}
+			
 		}
 		else
 		{
