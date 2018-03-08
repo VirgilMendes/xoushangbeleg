@@ -106,7 +106,7 @@ namespace Modele
 		for (auto ligne : cases_)
 			for (Case* caseGrille : ligne)
 				delete caseGrille;
-		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); iterateur++)
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 			delete *iterateur;
 	}
 
@@ -195,7 +195,7 @@ namespace Modele
 				Case* caseAdjacente = getCase(coordonneesCasesAdjacente);
 				if(coutCaseCourante + 1 <= rayon && coutCaseCourante + 1 < caseAdjacente->getCout())
 				{
-					if (caseAdjacente->getObstacle()._to_integral() == 0 && caseAdjacente->getTerrain()._to_integral()!=2)
+					if (caseAdjacente->getObstacle()._to_integral() == 0 && caseAdjacente->getTerrain()._to_integral()!=2 && caseAdjacente->getUnite() == nullptr)
 					{
 						caseAdjacente->setCout(caseCourante->getCout() + 1);
 						analyser.push(caseAdjacente);
