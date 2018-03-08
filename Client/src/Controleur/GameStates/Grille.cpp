@@ -52,9 +52,13 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
-		vue_->supprimerFiltreSurCases();
-		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, 2));
-		vue_->genererFiltreSurCases(casesAccessibles);
+		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRecherche();
+		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
+		{
+			vue_->supprimerFiltreSurCases();
+			std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, 2));
+			vue_->genererFiltreSurCases(casesAccessibles);
+		}
 	}
 
 	void Grille::enclancherActionRetour()
