@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="src\Controleur\GameStates\Grille.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuChoix.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modele\Unite\Archer.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="src\Controleur\GameStates\Grille.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuChoix.h" />
+    <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
     <ClInclude Include="src\Modele\Unite\Archer.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Modele\Grille.h" />

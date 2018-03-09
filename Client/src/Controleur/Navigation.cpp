@@ -16,16 +16,6 @@ namespace Controleur
 		fenetre->setFramerateLimit(60);
 		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
 		gameStates_.push_front(grille);
-		MenuChoix* menuAction = new MenuChoix(std::vector<Choix>
-		{ 
-			{ "choix actif", true, [] { std::cout << "test" << std::endl; }},
-			{ "choix actif", true , [] {Controleur::Fenetre::depilerGameState(); } },
-			{ "choix inactif", true, [] {getProchaineGrille()->deplacerCurseur(Modele::Vecteur2<int>(4,0)); Controleur::Fenetre::depilerGameState(); } },
-			{ "choix inactif", true },
-			{ "choix actif", false },
-			{ "choix inactif", true },
-		});
-		gameStates_.push_front(menuAction);
 	}
 
 	void Fenetre::run()

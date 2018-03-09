@@ -1,5 +1,7 @@
 #include "Grille.h"
 #include "../../Modele/Case.h"
+#include "../Navigation.h"
+#include "MenuCombat/MenuAction.h"
 
 namespace Controleur
 {
@@ -60,7 +62,6 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
-		
 		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRecherche();
 		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
 		{
@@ -69,10 +70,8 @@ namespace Controleur
 			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
 			if (unite != nullptr)
 			{
-				std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, unite->getPorteeDeplacement()));
-				vue_->genererFiltreSurCases(casesAccessibles);
+				Controleur::Fenetre::empilerGameState(new Controleur::MenuAction());
 			}
-			
 		}
 		else
 		{
@@ -120,5 +119,11 @@ namespace Controleur
 		Modele::Unite* uniteCurseur = modele_->getCase(positionCurseur_)->getUnite();
 		if (uniteCurseur != nullptr)
 			vue_->genererInformationPersonnage(uniteCurseur);
+	}
+
+	void Grille::genererCasesAccessibles()
+	{
+		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, modele_->getCase(positionCurseur_)->getUnite()->getPorteeDeplacement()));
+		vue_->genererFiltreSurCases(casesAccessibles);
 	}
 }

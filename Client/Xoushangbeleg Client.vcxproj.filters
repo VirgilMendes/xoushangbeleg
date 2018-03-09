@@ -20,6 +20,7 @@
     <ClCompile Include="src\Vue\Composants\Grille\InterfaceUnite.cpp" />
     <ClCompile Include="src\Vue\Composants\Grille\Unite.cpp" />
     <ClCompile Include="src\Vue\GameStates\Grille.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
@@ -48,6 +49,7 @@
     <ClInclude Include="src\Vue\Composants\Grille\InterfaceUnite.h" />
     <ClInclude Include="src\Vue\Composants\Grille\Unite.h" />
     <ClInclude Include="src\Vue\GameStates\Grille.h" />
+    <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />
