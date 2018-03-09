@@ -76,6 +76,8 @@ namespace Vue
 					break;
 				case sf::Keyboard::K: case sf::Keyboard::Return:
 					controleur_->enclencherActionValidation();
+				case sf::Keyboard::Escape:
+					Controleur::Fenetre::fenetre->close();
 				default: break;
 				}
 			}
