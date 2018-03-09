@@ -26,6 +26,7 @@ namespace Modele {
 		Unite* getUnite(const std::string& nom);
 		std::set<Unite*> getUnites() { return unites_; }
 		void ajouterUnite(Unite* unite);
+		void supprimerUnite(Unite* unite);
 
 		Unite* getUniteActuel() { return ordreDeJeu_.empty() ? ordreDeJeu_.top() : nullptr; }
 		void relancerOrdreDeJeu();

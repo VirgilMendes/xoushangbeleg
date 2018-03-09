@@ -136,6 +136,20 @@ namespace Modele
 		getCase(unite->getPosition())->setUnite(unite);
 	}
 
+	void Grille::supprimerUnite(Unite* unite)
+	{
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
+		{
+			if ((*iterateur) == unite)
+			{
+				getCase(unite->getPosition())->setUnite(nullptr);
+				delete *iterateur;
+				unites_.erase(iterateur);
+				return;
+			}
+		}
+	}
+
 	void Grille::relancerOrdreDeJeu()
 	{
 	}

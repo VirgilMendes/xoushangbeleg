@@ -71,8 +71,16 @@ namespace Controleur
 				if (unite != nullptr)
 				{
 					modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
-					vue_->detruireInfomationPersonnage();
-					vue_->genererInformationPersonnage(unite);
+					if(unite->getVieCourante() < 0)
+					{
+						vue_->supprimerUnite(unite);
+						modele_->supprimerUnite(unite);
+					}
+					else
+					{
+						vue_->detruireInfomationPersonnage();
+						vue_->genererInformationPersonnage(unite);
+					}
 				}	
 			}
 			modele_->nettoyerDerniereRechercheAttaque();

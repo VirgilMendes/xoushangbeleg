@@ -142,6 +142,18 @@ namespace Vue
 		}
 	}
 
+	void Grille::supprimerUnite(Modele::Unite* unite)
+	{
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
+		{
+			if ((*iterateur).getModele() == unite)
+			{
+				unites_.erase(iterateur);
+				return;
+			}
+		}
+	}
+
 	void Grille::genererInformationPersonnage(Modele::Unite* unite)
 	{
 		interfaceUnite_ = new InterfaceUnite(unite);

@@ -32,6 +32,7 @@ namespace Vue
 
 		void ajouterUnite(Modele::Unite* unite, std::string cheminTexture);
 		void deplacerUnite(Modele::Unite* unite, Modele::Vecteur2<int> deplacement);
+		void supprimerUnite(Modele::Unite* unite);
 
 		void genererInformationPersonnage(Modele::Unite* unite);
 		void detruireInfomationPersonnage();
