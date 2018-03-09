@@ -20,7 +20,7 @@ namespace Controleur
 		{ 
 			{ "choix actif", true, [] { std::cout << "test" << std::endl; }},
 			{ "choix actif", true , [] {Controleur::Fenetre::depilerGameState(); } },
-			{ "choix inactif", true },
+			{ "choix inactif", true, [] {getProchaineGrille()->deplacerCurseur(Modele::Vecteur2<int>(4,0)); Controleur::Fenetre::depilerGameState(); } },
 			{ "choix inactif", true },
 			{ "choix actif", false },
 			{ "choix inactif", true },
@@ -75,6 +75,20 @@ namespace Controleur
 	{
 		cache_.push_back(gameStates_.front());
 		gameStates_.pop_front();
+	}
+
+	Grille* Fenetre::getProchaineGrille()
+	{
+		auto iterateur = gameStates_.begin();
+		while (dynamic_cast<Grille*>(*iterateur) == nullptr)
+		{
+			++iterateur;
+			if (iterateur == gameStates_.end())
+			{
+				return nullptr;
+			}
+		}
+		return dynamic_cast<Grille*>(*iterateur);
 	}
 }
 

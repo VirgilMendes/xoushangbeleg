@@ -25,6 +25,8 @@ namespace Controleur
 		static void empilerGameState(GameState* gamestate);
 		
 		static void depilerGameState();
+
+		static Grille* getProchaineGrille();
 		
 		static void decodeXml(std::string str) {
 			pugi::xml_document doc;
