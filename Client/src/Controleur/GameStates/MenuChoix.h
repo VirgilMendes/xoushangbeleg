@@ -12,7 +12,7 @@ namespace Controleur
 	{
 		std::string texte;
 		bool actif;
-		//std::function<void> fonction;
+		std::function<void()> fonction;
 	};
 
 	class MenuChoix : public GameState

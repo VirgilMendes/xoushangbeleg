@@ -14,17 +14,17 @@ namespace Controleur
 		fenetre = new sf::RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg");
 		fenetre->setFramerateLimit(60);
 		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
-		gameStates_.push_back(grille);
+		gameStates_.push_front(grille);
 		MenuChoix* menuAction = new MenuChoix(std::vector<Choix>
 		{ 
-			{ "choix actif", false }, 
+			{ "choix actif", false , []{}}, 
 			{ "choix actif", true }, 
 			{ "choix inactif", true },
 			{ "choix inactif", true },
 			{ "choix actif", false },
 			{ "choix inactif", true },
 		});
-		gameStates_.push_back(menuAction);
+		gameStates_.push_front(menuAction);
 	}
 
 	void Fenetre::run()
@@ -37,15 +37,15 @@ namespace Controleur
 				break;
 			}
 			
-			gameStates_.back()->handleEvent();
+			gameStates_.front()->handleEvent();
 
-			std::list<GameState*>::reverse_iterator iterateur(gameStates_.rbegin());
+			std::list<GameState*>::iterator iterateur(gameStates_.begin());
 
 			fenetre->clear(sf::Color::Black);
 
-			while ((*iterateur)->estInterfaceUtilisateur() && iterateur != gameStates_.rend())
+			while ((*iterateur)->estInterfaceUtilisateur() && iterateur != gameStates_.end())
 				++iterateur;
-			while(iterateur != gameStates_.rbegin())
+			while(iterateur != gameStates_.begin())
 			{
 				(*iterateur)->update();
 				(*iterateur)->afficher();
@@ -61,13 +61,13 @@ namespace Controleur
 
 	void Fenetre::empilerGameState(GameState* gamestate)
 	{
-		gameStates_.push_back(gamestate);
+		gameStates_.push_front(gamestate);
 	}
 
 	void Fenetre::depilerGameState()
 	{
-		delete gameStates_.back();
-		gameStates_.back();
+		delete gameStates_.front();
+		gameStates_.front();
 	}
 }
 
