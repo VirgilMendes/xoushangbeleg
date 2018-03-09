@@ -166,6 +166,7 @@ namespace Controleur
 	private:
 
 		static std::list<GameState*> gameStates_;
+		static std::list<GameState*> cache_;
 	};
 
 	

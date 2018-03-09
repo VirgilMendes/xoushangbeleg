@@ -142,6 +142,7 @@ namespace Controleur
 
 	void MenuChoix::enclencherActionValidation()
 	{
+		choix_[choixCourant_].fonction();
 	}
 
 	void MenuChoix::enclancherActionRetour()

@@ -8,6 +8,7 @@ namespace Controleur
 
 	sf::RenderWindow* Fenetre::fenetre = nullptr;
 	std::list<GameState*> Fenetre::gameStates_;
+	std::list<GameState*> Fenetre::cache_;
 
 	void Fenetre::initialiser()
 	{
@@ -17,8 +18,8 @@ namespace Controleur
 		gameStates_.push_front(grille);
 		MenuChoix* menuAction = new MenuChoix(std::vector<Choix>
 		{ 
-			{ "choix actif", false , []{}}, 
-			{ "choix actif", true }, 
+			{ "choix actif", true, [] { std::cout << "test" << std::endl; }},
+			{ "choix actif", true , [] {Controleur::Fenetre::depilerGameState(); } },
 			{ "choix inactif", true },
 			{ "choix inactif", true },
 			{ "choix actif", false },
@@ -29,6 +30,12 @@ namespace Controleur
 
 	void Fenetre::run()
 	{
+		while (!cache_.empty())
+		{
+			delete cache_.back();
+			cache_.pop_back();
+		}
+		
 		while (fenetre->isOpen())
 		{
 			if (gameStates_.empty())
@@ -66,8 +73,8 @@ namespace Controleur
 
 	void Fenetre::depilerGameState()
 	{
-		delete gameStates_.front();
-		gameStates_.front();
+		cache_.push_back(gameStates_.front());
+		gameStates_.pop_front();
 	}
 }
 
