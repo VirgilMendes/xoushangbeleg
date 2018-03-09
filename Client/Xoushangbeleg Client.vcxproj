@@ -135,6 +135,7 @@
     <ClCompile Include="src\Controleur\GameStates\Grille.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuChoix.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modele\Unite\Archer.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="src\Vue\GameStates\Grille.cpp" />
     <ClCompile Include="src\Vue\Composants\Grille\Unite.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuChoix.cpp" />
+    <ClCompile Include="src\Vue\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
     <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
@@ -155,9 +157,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\GameStates\Grille.h" />
+
     <ClInclude Include="src\Controleur\GameStates\MenuChoix.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
     <ClInclude Include="src\Modele\Unite\Archer.h" />
+    <ClInclude Include="src\Controleur\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Modele\Grille.h" />
     <ClInclude Include="src\Modele\Outils\enum.h" />
@@ -167,6 +171,7 @@
     <ClInclude Include="src\Vue\Composants\Grille\FiltreCase.h" />
     <ClInclude Include="src\Vue\Constante.h" />
     <ClInclude Include="src\Vue\GameStates\Grille.h" />
+    <ClInclude Include="src\Vue\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
     <ClInclude Include="src\Vue\Composants\Grille\Curseur.h" />
     <ClInclude Include="src\Vue\Composants\Grille\InterfaceUnite.h" />

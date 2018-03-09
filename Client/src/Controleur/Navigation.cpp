@@ -16,6 +16,8 @@ namespace Controleur
 		fenetre->setFramerateLimit(60);
 		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
 		gameStates_.push_front(grille);
+		PlacementUnite* placementUnite = new PlacementUnite();
+		gameStates_.push_front(placementUnite);
 	}
 
 	void Fenetre::run()
@@ -52,7 +54,6 @@ namespace Controleur
 			(*iterateur)->afficher();
 
 			fenetre->display();
-			
 		}
 	}
 

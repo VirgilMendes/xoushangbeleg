@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include "GameStates/GameState.h"
 #include <stack>
+#include "GameStates/PlacementUnite.h"
 #include "GameStates/Grille.h"
 #include <pugixml.hpp>
 #include <sstream>
