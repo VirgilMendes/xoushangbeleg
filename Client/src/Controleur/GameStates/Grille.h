@@ -24,7 +24,8 @@ namespace Controleur
 		void deplacerCurseur(Modele::Vecteur2<int> deplacement);
 		void setPositionCurseur(Modele::Vecteur2<int> position);
 
-		void genererCasesAccessibles();
+		void genererCasesAccessiblesDeplacement();
+		void genererCasesAccessiblesAttaque();
 
 
 	private:

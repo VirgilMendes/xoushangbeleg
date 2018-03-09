@@ -8,8 +8,8 @@ namespace Controleur
 	(
 		std::vector<Choix>
 		{
-			{ "Deplacer", true, [] { Controleur::Fenetre::getProchaineGrille()->genererCasesAccessibles(); Controleur::Fenetre::depilerGameState(); } },
-			{ "Attaquer", true , [] {std::cout << "attaque" << std::endl; Controleur::Fenetre::depilerGameState(); } }
+			{ "Deplacer", true, [] { Controleur::Fenetre::getProchaineGrille()->genererCasesAccessiblesDeplacement(); Controleur::Fenetre::depilerGameState(); } },
+			{ "Attaquer", true , [] { Controleur::Fenetre::getProchaineGrille()->genererCasesAccessiblesAttaque(); std::cout << "attaque" << std::endl; Controleur::Fenetre::depilerGameState(); } }
 		}
 	)
 	{

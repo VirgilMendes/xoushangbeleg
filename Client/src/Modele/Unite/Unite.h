@@ -27,7 +27,7 @@ namespace Modele
 			const int defense,  const int porteeDeplacement, const int porteeAttaque, const Vecteur2<int>& position);
 			
 		std::string getNom() { return nom_; }
-		void setEquipe(Equipe equipe);
+		void setEquipe(Equipe equipe) { equipe_ = equipe; }
 		Equipe getEquipe() { return equipe_; }
 		Classe getClasse() { return classe_; }
 		

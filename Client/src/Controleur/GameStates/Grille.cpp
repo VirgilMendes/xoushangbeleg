@@ -62,10 +62,27 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
-		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRecherche();
+		if(!modele_->getDerniereRechercheAttaque().empty())
+		{
+			std::list<Modele::Vecteur2<int>> derniereRechercheAttaque = modele_->getDerniereRechercheAttaque();
+			if (std::find(derniereRechercheAttaque.begin(), derniereRechercheAttaque.end(), positionCurseur_) != derniereRechercheAttaque.end());
+			{
+				Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
+				if (unite != nullptr)
+				{
+					modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
+					vue_->detruireInfomationPersonnage();
+					vue_->genererInformationPersonnage(unite);
+				}	
+			}
+			modele_->nettoyerDerniereRechercheAttaque();
+			vue_->supprimerFiltreSurCases();
+			return;
+		}
+		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRechercheDeplacement();
 		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
 		{
-			modele_->nettoyerDerniereRecherche();
+			modele_->nettoyerDerniereRechercheDeplacement();
 			vue_->supprimerFiltreSurCases();
 			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
 			if (unite != nullptr)
@@ -75,12 +92,12 @@ namespace Controleur
 		}
 		else
 		{
-			Modele::Unite* unite = modele_->getProprietaireDerniereRecherche();
+			Modele::Unite* unite = modele_->getProprietaireDerniereRechercheDeplacement();
 			Modele::Vecteur2<int> anciennePosition = unite->getPosition();
 			Modele::Vecteur2<int> deplacement = positionCurseur_ - anciennePosition;
 
 			modele_->deplacerUnite(unite, deplacement);
-			modele_->nettoyerDerniereRecherche();
+			modele_->nettoyerDerniereRechercheDeplacement();
 			vue_->deplacerUnite(unite, deplacement);
 			vue_->supprimerFiltreSurCases();
 			vue_->genererInformationPersonnage(unite);
@@ -121,9 +138,14 @@ namespace Controleur
 			vue_->genererInformationPersonnage(uniteCurseur);
 	}
 
-	void Grille::genererCasesAccessibles()
+	void Grille::genererCasesAccessiblesDeplacement()
 	{
-		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessibles(positionCurseur_, modele_->getCase(positionCurseur_)->getUnite()->getPorteeDeplacement()));
+		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessiblesDeplacement(positionCurseur_, modele_->getCase(positionCurseur_)->getUnite()->getPorteeDeplacement()));
+		vue_->genererFiltreSurCases(casesAccessibles);
+	}
+	void Grille::genererCasesAccessiblesAttaque()
+	{
+		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessiblesAttaque(positionCurseur_, modele_->getCase(positionCurseur_)->getUnite()->getPorteeAttaque()));
 		vue_->genererFiltreSurCases(casesAccessibles);
 	}
 }

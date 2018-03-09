@@ -31,12 +31,16 @@ namespace Modele {
 		void relancerOrdreDeJeu();
 
 		std::forward_list<Vecteur2<int>> getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees);
-		std::list<Vecteur2<int>> chercherCasesAccessibles(const Vecteur2<int>& depart, const int rayon);
+		std::list<Vecteur2<int>> chercherCasesAccessiblesDeplacement(const Vecteur2<int>& depart, const int rayon);
+		std::list<Vecteur2<int>> chercherCasesAccessiblesAttaque(const Vecteur2<int>& depart, const int rayon);
 		std::stack<Vecteur2<int>> chercherChemin(const Vecteur2<int>& cible);
-		std::list<Vecteur2<int>> getDerniereRecherche() { return derniereRecherche_; }
-		void nettoyerDerniereRecherche();
+		std::list<Vecteur2<int>> getDerniereRechercheDeplacement() { return derniereRechercheDeplacement_; }
+		std::list<Vecteur2<int>> getDerniereRechercheAttaque() { return derniereRechercheAttaque_; }
+		void nettoyerDerniereRechercheDeplacement();
+		void nettoyerDerniereRechercheAttaque();
 
-		Unite * getProprietaireDerniereRecherche() { return proprietaireDerniereRecherche_; }
+		Unite * getProprietaireDerniereRechercheDeplacement() { return proprietaireDerniereRechercheDeplacement_; }
+		Unite * getProprietaireDerniereRechercheAttaque() { return proprietaireDerniereRechercheAttaque_; }
 
 		void deplacerUnite(const std::string& nom, const Vecteur2<int>& destination);
 		void deplacerUnite(Unite* unite, const Vecteur2<int>& deplacement);
@@ -58,8 +62,11 @@ namespace Modele {
 		std::priority_queue<Unite*> ordreDeJeu_;
 
 		//Sauvegarde Recherche de chemin
-		std::list<Vecteur2<int>> derniereRecherche_;
-		Unite * proprietaireDerniereRecherche_;
+		std::list<Vecteur2<int>> derniereRechercheDeplacement_;
+		Unite * proprietaireDerniereRechercheDeplacement_;
+
+		std::list<Vecteur2<int>> derniereRechercheAttaque_;
+		Unite * proprietaireDerniereRechercheAttaque_;
 
 		//Generation Procedurale
 		std::vector<Vecteur2<int>> casesAquatiques_;

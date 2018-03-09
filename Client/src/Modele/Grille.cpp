@@ -12,7 +12,7 @@
 
 namespace Modele
 {
-	Grille::Grille(const Vecteur2<int>& dimension) : dimension_(dimension), proprietaireDerniereRecherche_(nullptr)
+	Grille::Grille(const Vecteur2<int>& dimension) : dimension_(dimension), proprietaireDerniereRechercheDeplacement_(nullptr)
 	{
 		srand((unsigned)time(NULL));
 
@@ -145,11 +145,18 @@ namespace Modele
 		return std::stack<Vecteur2<int>>();
 	}
 
-	void Grille::nettoyerDerniereRecherche()
+	void Grille::nettoyerDerniereRechercheDeplacement()
 	{
-		for(auto iterateur(derniereRecherche_.begin()); iterateur != derniereRecherche_.end(); ++iterateur)
+		for(auto iterateur(derniereRechercheDeplacement_.begin()); iterateur != derniereRechercheDeplacement_.end(); ++iterateur)
 			getCase(*iterateur)->setCout(INT32_MAX);
-		derniereRecherche_.clear();
+		derniereRechercheDeplacement_.clear();
+	}
+
+	void Grille::nettoyerDerniereRechercheAttaque()
+	{
+		for (auto iterateur(derniereRechercheAttaque_.begin()); iterateur != derniereRechercheAttaque_.end(); ++iterateur)
+			getCase(*iterateur)->setCout(INT32_MAX);
+		derniereRechercheAttaque_.clear();
 	}
 
 	std::forward_list<Vecteur2<int>> Grille::getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees)
@@ -168,16 +175,16 @@ namespace Modele
 		return coordonneeCasesAdjacentes;
 	}	
 
-	std::list<Vecteur2<int>> Grille::chercherCasesAccessibles(const Vecteur2<int>& depart, const int rayon)
+	std::list<Vecteur2<int>> Grille::chercherCasesAccessiblesDeplacement(const Vecteur2<int>& depart, const int rayon)
 	{
-		nettoyerDerniereRecherche();
+		nettoyerDerniereRechercheDeplacement();
 
 		auto comparateurCaseCout = [](Case* a, Case* b) {return (a->getCout() > b->getCout()); };
 		std::priority_queue < Case*, std::vector<Case*>, decltype(comparateurCaseCout)> analyser(comparateurCaseCout);
 
 		Case* caseDepart = getCase(depart);
 
-		proprietaireDerniereRecherche_ = caseDepart->getUnite();
+		proprietaireDerniereRechercheDeplacement_ = caseDepart->getUnite();
 
 		caseDepart->setCout(0);
 
@@ -188,7 +195,7 @@ namespace Modele
 			Case* caseCourante = analyser.top();
 			analyser.pop();
 			const int coutCaseCourante = caseCourante->getCout();
-			derniereRecherche_.push_back(caseCourante->getPosition());
+			derniereRechercheDeplacement_.push_back(caseCourante->getPosition());
 
 			for (const Vecteur2<int> coordonneesCasesAdjacente : getCoordonneesCasesAdjacentes(caseCourante->getPosition()))
 			{
@@ -203,7 +210,42 @@ namespace Modele
 				}
 			}
 		}
-		return derniereRecherche_;
+		return derniereRechercheDeplacement_;
+	}
+
+	std::list<Vecteur2<int>> Grille::chercherCasesAccessiblesAttaque(const Vecteur2<int>& depart, const int rayon)
+	{
+		nettoyerDerniereRechercheAttaque();
+
+		auto comparateurCaseCout = [](Case* a, Case* b) {return (a->getCout() > b->getCout()); };
+		std::priority_queue < Case*, std::vector<Case*>, decltype(comparateurCaseCout)> analyser(comparateurCaseCout);
+
+		Case* caseDepart = getCase(depart);
+
+		proprietaireDerniereRechercheAttaque_ = caseDepart->getUnite();
+
+		caseDepart->setCout(0);
+
+		analyser.push(caseDepart);
+
+		while (!analyser.empty())
+		{
+			Case* caseCourante = analyser.top();
+			analyser.pop();
+			const int coutCaseCourante = caseCourante->getCout();
+			derniereRechercheAttaque_.push_back(caseCourante->getPosition());
+
+			for (const Vecteur2<int> coordonneesCasesAdjacente : getCoordonneesCasesAdjacentes(caseCourante->getPosition()))
+			{
+				Case* caseAdjacente = getCase(coordonneesCasesAdjacente);
+				if (coutCaseCourante + 1 <= rayon && coutCaseCourante + 1 < caseAdjacente->getCout())
+				{
+					caseAdjacente->setCout(caseCourante->getCout() + 1);
+					analyser.push(caseAdjacente);
+				}
+			}
+		}
+		return derniereRechercheAttaque_;
 	}
 
 	void Grille::deplacerUnite(const std::string& nom, const Vecteur2<int>& destination)

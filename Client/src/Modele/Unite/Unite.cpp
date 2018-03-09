@@ -13,6 +13,6 @@ namespace Modele
 
 	void Unite::attaquer(Unite* unitee)
 	{
-
+		unitee->prendreDommage(attaque_);
 	}
 }
