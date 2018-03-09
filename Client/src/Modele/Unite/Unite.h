@@ -3,8 +3,8 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <string>
-#include "Outils/Vecteur2.h"
-#include "Outils/enum.h"
+#include "../Outils/Vecteur2.h"
+#include "../Outils/enum.h"
 
 namespace Modele
 {

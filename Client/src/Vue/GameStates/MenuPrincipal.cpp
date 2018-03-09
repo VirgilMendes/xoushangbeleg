@@ -122,7 +122,7 @@ namespace Vue
 		TabMenu_[choix_].setFillColor(sf::Color::Yellow);
 	}
 
-	void MenuPrincipal::dessiner()
+	void MenuPrincipal::afficher()
 	{
 		for (int i = 0; i < 4; i++)
 		{

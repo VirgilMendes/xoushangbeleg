@@ -15,7 +15,7 @@ namespace Vue
 		MenuPrincipal();
 		void handleEvent() override;
 		void update() override;
-		void dessiner() override;
+		void afficher() override;
 		void setFichiers(bool filesExistant);
 
 	private:

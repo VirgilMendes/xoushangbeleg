@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Navigation.h"
+#include "GameStates/MenuChoix.h"
 
 namespace Controleur
 {
@@ -14,6 +15,16 @@ namespace Controleur
 		fenetre->setFramerateLimit(60);
 		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
 		gameStates_.push_back(grille);
+		MenuChoix* menuAction = new MenuChoix(std::vector<Choix>
+		{ 
+			{ "choix actif", false }, 
+			{ "choix actif", true }, 
+			{ "choix inactif", true },
+			{ "choix inactif", true },
+			{ "choix actif", false },
+			{ "choix inactif", true },
+		});
+		gameStates_.push_back(menuAction);
 	}
 
 	void Fenetre::run()
@@ -37,11 +48,11 @@ namespace Controleur
 			while(iterateur != gameStates_.rbegin())
 			{
 				(*iterateur)->update();
-				(*iterateur)->dessiner();
+				(*iterateur)->afficher();
 				--iterateur;
 			}
 			(*iterateur)->update();
-			(*iterateur)->dessiner();
+			(*iterateur)->afficher();
 
 			fenetre->display();
 			
@@ -59,3 +70,4 @@ namespace Controleur
 		gameStates_.back();
 	}
 }
+

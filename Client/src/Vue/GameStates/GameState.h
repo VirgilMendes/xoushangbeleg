@@ -15,6 +15,6 @@ namespace Vue
 
 		virtual void handleEvent() = 0;
 		virtual void update() = 0;
-		virtual void dessiner() = 0;
+		virtual void afficher() = 0;
 	};
 }

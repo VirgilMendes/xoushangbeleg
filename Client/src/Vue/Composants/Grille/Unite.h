@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../Outils/Animation.h"
+#include "../../Outils/Animation.h"
 #include <map>
-#include "../../Modele/Unite.h"
+#include "../../../Modele/Unite/Unite.h"
 
 namespace Vue
 {

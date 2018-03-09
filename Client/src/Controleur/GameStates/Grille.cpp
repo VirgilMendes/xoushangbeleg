@@ -34,9 +34,9 @@ namespace Controleur
 		vue_->update();
 	}
 
-	void Grille::dessiner()
+	void Grille::afficher()
 	{
-		vue_->dessiner();
+		vue_->afficher();
 	}
 
 	void Grille::enclencherActionDeplacement(const ActionDeplacement& action)

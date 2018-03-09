@@ -2,12 +2,12 @@
 #include "SFML/Graphics.hpp"
 #include "../../Modele/Grille.h"
 #include "../Outils/Node.h"
-#include "../Combat/Curseur.h"
-#include "../Combat/Unite.h"
-#include "../Combat/InterFaceUnite.h"
+#include "../Composants/Grille/Curseur.h"
+#include "../Composants/Grille/Unite.h"
+#include "../Composants/Grille/InterFaceUnite.h"
 #include "../../Controleur/GameStates/GameState.h"
 #include "GameState.h"
-#include "../Combat/FiltreCase.h"
+#include "../Composants/Grille/FiltreCase.h"
 
 namespace Controleur
 {
@@ -19,7 +19,7 @@ namespace Vue
 	typedef std::pair<Modele::Terrain, int > ParametreSol;
 	typedef std::tuple<Modele::Terrain, Modele::Obstacle, int > ParametreElement;
 
-	class Grille : public sf::View, Node, GameState
+	class Grille : public sf::View, GameState
 	{
 	public :
 		Grille(Modele::Grille* modele, Controleur::Grille* controleur);
@@ -41,13 +41,7 @@ namespace Vue
 
 		void handleEvent() override;
 		void update() override;
-		void dessiner() override;
-
-	protected:
-		void dessinerNode(sf::RenderTarget* target, const sf::Transform& transform) override{}
-		void setPositionElements(sf::Vector2i position) override {}
-		void setTailleElements(sf::Vector2i taille) override {}
-		void setRotationElements(int rotation) override {}
+		void afficher() override;
 
 		private :
 

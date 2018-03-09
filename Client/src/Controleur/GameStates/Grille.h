@@ -13,7 +13,7 @@ namespace Controleur
 
 		void handleEvent() override;
 		void update() override;
-		void dessiner() override;
+		void afficher() override;
 
 		void enclencherActionDeplacement(const ActionDeplacement& action) override;
 		void enclencherActionValidation() override;

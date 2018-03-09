@@ -4,13 +4,13 @@
 #pragma once
 
 #include <string>
-#include "../../Modele/Unite.h"
-#include "../../Modele/Archer.h"
-#include "../../Modele/Soldat.h"
-#include "../../Modele/Tank.h"
-#include "../Constante.h"
+#include "../../../Modele/Unite/Unite.h"
+#include "../../../Modele/Unite/Archer.h"
+#include "../../../Modele/Unite/Soldat.h"
+#include "../../../Modele/Unite/Tank.h"
+#include "../../Constante.h"
 
-#include "../Outils/Jauge.h"
+#include "../../Outils/Jauge.h"
 
 typedef std::pair<Modele::Classe, Modele::Equipe> ClasseEquipe;
 

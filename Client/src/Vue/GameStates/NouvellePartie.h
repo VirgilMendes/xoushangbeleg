@@ -14,7 +14,7 @@ namespace Vue
 		NouvellePartie();
 		void handleEvent() override;
 		void update() override;
-		void dessiner() override;
+		void afficher() override;
 
 		void NouvellePartie::setIP();
 		void NouvellePartie::setIP(std::string std);

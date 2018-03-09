@@ -21,7 +21,7 @@ namespace Controleur
 
 		virtual void handleEvent() = 0;
 		virtual void update() = 0;
-		virtual void dessiner() = 0;
+		virtual void afficher() = 0;
 		
 		virtual void enclencherActionDeplacement(const ActionDeplacement& action) {}
 		virtual void enclencherActionValidation() {}
@@ -30,9 +30,9 @@ namespace Controleur
 		virtual void enclancherActionSpecial() {}
 		
 		
-		virtual bool estInterfaceUtilisateur() { return interfaceUtilisateur; }
+		virtual bool estInterfaceUtilisateur() { return interfaceUtilisateur_; }
 
 	protected:
-		bool interfaceUtilisateur = false;
+		bool interfaceUtilisateur_ = false;
 	};
 }

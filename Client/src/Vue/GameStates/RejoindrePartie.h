@@ -20,7 +20,7 @@ namespace Vue
 		RejoindrePartie(Controleur::Fenetre* fenetre);
 		void handleEvent() override;
 		void update() override;
-		void dessiner() override;
+		void afficher() override;
 		std::string RejoindrePartie::getIP();
 
 

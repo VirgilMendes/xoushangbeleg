@@ -3,7 +3,7 @@
 #include "../../Controleur/GameStates/GameState.h"
 #include "../../Controleur/Navigation.h"
 #include "../../Controleur/GameStates/Grille.h"
-#include "../Combat/FiltreCase.h"
+#include "../Composants/Grille/FiltreCase.h"
 
 namespace Vue
 {
@@ -199,7 +199,7 @@ namespace Vue
 	{
 	}
 
-	void Grille::dessiner()
+	void Grille::afficher()
 	{
 		sf::RenderWindow* fenetre = Controleur::Fenetre::fenetre;
 		sf::RenderStates etat;

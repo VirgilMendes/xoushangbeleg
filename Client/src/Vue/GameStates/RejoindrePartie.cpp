@@ -140,7 +140,7 @@ namespace Vue
 		logo_.setTextureRect(animationtitre_.getFrame());
 	}
 
-	void RejoindrePartie::dessiner()
+	void RejoindrePartie::afficher()
 	{
 		Controleur::Fenetre::fenetre->draw(titreMenu_);
 		Controleur::Fenetre::fenetre->draw(ip_);

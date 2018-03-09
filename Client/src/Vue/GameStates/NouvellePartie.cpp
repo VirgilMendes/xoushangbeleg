@@ -128,7 +128,7 @@ namespace Vue
 		logo_.setTextureRect(animationtitre_.getFrame());
 	}
 
-	void NouvellePartie::dessiner()
+	void NouvellePartie::afficher()
 	{
 		Controleur::Fenetre::fenetre->draw(ip_);
 		Controleur::Fenetre::fenetre->draw(titreMenu_);

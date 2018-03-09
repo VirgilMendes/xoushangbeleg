@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../Outils/Animation.h"
+#include "../../Outils/Animation.h"
 #include <iostream>
-#include "../Constante.h"
+#include "../../Constante.h"
 
 namespace Vue
 {
