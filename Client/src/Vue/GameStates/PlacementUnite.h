@@ -4,17 +4,23 @@
 #include "../Composants/Grille/Curseur.h";
 #include "../../Modele/Unite/Unite.h"
 
+namespace Controleur
+{
+	class PlacementUnite;
+}
+
 namespace Vue {
 
 	class PlacementUnite : public GameState
 	{
 	public :
-		PlacementUnite(Modele::Equipe equipe, int nbUniteRestantes);
+		PlacementUnite(Controleur::PlacementUnite* controleur, Modele::Equipe equipe, int nbUniteRestantes);
 
-		void afficher();
+		
 
 		void handleEvent();
 		void update();
+		void afficher();
 
 		int getChoix();
 		void setChoix(int choix);
@@ -34,9 +40,9 @@ namespace Vue {
 		int choix;
 		int nbUniteRestantes;
 
-		sf::Font font;
-
 		Curseur curseur;
+
+		Controleur::PlacementUnite* controleur_;
 	};
 
 }

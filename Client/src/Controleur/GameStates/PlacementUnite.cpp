@@ -6,7 +6,8 @@ namespace Controleur {
 	PlacementUnite::PlacementUnite()
 	{
 
-		vue_ = new Vue::PlacementUnite(Modele::Equipe::Bleu, 9);
+		vue_ = new Vue::PlacementUnite(this, Modele::Equipe::Bleu, 9);
+		interfaceUtilisateur_ = true;
 	}
 
 	void PlacementUnite::handleEvent()
