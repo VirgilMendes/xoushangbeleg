@@ -12,7 +12,7 @@ namespace Controleur
 
 	void Fenetre::initialiser()
 	{
-		fenetre = new sf::RenderWindow(sf::VideoMode(1000, 700), "Xoushangbeleg");
+		fenetre = new sf::RenderWindow(sf::VideoMode(1280, 720), "Xoushangbeleg");
 		fenetre->setFramerateLimit(60);
 		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
 		gameStates_.push_front(grille);

@@ -7,7 +7,7 @@
 
 namespace Vue
 {
-	Grille::Grille(Modele::Grille* modele, Controleur::Grille* controleur) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1000, 700)), modele_(modele), controleur_(controleur), interfaceUnite_(nullptr)
+	Grille::Grille(Modele::Grille* modele, Controleur::Grille* controleur) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1280, 720)), modele_(modele), controleur_(controleur), interfaceUnite_(nullptr)
 	{
 		horloge_ = new sf::Clock;
 
@@ -35,7 +35,7 @@ namespace Vue
 				// on recupere le code de tuile courant
 				const int caseNombre(caseGrille->getTerrain()._to_integral() * 8 + caseGrille->getObstacle()._to_integral() * 2 + 1);
 
-				// on recupere un pointeur vers le quad à definir dans le tableau de vertex
+				// on recupere un pointeur vers le quad a definir dans le tableau de vertex
 				sf::Vertex* quad = &sommets_[(i + j * largeur) * 4];
 
 				// on definit ses quatre coins
@@ -44,7 +44,7 @@ namespace Vue
 				quad[2].position = sf::Vector2f((i + 1) * RES_TEXTURE_XSB, (j + 1) * RES_TEXTURE_XSB);
 				quad[3].position = sf::Vector2f(i * RES_TEXTURE_XSB, (j + 1) * RES_TEXTURE_XSB);
 
-				// on definit ses quatre coordonnées de texture
+				// on definit ses quatre coordonnees de texture
 				quad[0].texCoords = sf::Vector2f(caseNombre * RES_TEXTURE_XSB, 0);
 				quad[1].texCoords = sf::Vector2f((caseNombre + 1) * RES_TEXTURE_XSB, 0);
 				quad[2].texCoords = sf::Vector2f((caseNombre + 1) * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
