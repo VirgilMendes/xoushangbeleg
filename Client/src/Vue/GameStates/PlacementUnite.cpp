@@ -61,6 +61,9 @@ namespace Vue {
 			classeText[i].setCharacterSize(20);
 			classeText[i].setFillColor(sf::Color::White);
 		}
+
+		curseur.initAnimation();
+		curseur.setPosition(sf::Vector2i(200,200));
 	}
 
 	void PlacementUnite::afficher()
@@ -68,8 +71,6 @@ namespace Vue {
 		sf::RenderStates states;
 
 		sf::RenderWindow* target = Controleur::Fenetre::fenetre;
-
-
 		
 		target->draw(fond, states);
 		target->draw(teteTank, states);
@@ -80,7 +81,7 @@ namespace Vue {
 		{
 			target->draw(classeText[i], states);
 		}
-
+		target->draw(curseur, states);	
 	}
 
 	int PlacementUnite::getChoix()
