@@ -1,6 +1,7 @@
 #pragma once
 #include "MenuAction.h"
 #include "../../Navigation.h"
+#include "../Grille.h"
 
 namespace Controleur
 {

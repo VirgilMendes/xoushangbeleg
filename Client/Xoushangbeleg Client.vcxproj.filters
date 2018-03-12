@@ -54,6 +54,7 @@
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
     <ClInclude Include="src\Controleur\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Vue\GameStates\PlacementUnite.h" />
+    <ClInclude Include="src\Vue\Outils\TexteVariable.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

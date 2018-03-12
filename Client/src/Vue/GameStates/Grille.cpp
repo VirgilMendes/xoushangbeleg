@@ -239,7 +239,7 @@ namespace Vue
 
 		fenetre->setView(fenetre->getDefaultView());
 		if (interfaceUnite_ != nullptr)
-			fenetre->draw(*interfaceUnite_, etat);
+			interfaceUnite_->dessiner(fenetre, etat);
 
 	}
 }

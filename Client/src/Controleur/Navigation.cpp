@@ -2,11 +2,13 @@
 
 #include "Navigation.h"
 #include "GameStates/MenuChoix.h"
+#include  "GameStates/Grille.h"
 
 namespace Controleur
 {
 
 	sf::RenderWindow* Fenetre::fenetre = nullptr;
+	sf::Font Fenetre::policeParDefaut_;
 	std::list<GameState*> Fenetre::gameStates_;
 	std::list<GameState*> Fenetre::cache_;
 
@@ -14,6 +16,10 @@ namespace Controleur
 	{
 		fenetre = new sf::RenderWindow(sf::VideoMode(1280, 720), "Xoushangbeleg");
 		fenetre->setFramerateLimit(60);
+		if (!policeParDefaut_.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
+		{
+			std::cout << "Impossible d'ouvrir la police par défaut" << std::endl;
+		}
 		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
 		gameStates_.push_front(grille);
 		//PlacementUnite* placementUnite = new PlacementUnite();
@@ -80,6 +86,11 @@ namespace Controleur
 			}
 		}
 		return dynamic_cast<Grille*>(*iterateur);
+	}
+
+	sf::Font& Fenetre::getPoliceParDefaut()
+	{
+		return policeParDefaut_;
 	}
 }
 

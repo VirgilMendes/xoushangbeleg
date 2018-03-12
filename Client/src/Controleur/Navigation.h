@@ -5,7 +5,6 @@
 #include "GameStates/GameState.h"
 #include <stack>
 #include "GameStates/PlacementUnite.h"
-#include "GameStates/Grille.h"
 #include <pugixml.hpp>
 #include <sstream>
 #include <list>
@@ -14,10 +13,13 @@
 
 namespace Controleur
 {
+	class Grille;
+
 	class Fenetre
 	{
 	public:
 
+		Fenetre() = delete;
 
 		static void initialiser();
 
@@ -28,6 +30,8 @@ namespace Controleur
 		static void depilerGameState();
 
 		static Grille* getProchaineGrille();
+
+		static sf::Font& getPoliceParDefaut();
 		
 		static void decodeXml(std::string str) {
 			pugi::xml_document doc;
@@ -167,6 +171,8 @@ namespace Controleur
 		static sf::RenderWindow* fenetre;
 
 	private:
+
+		static sf::Font policeParDefaut_;
 
 		static std::list<GameState*> gameStates_;
 		static std::list<GameState*> cache_;

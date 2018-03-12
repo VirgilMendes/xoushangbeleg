@@ -5,117 +5,104 @@
 #include <Windows.h>
 #include "InterfaceUnite.h"
 #include "../../Outils/Jauge.h"
+#include "../../../Controleur/Navigation.h"
+#include "../../Outils/TexteVariable.h"
 
 
 namespace Vue 
 {
-	InterfaceUnite::InterfaceUnite(Modele::Unite *unite) : sf::Drawable() , unite(unite), vie(sf::Vector2f(300.0f,584.0f), unite->getVieMax(), unite->getVieCourante(), sf::Vector2f(200.0f,15.0f))
+	InterfaceUnite::InterfaceUnite(Modele::Unite *unite) : unite_(nullptr), 
+		barreVie_(sf::Vector2f(200+60,550+20+5), unite->getVieMax(), unite->getVieCourante(), sf::Vector2f(300,10))
 	{
-		if (!ressource.loadFromFile("ressources/sprite/menu+figures.png"))
+		if (!textureAvatar_.loadFromFile("ressources/sprite/menu+figures.png"))
 		{
 			std::cout << "erreur chargement Texture menu+figures.png" << std::endl;
 		}
-		tete.setTexture(ressource);
-		tete.scale(0.5f,0.5f);
-		tete.setPosition(42,25+522);
-		avatarUnite[ClasseEquipe(Modele::Classe::Tank, Modele::Equipe::Rouge)] = sf::IntRect(0,0,256,256);
-		avatarUnite[ClasseEquipe(Modele::Classe::Tank, Modele::Equipe::Bleu)] = sf::IntRect(256, 0, 256, 256);
-		avatarUnite[ClasseEquipe(Modele::Classe::Soldat, Modele::Equipe::Rouge)] = sf::IntRect(0, 256, 256, 256);
-		avatarUnite[ClasseEquipe(Modele::Classe::Soldat, Modele::Equipe::Bleu)] = sf::IntRect(256, 256, 256, 256);
-		avatarUnite[ClasseEquipe(Modele::Classe::Archer, Modele::Equipe::Rouge)] = sf::IntRect(0, 512, 256, 256);
-		avatarUnite[ClasseEquipe(Modele::Classe::Archer, Modele::Equipe::Bleu)] = sf::IntRect(256, 512, 256, 256);
+		avatar_.setTexture(textureAvatar_);
+		avatar_.scale(0.5f,0.5f);
+		avatar_.setPosition(42,25+522);
 
-		this->setUnite(this->unite);
+		fond_.setTexture(textureAvatar_);
+		fond_.setTextureRect(sf::IntRect(0, 3*256, 256, 256));
+		fond_.scale(2.55f, 0.7f);
+		fond_.setPosition(10, 525);
+		
+		nom_.setTexteConstant("NOM : ");
+		nom_.setFillColor(sf::Color::White);
+		nom_.setPosition(200, 550);
 
-		if (!font.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
-		{
-			std::cout << "error font" << std::endl;
-		}
+		classe_.setTexteConstant("CLASSE : ");
+		classe_.setFillColor(sf::Color::White);
+		classe_.setPosition(200+200, 550);
 
-		TabStat[0].setString("Classe : ");
-		TabStat[1].setString("Vie : ");
-		TabStat[2].setString("Attaque : ");
-		TabStat[3].setString("Defense : ");
+		vie_.setTexteConstant("PV  :									");
+		vie_.setFillColor(sf::Color::White);
+		vie_.setPosition(200, 550 + 20);
 
-		for (int i = 0; i < 4; i++)
-		{
-			TabStat[i].setFont(font);// choix de la police a utiliser
-			TabStat[i].setCharacterSize(15);// choix de la taille des caracteres
-			TabStat[i].setFillColor(sf::Color::White);
-			TabStat[i].setPosition(200, i * 32 + 550);
-		}
-		fond.setTexture(ressource);
-		fond.setTextureRect(sf::IntRect(0,256+512,256,256));
-		fond.scale(2.55f, 0.7f);
-		fond.setPosition(0, 522);
+		attaque_.setTexteConstant("ATT : ");
+		attaque_.setFillColor(sf::Color::White);
+		attaque_.setPosition(200, 550+3*20);
 
-		classeText.setFont(font);// choix de la police a utiliser
-		classeText.setCharacterSize(15);// choix de la taille des caracteres
-		classeText.setFillColor(sf::Color::White);
-		classeText.setPosition(300, 550);
+		defense_.setTexteConstant("DEF : ");
+		defense_.setFillColor(sf::Color::White);
+		defense_.setPosition(200, 550+4*20);
 
-		vieText.setPosition(530, 582);
-		vieText.setFont(font);// choix de la police a utiliser
-		vieText.setCharacterSize(15);// choix de la taille des caracteres
-		vieText.setFillColor(sf::Color::White);
+		porteeDeplacement_.setTexteConstant("POD : ");
+		porteeDeplacement_.setFillColor(sf::Color::White);
+		porteeDeplacement_.setPosition(200+200, 550 + 3 * 20);
 
-		statTextAtt.setPosition(300, 614);
-		statTextAtt.setFont(font);// choix de la police a utiliser
-		statTextAtt.setCharacterSize(15);// choix de la taille des caracteres
-		statTextAtt.setFillColor(sf::Color::White);
+		porteeAttaque_.setTexteConstant("POA : ");
+		porteeAttaque_.setFillColor(sf::Color::White);
+		porteeAttaque_.setPosition(200+200, 550 + 4 * 20);
 
-		statTextDef.setPosition(300, 646);
-		statTextDef.setFont(font);// choix de la police a utiliser
-		statTextDef.setCharacterSize(15);// choix de la taille des caracteres
-		statTextDef.setFillColor(sf::Color::White);
+		setUnite(unite);
 	}
 
 	Modele::Unite* InterfaceUnite::getUnite()
 	{
-		return unite;
+		return unite_;
 	}
 
 	void InterfaceUnite::setUnite(Modele::Unite *unite)
 	{
-		this->unite = unite;
-		tete.setTextureRect(avatarUnite[ClasseEquipe(unite->getClasse(), unite->getEquipe())]);
+		unite_ = unite;
+		avatar_.setTextureRect(InterfaceUnite::avatarsUnite.at(ClasseEquipe(unite->getClasse(), unite->getEquipe())));
 
-		switch (this->unite->getClasse())
-		{
-		case Modele::Classe::Tank:
-			classeText.setString("Tank");
-			break;
-		case Modele::Classe::Soldat:
-			classeText.setString("Soldat");
-			break;
-		case Modele::Classe::Archer:
-			classeText.setString("Archer");
-			break;
-		}
-		
-		vie.setValeurMax(this->unite->getVieMax());
-		vie.setValeurCourante(this->unite->getVieCourante());
-		vieText.setString(std::to_string(this->unite->getVieCourante()) + "/"+ std::to_string(this->unite->getVieMax()));
-		statTextAtt.setString(std::to_string(this->unite->getAttaque()));
-		statTextDef.setString(std::to_string(this->unite->getDefense()));
+		nom_.setValeurVariable(unite_->getNom());
+		classe_.setValeurVariable(unite_->getClasse()._to_string());
+		vie_.setValeurVariable(std::to_string(unite_->getVieCourante()) + "/" + std::to_string(unite_->getVieMax()));
+		attaque_.setValeurVariable(std::to_string(unite_->getAttaque()));
+		defense_.setValeurVariable(std::to_string(unite_->getDefense()));
+		porteeAttaque_.setValeurVariable(std::to_string(unite_->getPorteeAttaque()));
+		porteeDeplacement_.setValeurVariable(std::to_string(unite_->getPorteeDeplacement()));
+
+		barreVie_.setValeurMax(this->unite_->getVieMax());
+		barreVie_.setValeurCourante(this->unite_->getVieCourante());
 	}
 
-	void InterfaceUnite::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void InterfaceUnite::dessiner(sf::RenderTarget* target, sf::RenderStates& states)
 	{
-		
-		target.draw(fond, states);
-		target.draw(tete, states);
+		target->draw(fond_, states);
+		target->draw(avatar_, states);
 
-		for (int i = 0; i < 4; i++)
-		{
-			target.draw(TabStat[i]);
-		}
+		target->draw(nom_, states);
+		target->draw(classe_, states);
+		target->draw(barreVie_, states);
+		target->draw(vie_, states);
+		target->draw(attaque_, states);
+		target->draw(defense_, states);
+		target->draw(porteeDeplacement_, states);
+		target->draw(porteeAttaque_, states);
 
-		target.draw(classeText, states);
-		target.draw(vie, states);
-		target.draw(vieText, states);
-		target.draw(statTextAtt, states);
-		target.draw(statTextDef, states);
 	}
 
+	const std::map<ClasseEquipe, sf::IntRect> InterfaceUnite::avatarsUnite = std::map<ClasseEquipe, sf::IntRect>
+	{
+		{ { Modele::Classe::Tank, Modele::Equipe::Rouge }, sf::IntRect(0, 0, 256, 256) },
+		{ { Modele::Classe::Tank, Modele::Equipe::Bleu }, sf::IntRect(256, 0, 256, 256) },
+		{ { Modele::Classe::Soldat, Modele::Equipe::Rouge }, sf::IntRect(0, 256, 256, 256) },
+		{ { Modele::Classe::Soldat, Modele::Equipe::Bleu }, sf::IntRect(256, 256, 256, 256) },
+		{ { Modele::Classe::Archer, Modele::Equipe::Rouge }, sf::IntRect(0, 512, 256, 256) },
+		{ { Modele::Classe::Archer, Modele::Equipe::Bleu }, sf::IntRect(256, 512, 256, 256) }
+	};
 }

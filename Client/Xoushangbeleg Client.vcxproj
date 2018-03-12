@@ -157,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\GameStates\Grille.h" />
-
     <ClInclude Include="src\Controleur\GameStates\MenuChoix.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
     <ClInclude Include="src\Modele\Unite\Archer.h" />
@@ -186,6 +185,7 @@
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
     <ClInclude Include="src\Controleur\Navigation.h" />
+    <ClInclude Include="src\Vue\Outils\TexteVariable.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />
