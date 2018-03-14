@@ -28,7 +28,8 @@ namespace Modele {
 		void ajouterUnite(Unite* unite);
 		void supprimerUnite(Unite* unite);
 
-		Unite* getUniteActuel() { return ordreDeJeu_.empty() ? ordreDeJeu_.top() : nullptr; }
+		Unite* getUniteActuel() { return ordreDeJeu_.empty() ? nullptr : ordreDeJeu_.top(); }
+		void finDeTour() { if(!ordreDeJeu_.empty())ordreDeJeu_.pop(); }
 		void relancerOrdreDeJeu();
 
 		std::forward_list<Vecteur2<int>> getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees);

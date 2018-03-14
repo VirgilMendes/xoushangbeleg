@@ -5,7 +5,7 @@
 
 namespace Controleur
 {
-	Grille::Grille(Modele::Vecteur2<int> dimension) : modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this))
+	Grille::Grille(Modele::Vecteur2<int> dimension) : modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection)
 	{
 		Modele::Unite* billy = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
 		modele_->ajouterUnite(billy);
@@ -18,6 +18,11 @@ namespace Controleur
 		Modele::Unite* gerard = new Modele::Soldat("Gerard", Modele::Equipe::Bleu, Modele::Vecteur2<int>(4, 3));
 		modele_->ajouterUnite(gerard);
 		vue_->ajouterUnite(gerard, Vue::Unite::cheminTextureUnite.at(gerard->getClasse()));
+
+		modele_->relancerOrdreDeJeu();
+		Modele::Unite* uniteActuel = modele_->getUniteActuel();
+		positionCurseur_ = uniteActuel->getPosition();
+		vue_->setPositionCurseur(uniteActuel->getPosition());
 	}
 
 	Grille::~Grille()
@@ -62,54 +67,20 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
-		if(!modele_->getDerniereRechercheAttaque().empty())
+		switch(etatCombat_)
 		{
-			std::list<Modele::Vecteur2<int>> derniereRechercheAttaque = modele_->getDerniereRechercheAttaque();
-			if (std::find(derniereRechercheAttaque.begin(), derniereRechercheAttaque.end(), positionCurseur_) != derniereRechercheAttaque.end());
-			{
-				Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
-				if (unite != nullptr)
-				{
-					modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
-					if(unite->getVieCourante() <= 0)
-					{
-						vue_->supprimerUnite(unite);
-						modele_->supprimerUnite(unite);
-						vue_->detruireInfomationPersonnage();
-					}
-					else
-					{
-						vue_->detruireInfomationPersonnage();
-						vue_->genererInformationPersonnage(unite);
-					}
-				}	
-			}
-			modele_->nettoyerDerniereRechercheAttaque();
-			vue_->supprimerFiltreSurCases();
-			return;
-		}
-		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRechercheDeplacement();
-		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
-		{
-			modele_->nettoyerDerniereRechercheDeplacement();
-			vue_->supprimerFiltreSurCases();
-			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
-			if (unite != nullptr)
-			{
-				Controleur::Fenetre::empilerGameState(new Controleur::MenuAction());
-			}
-		}
-		else
-		{
-			Modele::Unite* unite = modele_->getProprietaireDerniereRechercheDeplacement();
-			Modele::Vecteur2<int> anciennePosition = unite->getPosition();
-			Modele::Vecteur2<int> deplacement = positionCurseur_ - anciennePosition;
-
-			modele_->deplacerUnite(unite, deplacement);
-			modele_->nettoyerDerniereRechercheDeplacement();
-			vue_->deplacerUnite(unite, deplacement);
-			vue_->supprimerFiltreSurCases();
-			vue_->genererInformationPersonnage(unite);
+		case EtatCombat::Navigation:
+			naviguer();
+			break;
+		case EtatCombat::Selection:
+			selectionerUnite();
+			break;
+		case EtatCombat::Deplacement:
+			deplacerUnite();
+			break;
+		case EtatCombat::Attaque:
+			attaquerUnite();
+			break;
 		}
 	}
 
@@ -124,6 +95,92 @@ namespace Controleur
 	void Grille::enclancherActionSpecial()
 	{
 	}
+
+	void Grille::naviguer()
+	{
+
+	}
+
+	void Grille::selectionerUnite()
+	{
+		Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
+		if (unite != nullptr)
+		{
+			Modele::Unite* uniteActuel = modele_->getUniteActuel();
+			if (uniteActuel == nullptr)
+			{
+				modele_->relancerOrdreDeJeu();
+				uniteActuel = modele_->getUniteActuel();
+				positionCurseur_ = uniteActuel->getPosition();
+				vue_->setPositionCurseur(uniteActuel->getPosition());
+			}
+			else if(unite == uniteActuel)
+				Controleur::Fenetre::empilerGameState(new Controleur::MenuAction());
+		}
+	}
+
+	void Grille::deplacerUnite()
+	{
+		etatCombat_ = EtatCombat::Selection;
+		std::list<Modele::Vecteur2<int>> derniereRecherche = modele_->getDerniereRechercheDeplacement();
+		if (std::find(derniereRecherche.begin(), derniereRecherche.end(), positionCurseur_) == derniereRecherche.end())
+		{
+			modele_->nettoyerDerniereRechercheDeplacement();
+			vue_->supprimerFiltreSurCases();
+			selectionerUnite();
+		}
+		else
+		{
+			Modele::Unite* unite = modele_->getProprietaireDerniereRechercheDeplacement();
+			Modele::Vecteur2<int> anciennePosition = unite->getPosition();
+			Modele::Vecteur2<int> deplacement = positionCurseur_ - anciennePosition;
+
+			modele_->deplacerUnite(unite, deplacement);
+			modele_->nettoyerDerniereRechercheDeplacement();
+			vue_->supprimerFiltreSurCases();
+			vue_->deplacerUnite(unite, deplacement);	
+			vue_->genererInformationPersonnage(unite);
+		}
+	}
+
+	void Grille::attaquerUnite()
+	{
+		etatCombat_ = EtatCombat::Selection;
+		std::list<Modele::Vecteur2<int>> derniereRechercheAttaque = modele_->getDerniereRechercheAttaque();
+		if (std::find(derniereRechercheAttaque.begin(), derniereRechercheAttaque.end(), positionCurseur_) == derniereRechercheAttaque.end())
+		{
+			modele_->nettoyerDerniereRechercheAttaque();
+			vue_->supprimerFiltreSurCases();
+			selectionerUnite();
+		}
+		else
+		{
+			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
+			if (unite != nullptr && unite != modele_->getProprietaireDerniereRechercheAttaque())
+			{
+				modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
+				if (unite->getVieCourante() <= 0)
+				{
+					vue_->supprimerUnite(unite);
+					modele_->supprimerUnite(unite);
+					vue_->detruireInfomationPersonnage();
+				}
+				else
+				{
+					vue_->detruireInfomationPersonnage();
+					vue_->genererInformationPersonnage(unite);
+				}
+				modele_->nettoyerDerniereRechercheAttaque();
+				vue_->supprimerFiltreSurCases();
+			}
+			else
+			{
+				etatCombat_ = EtatCombat::Attaque;
+			}
+		}
+	}
+
+
 
 	void Grille::deplacerCurseur(Modele::Vecteur2<int> deplacement)
 	{
@@ -156,5 +213,19 @@ namespace Controleur
 	{
 		std::list<Modele::Vecteur2<int>> casesAccessibles(modele_->chercherCasesAccessiblesAttaque(positionCurseur_, modele_->getCase(positionCurseur_)->getUnite()->getPorteeAttaque()));
 		vue_->genererFiltreSurCases(casesAccessibles);
+	}
+
+	void Grille::finirTourUniteActuel()
+	{
+		modele_->finDeTour();
+		Modele::Unite* uniteActuel = modele_->getUniteActuel();
+		if (uniteActuel == nullptr)
+		{
+			modele_->relancerOrdreDeJeu();
+			
+		}		
+		uniteActuel = modele_->getUniteActuel();
+		positionCurseur_ = uniteActuel->getPosition();
+		vue_->setPositionCurseur(uniteActuel->getPosition());
 	}
 }

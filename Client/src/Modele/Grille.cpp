@@ -152,6 +152,8 @@ namespace Modele
 
 	void Grille::relancerOrdreDeJeu()
 	{
+		for (Unite* unite : unites_)
+			ordreDeJeu_.push(unite);
 	}
 
 	std::stack<Vecteur2<int>> Grille::chercherChemin(const Vecteur2<int>& cible)

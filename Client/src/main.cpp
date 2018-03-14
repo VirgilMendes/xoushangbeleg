@@ -29,7 +29,7 @@ int main()
 		// socket TCP:
 		if (socket.send(deplacement, 255) != sf::Socket::Done)
 		{
-			std::cout << "Impossible d'envoyer les données" << std::endl;
+			std::cout << "Impossible d'envoyer les donnees" << std::endl;
 		}
 
 		fenetre.run();
@@ -42,9 +42,9 @@ int main()
 
 		if (socket.receive(deplacement, 255, recus) != sf::Socket::Done)
 		{
-			std::cout << "impossible de recevoir des données du premier client" << std::endl;
+			std::cout << "impossible de recevoir des donnees du premier client" << std::endl;
 		}
-		std::cout << recus << " octes reçu depuis client 1 : " << deplacement << std::endl;
+		std::cout << recus << " octes recu depuis client 1 : " << deplacement << std::endl;
 
 		fenetre.decodeXml(deplacement);*/
 	/*}*/
