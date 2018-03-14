@@ -41,6 +41,7 @@ namespace Controleur
 		void genererCasesAccessiblesDeplacement();
 		void genererCasesAccessiblesAttaque();
 
+		void setPositionCurseurUniteActuel();
 		void finirTourUniteActuel();
 
 		Modele::Unite* getUniteCourante() { return uniteCourante_; }

@@ -20,9 +20,7 @@ namespace Controleur
 		vue_->ajouterUnite(gerard, Vue::Unite::cheminTextureUnite.at(gerard->getClasse()));
 
 		modele_->relancerOrdreDeJeu();
-		Modele::Unite* uniteActuel = modele_->getUniteActuel();
-		positionCurseur_ = uniteActuel->getPosition();
-		vue_->setPositionCurseur(uniteActuel->getPosition());
+		setPositionCurseurUniteActuel();
 	}
 
 	Grille::~Grille()
@@ -110,9 +108,7 @@ namespace Controleur
 			if (uniteActuel == nullptr)
 			{
 				modele_->relancerOrdreDeJeu();
-				uniteActuel = modele_->getUniteActuel();
-				positionCurseur_ = uniteActuel->getPosition();
-				vue_->setPositionCurseur(uniteActuel->getPosition());
+				setPositionCurseurUniteActuel();
 			}
 			else if(unite == uniteActuel)
 				Controleur::Fenetre::empilerGameState(new Controleur::MenuAction());
@@ -215,6 +211,15 @@ namespace Controleur
 		vue_->genererFiltreSurCases(casesAccessibles);
 	}
 
+	void Grille::setPositionCurseurUniteActuel()
+	{
+		Modele::Unite* uniteActuel = modele_->getUniteActuel();
+		positionCurseur_ = uniteActuel->getPosition();
+		vue_->setPositionCurseur(uniteActuel->getPosition());
+		vue_->detruireInfomationPersonnage();
+		vue_->genererInformationPersonnage(uniteActuel);
+	}
+
 	void Grille::finirTourUniteActuel()
 	{
 		modele_->finDeTour();
@@ -222,10 +227,7 @@ namespace Controleur
 		if (uniteActuel == nullptr)
 		{
 			modele_->relancerOrdreDeJeu();
-			
-		}		
-		uniteActuel = modele_->getUniteActuel();
-		positionCurseur_ = uniteActuel->getPosition();
-		vue_->setPositionCurseur(uniteActuel->getPosition());
+		}
+		setPositionCurseurUniteActuel();
 	}
 }
