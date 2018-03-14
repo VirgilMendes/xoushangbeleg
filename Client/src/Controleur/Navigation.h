@@ -25,6 +25,8 @@ namespace Controleur
 
 		static void run();
 
+		static GameState* getGameStateCourant() { return gameStates_.empty() ? nullptr : gameStates_.front(); }
+
 		static void empilerGameState(GameState* gamestate);
 		
 		static void depilerGameState();

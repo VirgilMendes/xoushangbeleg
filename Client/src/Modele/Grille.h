@@ -31,7 +31,7 @@ namespace Modele {
 		void ajouterUnite(Unite* unite);
 		void supprimerUnite(Unite* unite);
 
-		Unite* getUniteActuel() { return ordreDeJeu_.empty() ? nullptr : ordreDeJeu_.top(); }
+		Unite* getUniteActuel();
 		void finDeTour() { if(!ordreDeJeu_.empty())ordreDeJeu_.pop(); }
 		void relancerOrdreDeJeu();
 

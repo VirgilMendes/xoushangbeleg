@@ -5,7 +5,9 @@
 
 namespace Controleur
 {
-	Grille::Grille(Modele::Vecteur2<int> dimension) : modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection)
+	Grille::Grille(Modele::Vecteur2<int> dimension) : 
+		modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection),
+		actionFaite_(false), deplacementFait_(false)
 	{
 		Modele::Unite* billy = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
 		modele_->ajouterUnite(billy);
@@ -110,8 +112,13 @@ namespace Controleur
 				modele_->relancerOrdreDeJeu();
 				setPositionCurseurUniteActuel();
 			}
-			else if(unite == uniteActuel)
-				Controleur::Fenetre::empilerGameState(new Controleur::MenuAction());
+			else if (unite == uniteActuel)
+			{
+				MenuAction* menuAction = new Controleur::MenuAction;
+				if (deplacementFait_)menuAction->desactiverChoix(0);
+				if (actionFaite_)menuAction->desactiverChoix(1);
+				Controleur::Fenetre::empilerGameState(menuAction);
+			}
 		}
 	}
 
@@ -136,6 +143,7 @@ namespace Controleur
 			vue_->supprimerFiltreSurCases();
 			vue_->deplacerUnite(unite, deplacement);	
 			vue_->genererInformationPersonnage(unite);
+			deplacementFait_ = true;
 		}
 	}
 
@@ -168,6 +176,7 @@ namespace Controleur
 				}
 				modele_->nettoyerDerniereRechercheAttaque();
 				vue_->supprimerFiltreSurCases();
+				actionFaite_ = true;
 			}
 			else
 			{
@@ -229,5 +238,7 @@ namespace Controleur
 			modele_->relancerOrdreDeJeu();
 		}
 		setPositionCurseurUniteActuel();
+		actionFaite_ = false;
+		deplacementFait_ = false;
 	}
 }
