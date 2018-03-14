@@ -168,6 +168,7 @@
     <ClInclude Include="src\Modele\Unite\Tank.h" />
     <ClInclude Include="src\Modele\Unite\Unite.h" />
     <ClInclude Include="src\Vue\Composants\Grille\FiltreCase.h" />
+    <ClInclude Include="src\Vue\Composants\Grille\CurseurPlacement.h" />
     <ClInclude Include="src\Vue\Constante.h" />
     <ClInclude Include="src\Vue\GameStates\Grille.h" />
     <ClInclude Include="src\Vue\GameStates\PlacementUnite.h" />

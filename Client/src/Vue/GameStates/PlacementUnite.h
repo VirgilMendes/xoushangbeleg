@@ -1,7 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "GameState.h"
-#include "../Composants/Grille/Curseur.h";
+#include "../Composants/Grille/CurseurPlacement.h";
 #include "../../Modele/Unite/Unite.h"
 
 namespace Controleur
@@ -31,16 +31,18 @@ namespace Vue {
 	private:
 		sf::Texture ressource;
 		sf::Sprite fond;
+		sf::Sprite fondUnitesRestantes;
 		sf::Sprite teteTank;
 		sf::Sprite teteArcher;
 		sf::Sprite teteSoldat;
 
 		sf::Text classeText[3];
+		sf::Text textUnitesRestantes;
 
 		int choix;
 		int nbUniteRestantes;
 
-		Curseur curseur;
+		CurseurPlacement curseur;
 
 		Controleur::PlacementUnite* controleur_;
 	};
