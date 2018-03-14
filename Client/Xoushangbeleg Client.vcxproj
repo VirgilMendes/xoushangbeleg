@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Controleur\DonneeServeur.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Grille.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuChoix.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="src\Vue\Composants\Grille\InterfaceUnite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Controleur\DonneeServeur.h" />
     <ClInclude Include="src\Controleur\GameStates\Grille.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuChoix.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />

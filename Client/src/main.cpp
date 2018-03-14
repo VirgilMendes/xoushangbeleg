@@ -4,6 +4,7 @@
 #include <thread>
 #include <SFML/Network.hpp>
 #include "Controleur/Navigation.h"
+#include "Controleur/DonneeServeur.h"
 
 int main()
 {
@@ -11,7 +12,7 @@ int main()
 	//std::cin >> client; std::cout << std::endl;
 
 	std::string testXml = "<paquet><initialisation><carte><nom/></carte><unites><unite><nomUnite>Archer1555< / nomUnite><classe>Archer< / classe><equipe>Bleu< / equipe><position><x>50< / x><x>60< / x>< / position>< / unite><unite><nomUnite>Soldat76< / nomUnite><classe>Soldat< / classe><equipe>Bleu< / equipe><position><x>8< / x><x>7< / x>< / position>< / unite><unite><nomUnite>Tank166< / nomUnite><classe>Tank< / classe><equipe>Rouge< / equipe><position><x>10< / x><x>12< / x>< / position>< / unite>< / unites></initialisation>< / paquet>";
-	Controleur::Fenetre::decodeXml(testXml);
+	Controleur::DonneeServeur::decodeXml(testXml);
 
 	Controleur::Fenetre::initialiser();
 	Controleur::Fenetre::run();

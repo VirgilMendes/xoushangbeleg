@@ -57,7 +57,6 @@ namespace Modele {
 		void genererObstaclesRocheux();
 		void genererAutreAsset( int nbTotal);
 		void genererArbre( int intensite);
-		void afficherXml();
 
 	private :
 

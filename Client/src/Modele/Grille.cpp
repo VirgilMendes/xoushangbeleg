@@ -33,56 +33,6 @@ namespace Modele
 		genererArbre(20);
 		genererAutreAsset(50);
 
-		//Test XML
-		Modele::Archer unite1("Archer1", Equipe::_from_string("Bleu"), Vecteur2<int>(5, 6));
-		ajouterUnite(&unite1);
-		Modele::Soldat unite2("Soldat1", Equipe::_from_string("Bleu"), Vecteur2<int>(8, 7));
-		ajouterUnite(&unite2);
-		Modele::Tank unite3("Tank1", Equipe::_from_string("Rouge"), Vecteur2<int>(10, 12));
-		ajouterUnite(&unite3);
-		pugi::xml_document doc;
-		auto root = doc.append_child("paquet");
-		pugi::xml_node nodeInitialisation = root.append_child("initialisation");
-		pugi::xml_node nodeCarte = nodeInitialisation.append_child("carte");
-		pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
-		pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
-		pugi::xml_node nodeUnite;
-		pugi::xml_node nodeNomUnite;
-		pugi::xml_node nodeClasseUnite;
-		pugi::xml_node nodeEquipeUnite;
-		pugi::xml_node nodePositionUnite;
-		pugi::xml_node nodePositionXUnite;
-		pugi::xml_node nodePositionYUnite;
-		Modele::Vecteur2<int> *position;
-		//utiliser listeUnite de Carte.h{
-		//std::cout << unites_.size() << std::endl;
-		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); iterateur++) {
-			Modele::Unite *unite = const_cast<Modele::Unite*>(*iterateur);
-			position = &unite->getPosition();
-
-			nodeUnite = nodeListeUnite.append_child("unite");
-
-			nodeNomUnite = nodeUnite.append_child("nomUnite");
-			nodeNomUnite.text().set(unite->getNom().c_str());
-
-			nodeClasseUnite = nodeUnite.append_child("classe");
-			nodeClasseUnite.text().set(unite->getClasse()._to_string());
-
-			nodeEquipeUnite = nodeUnite.append_child("equipe");
-			nodeEquipeUnite.text().set(unite->getEquipe()._to_string());
-
-			nodePositionUnite = nodeUnite.append_child("position");
-
-			nodePositionXUnite = nodePositionUnite.append_child("x");
-			nodePositionXUnite.text().set(position->x);
-
-			nodePositionYUnite = nodePositionUnite.append_child("x");
-			nodePositionYUnite.text().set(position->y);
-		}
-		std::stringstream flux;
-		doc.print(flux);
-		std::cout << flux.str() << std::endl;
-		//Fin test XML
 	}
 
 	Grille::~Grille()
@@ -112,50 +62,6 @@ namespace Modele
 				return *iterateur;
 		}
 		return nullptr;
-	}
-
-	void Grille::afficherXml() {
-		pugi::xml_document doc;
-		auto root = doc.append_child("paquet");
-		pugi::xml_node nodeInitialisation = root.append_child("initialisation");
-		pugi::xml_node nodeCarte = nodeInitialisation.append_child("carte");
-		pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
-		pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
-		pugi::xml_node nodeUnite;
-		pugi::xml_node nodeNomUnite;
-		pugi::xml_node nodeClasseUnite;
-		pugi::xml_node nodeEquipeUnite;
-		pugi::xml_node nodePositionUnite;
-		pugi::xml_node nodePositionXUnite;
-		pugi::xml_node nodePositionYUnite;
-		Modele::Vecteur2<int> position;
-		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); iterateur++) {
-			Modele::Unite *unite = *iterateur;
-			position = unite->getPosition();
-
-			nodeUnite = nodeListeUnite.append_child("unite");
-
-			nodeNomUnite = nodeUnite.append_child("nomUnite");
-			nodeNomUnite.text().set(unite->getNom().c_str());
-
-			nodeClasseUnite = nodeUnite.append_child("classe");
-			nodeClasseUnite.text().set(unite->getClasse()._to_string());
-
-			nodeEquipeUnite = nodeUnite.append_child("equipe");
-			nodeEquipeUnite.text().set(unite->getEquipe()._to_string());
-
-			nodePositionUnite = nodeUnite.append_child("position");
-
-			nodePositionXUnite = nodePositionUnite.append_child("x");
-			nodePositionXUnite.text().set(position.x);
-
-			nodePositionYUnite = nodePositionUnite.append_child("x");
-			nodePositionYUnite.text().set(position.y);
-
-		}
-		std::stringstream flux;
-		doc.print(flux);
-		std::cout << flux.str() << std::endl;
 	}
 
 	void Grille::ajouterUnite(Unite* unite)

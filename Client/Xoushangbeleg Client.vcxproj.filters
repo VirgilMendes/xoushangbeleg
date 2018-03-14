@@ -23,6 +23,7 @@
     <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
     <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Vue\GameStates\PlacementUnite.cpp" />
+    <ClCompile Include="src\Controleur\DonneeServeur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="src\Vue\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Vue\Outils\TexteVariable.h" />
     <ClInclude Include="src\Vue\Composants\Grille\CurseurPlacement.h" />
+    <ClInclude Include="src\Controleur\DonneeServeur.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />
