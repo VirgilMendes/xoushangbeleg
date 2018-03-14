@@ -26,6 +26,8 @@ namespace Controleur
 		void deplacerAuChoixSuivant();
 		void positionnerSurChoix();
 
+		void desactiverChoix(int index);
+		void activerChoix(int index);
 
 		void handleEvent() override;
 		void update() override;

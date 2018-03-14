@@ -110,6 +110,51 @@ namespace Controleur
 	{
 	}
 
+	void MenuChoix::desactiverChoix(int index)
+	{
+		choix_.at(index).actif = false;
+		vue_->desactiverChoix(index);
+		if (index == choixCourant_)
+		{
+			int choixSource = choixCourant_;
+			if (choixCourant_ != choix_.size())
+			{
+				if (choixCourant_ == choix_.size() - 1)
+					choixCourant_ = 0;
+				else
+					++choixCourant_;
+			}
+			else { choixCourant_ = 0; }
+			Choix choix = choix_[choixCourant_];
+			int nombreChoixParcourue = 0;
+			while (!choix.actif)
+			{
+				++nombreChoixParcourue;
+				if (nombreChoixParcourue == choix_.size())
+				{
+					choixCourant_ = choix_.size();
+					return;
+				}
+
+				++choixCourant_;
+				if (choixCourant_ == choix_.size())
+					choixCourant_ = 0;
+				if (choixCourant_ == choixSource)
+				{
+					break;
+				}
+				choix = choix_[choixCourant_];
+			}
+			vue_->setChoixCourant(choixCourant_);
+		}
+	}
+
+	void MenuChoix::activerChoix(int index)
+	{
+		choix_.at(index).actif = true;
+		vue_->activerChoix(index);
+	}
+
 	void MenuChoix::handleEvent()
 	{
 		vue_->handleEvent();

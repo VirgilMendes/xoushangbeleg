@@ -59,5 +59,8 @@ namespace Controleur
 		EtatCombat etatCombat_;
 
 		Vue::Grille* vue_;
+
+		bool actionFaite_;
+		bool deplacementFait_;
 	};
 }

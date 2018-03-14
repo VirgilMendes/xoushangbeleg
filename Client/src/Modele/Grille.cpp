@@ -84,6 +84,18 @@ namespace Modele
 		}
 	}
 
+	Unite* Grille::getUniteActuel()
+	{
+		if (ordreDeJeu_.empty()) return nullptr;
+		Unite* unite = ordreDeJeu_.top();
+		if (unite == nullptr)
+		{
+			finDeTour();
+			return getUniteActuel();
+		}
+		return unite;
+	}
+
 	void Grille::relancerOrdreDeJeu()
 	{
 		for (Unite* unite : unites_)
