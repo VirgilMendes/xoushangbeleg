@@ -7,6 +7,8 @@ namespace Vue
 
 		Unite::Unite(Modele::Unite* unite, sf::Texture* texture) : texture_(texture), modele_(unite)
 		{
+			mort = false;
+
 			sprite_ = new sf::Sprite();
 			sprite_->setPosition(modele_->getPosition().x * RES_TEXTURE_XSB, modele_->getPosition().y * RES_TEXTURE_XSB);
 			sprite_->setTexture(*texture_);
@@ -67,10 +69,25 @@ namespace Vue
 		sprite_->setPosition(position.x*RES_TEXTURE_XSB, position.y*RES_TEXTURE_XSB);
 	}
 
+	void Unite::mourrir()
+	{
+		this->mort = true;
+		if (modele_->getEquipe() == Modele::Equipe::Rouge)
+		{
+			sprite_->setTextureRect(sf::IntRect(4*RES_TEXTURE_XSB,4* RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB));
+		}
+		else
+		{
+			sprite_->setTextureRect(sf::IntRect(5 * RES_TEXTURE_XSB, 4 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB));
+		}
+	}
 
 	void Unite::dessiner(sf::RenderTarget* cible, sf::RenderStates etat)
 	{
-		sprite_->setTextureRect(idle_.getFrame());
+		if (!mort)
+		{
+			sprite_->setTextureRect(idle_.getFrame());
+		}
 		cible->draw(*sprite_, etat);
 	}
 

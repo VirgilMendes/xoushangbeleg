@@ -148,7 +148,7 @@ namespace Vue
 		{
 			if ((*iterateur).getModele() == unite)
 			{
-				unites_.erase(iterateur);
+				iterateur->mourrir();;
 				return;
 			}
 		}

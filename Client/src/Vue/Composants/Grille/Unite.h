@@ -20,6 +20,8 @@ namespace Vue
 		void deplacerUnite(Modele::Vecteur2<int> deplacement);
 		void setPosition(Modele::Vecteur2<int> position);
 
+		void mourrir();
+
 		void dessiner(sf::RenderTarget* cible, sf::RenderStates etat = sf::Transform());
 
 		static const std::map<const Modele::Classe, const std::string> cheminTextureUnite;
@@ -33,5 +35,7 @@ namespace Vue
 		sf::Sprite* sprite_;
 		sf::Image image_;
 		sf::Texture* texture_;
+
+		bool mort;
 	};
 }
