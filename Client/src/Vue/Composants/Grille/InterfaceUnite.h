@@ -49,6 +49,7 @@ namespace Vue
 		TexteVariable defense_;
 		TexteVariable porteeDeplacement_;
 		TexteVariable porteeAttaque_;
+		TexteVariable equipe_;
 	};
 
 }

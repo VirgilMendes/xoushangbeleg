@@ -55,6 +55,10 @@ namespace Vue
 		porteeAttaque_.setFillColor(sf::Color::White);
 		porteeAttaque_.setPosition(200+200, 550 + 4 * 20);
 
+		equipe_.setTexteConstant("EQUIPE : ");
+		equipe_.setFillColor(sf::Color::White);
+		equipe_.setPosition(200 + 200, 550 + 6 * 20);
+
 		setUnite(unite);
 	}
 
@@ -75,6 +79,7 @@ namespace Vue
 		defense_.setValeurVariable(std::to_string(unite_->getDefense()));
 		porteeAttaque_.setValeurVariable(std::to_string(unite_->getPorteeAttaque()));
 		porteeDeplacement_.setValeurVariable(std::to_string(unite_->getPorteeDeplacement()));
+		equipe_.setValeurVariable(unite_->getEquipe()._to_string());
 
 		barreVie_.setValeurMax(this->unite_->getVieMax());
 		barreVie_.setValeurCourante(this->unite_->getVieCourante());
@@ -93,6 +98,7 @@ namespace Vue
 		target->draw(defense_, states);
 		target->draw(porteeDeplacement_, states);
 		target->draw(porteeAttaque_, states);
+		target->draw(equipe_, states);
 
 	}
 
