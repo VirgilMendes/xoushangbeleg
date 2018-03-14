@@ -7,6 +7,9 @@
 #include <stack>
 #include <forward_list>
 #include <list>
+#include "Unite/Archer.h"
+#include "Unite/Tank.h"
+#include "Unite/Soldat.h"
 
 namespace Modele {
 
@@ -54,6 +57,7 @@ namespace Modele {
 		void genererObstaclesRocheux();
 		void genererAutreAsset( int nbTotal);
 		void genererArbre( int intensite);
+		void afficherXml();
 
 	private :
 

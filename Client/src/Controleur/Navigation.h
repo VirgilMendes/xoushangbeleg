@@ -37,6 +37,7 @@ namespace Controleur
 			pugi::xml_document doc;
 			pugi::xml_parse_result result = doc.load_buffer(str.c_str(), str.length());
 			pugi::xml_node root = doc.document_element();
+			std::cout << (std::string)root.first_child().name() << std::endl;
 			//verification du premier node
 			if ((std::string)root.first_child().name() == "deplacement") 
 			{
@@ -68,6 +69,7 @@ namespace Controleur
 		}
 
 		static void initialiserXml(pugi::xml_node root) {
+			std::cout << "1" << std::endl;
 			//Gerer la carte
 			//root.child("carte")...
 
@@ -76,17 +78,35 @@ namespace Controleur
 			std::string nomUnite;
 			Modele::Classe classeUnite;
 			Modele::Equipe equipeUnite;
-			int vieMaxUnite;
-			int vieCouranteUnite;
-			int statDefUnite;
-			int statAttUnite;
 			Modele::Vecteur2<int> positionUnite;
-
+			std::cout << root.child("initialisation").child("unites").next_sibling("unite") << std::endl;
+			pugi::xml_node::iterator it;
 			//Cas a part pour chaque unite
-			pugi::xml_node listeUnites = root.child("unites");
-			for (pugi::xml_node uniteXml = listeUnites.child("unite"); uniteXml; uniteXml = uniteXml.next_sibling("unite")) {
-
+			for (it = root.child("initialisation").child("unites").children().begin(); it != root.child("initialisation").child("unites").children().end(); ++it) {
+			//for (pugi::xml_node uniteXml = root.child("initialisation").child("unites").first_child(); uniteXml; uniteXml = uniteXml.next_sibling()) {
+				pugi::xml_node uniteXml = *it;
+				std::cout << "2" << std::endl;
+				nomUnite = uniteXml.child("nomUnite").child_value();
+				std::cout << "2.1" << std::endl;
+				//classeUnite = Modele::Classe::_from_string(uniteXml.child("classe").child_value());
+				std::cout << "2.2" << std::endl;
+				//equipeUnite = Modele::Equipe::_from_string(uniteXml.child("equipe").child_value());
+				//positionUnite.x = stoi((std::string)uniteXml.child("position").child("x").child_value());
+				//positionUnite.y = stoi((std::string)uniteXml.child("position").child("y").child_value());
+				/*if (classeUnite == Modele::Classe::_from_string("Archer")) {
+					Modele::Archer uniteCree(nomUnite, equipeUnite, positionUnite);
+					//grille.ajouterUnite(&uniteCree);
+				}
+				else if (classeUnite == Modele::Classe::_from_string("Soldat")) {
+					Modele::Soldat uniteCree(nomUnite, equipeUnite, positionUnite);
+					//grille.ajouterUnite(&uniteCree);
+				}
+				else {
+					Modele::Tank uniteCree(nomUnite, equipeUnite, positionUnite);
+					//grille.ajouterUnite(&uniteCree);
+				}*/
 			}
+			std::cout << "3" << std::endl;
 		}
 
 		static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
@@ -111,17 +131,14 @@ namespace Controleur
 		std::string initialisatonCarteUnite() {
 			pugi::xml_document doc;
 			auto root = doc.append_child("paquet");
-			pugi::xml_node nodeCarte = root.append_child("carte");
+			pugi::xml_node nodeInitialisation = root.append_child("initialisation");
+			pugi::xml_node nodeCarte = nodeInitialisation.append_child("carte");
 			pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
-			pugi::xml_node nodeListeUnite = root.append_child("unites");
+			pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
 			pugi::xml_node nodeUnite;
 			pugi::xml_node nodeNomUnite;
 			pugi::xml_node nodeClasseUnite;
 			pugi::xml_node nodeEquipeUnite;
-			pugi::xml_node nodeVieMaxUnite;
-			pugi::xml_node nodeVieCouranteUnite;
-			pugi::xml_node nodeAttaqueUnite;
-			pugi::xml_node nodeDefenseUnite;
 			pugi::xml_node nodePositionUnite;
 			pugi::xml_node nodePositionXUnite;
 			pugi::xml_node nodePositionYUnite;
@@ -134,7 +151,7 @@ namespace Controleur
 
 				nodeUnite = nodeListeUnite.append_child("unite");
 
-				nodeNomUnite = nodeUnite.append_child("nomunite");
+				nodeNomUnite = nodeUnite.append_child("nomUnite");
 				nodeNomUnite.text().set(unite.getNom().c_str());
 
 				nodeClasseUnite = nodeUnite.append_child("classe");
@@ -142,18 +159,6 @@ namespace Controleur
 
 				nodeEquipeUnite = nodeUnite.append_child("equipe");
 				nodeEquipeUnite.text().set(unite.getEquipe()._to_string());
-
-				nodeVieMaxUnite = nodeUnite.append_child("vieMax");
-				nodeVieMaxUnite.text().set(unite.getVieMax());
-
-				nodeVieCouranteUnite = nodeUnite.append_child("vieCourante");
-				nodeVieCouranteUnite.text().set(unite.getVieCourante());
-
-				nodeAttaqueUnite = nodeUnite.append_child("attaque");
-				nodeAttaqueUnite.text().set(unite.getAttaque());
-
-				nodeDefenseUnite = nodeUnite.append_child("defense");
-				nodeDefenseUnite.text().set(unite.getDefense());
 
 				nodePositionUnite = nodeUnite.append_child("position");
 

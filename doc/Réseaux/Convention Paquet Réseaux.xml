@@ -18,21 +18,17 @@
 		<nom>nom de la carte</nom>
 	  </carte>
 	  <unites>
-		<unite>
-		  <nomunite>nom de l'unite</nomunite>
+		<unite //ajouter attribut avec le nom>
+		  <nomUnite>nom de l'unite</nomUnite>
 		  <classe>nom de la classe</classe>
 		  <equipe>numéro de l'equipe</equipe>
-		  <vieMax>vie max</vieMax>
-		  <vieCourante>vie courante</vieCourante>
-		  <attaque> attaque </attaque>
-		  <defense> defense </defense>
 		  <position>
 			<x>coordonné x</x>
 			<y>coordonné y</y>
 		  </position>
 		</unite>
 		<unite>
-		  <nomunite>nom de l'unite</nomunite>
+		  <nomUnite>nom de l'unite</nomUnite>
 		  <classe>nom de la classe</classe>
 		  .
 		  .
