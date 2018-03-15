@@ -79,6 +79,7 @@ namespace Modele
 				getCase(unite->getPosition())->setUnite(nullptr);
 				delete *iterateur;
 				unites_.erase(iterateur);
+				ordreDeJeu_.erase(unite);
 				return;
 			}
 		}
@@ -87,19 +88,21 @@ namespace Modele
 	Unite* Grille::getUniteActuel()
 	{
 		if (ordreDeJeu_.empty()) return nullptr;
-		Unite* unite = ordreDeJeu_.top();
-		if (unite == nullptr)
+		return *ordreDeJeu_.rbegin();
+	}
+
+	void Grille::finDeTour()
+	{
+		if (!ordreDeJeu_.empty())
 		{
-			finDeTour();
-			return getUniteActuel();
+			ordreDeJeu_.erase((++ordreDeJeu_.rbegin()).base());
 		}
-		return unite;
 	}
 
 	void Grille::relancerOrdreDeJeu()
 	{
 		for (Unite* unite : unites_)
-			ordreDeJeu_.push(unite);
+			ordreDeJeu_.insert(unite);
 	}
 
 	std::stack<Vecteur2<int>> Grille::chercherChemin(const Vecteur2<int>& cible)

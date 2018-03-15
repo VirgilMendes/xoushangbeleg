@@ -32,7 +32,7 @@ namespace Modele {
 		void supprimerUnite(Unite* unite);
 
 		Unite* getUniteActuel();
-		void finDeTour() { if(!ordreDeJeu_.empty())ordreDeJeu_.pop(); }
+		void finDeTour(); 
 		void relancerOrdreDeJeu();
 
 		std::forward_list<Vecteur2<int>> getCoordonneesCasesAdjacentes(const Vecteur2<int>& coordonnees);
@@ -64,7 +64,7 @@ namespace Modele {
 
 		std::vector<std::vector<Case*>> cases_;
 		std::set<Unite*> unites_;
-		std::priority_queue<Unite*> ordreDeJeu_;
+		std::set<Unite*> ordreDeJeu_;
 
 		//Sauvegarde Recherche de chemin
 		std::list<Vecteur2<int>> derniereRechercheDeplacement_;
