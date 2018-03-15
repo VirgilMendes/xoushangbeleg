@@ -3,21 +3,22 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Windows.h>
-#include "NouvellePartie.h"
-#include "../../Controleur/Navigation.h"
+#include "RejoindrePartie.h"
+#include "../../../Controleur/Navigation.h"
 
 namespace Vue
 {
 
-	NouvellePartie::NouvellePartie() : choix_(1), toucheLache_(true) {
+	RejoindrePartie::RejoindrePartie(Controleur::Fenetre* fenetre) : choix_(1), toucheLache_(true), ipRemplie_(false) {
 
-		nomPartie_ = "Nom de la partie : ";
+		ipPartie_ = "IP de la partie : ";
 		if (!textureLogo_.loadFromFile("ressources/sprite/titre.png"))
 		{
 			std::cout << "error img titre" << std::endl;
 		}
 		textureLogo_.setSmooth(false);
 		logo_.setTexture(textureLogo_);
+		ipRemplie_ = false;
 
 		std::vector<sf::IntRect> animation
 		{
@@ -42,11 +43,11 @@ namespace Vue
 			std::cout << "error font" << std::endl;
 		}
 
-		menu_[0].setString("Creer");
-		menu_[1].setString(nomPartie_);
+		menu_[0].setString("Rejoindre");
+		menu_[1].setString(ipPartie_);
 		menu_[2].setString("Retour");
 		
-		titreMenu_.setString("Nouvelle partie");
+		titreMenu_.setString("Rejoindre une partie");
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -66,18 +67,29 @@ namespace Vue
 		ip_.setCharacterSize(24);
 		ip_.setFillColor(sf::Color::White);
 		ip_.setPosition(30, 650);
-
 	}
-	void NouvellePartie::handleEvent()
+	void RejoindrePartie::handleEvent()
 	{
 
 		/*menu_[choix_].setFillColor(sf::Color::White);
 
+		ipRemplie_ = (ipPartie_.size() == 30);
+
+		if (ipRemplie_) {
+			menu_[0].setFillColor(sf::Color::White);
+		}
+		else {
+			menu_[0].setFillColor(gris);
+		}
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && toucheLache_)
 		{
-			if (choix_ > 0)
-			{
-				choix_ -= 1;
+			if (choix_ == 1 && !ipRemplie_) {}
+			else {
+				if (choix_ > 0)
+				{
+					choix_ -= 1;
+				}
 			}
 			toucheLache_ = false;
 		}
@@ -95,19 +107,19 @@ namespace Vue
 			if (choix_ == 1)
 			{
 
-				if (event.type == sf::Event::TextEntered && nomPartie_.size() < 30 && !sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+				if (event.type == sf::Event::TextEntered && ipPartie_.size() < 30 && !sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
 				{
-					// ASCII seulement
-					if (event.text.unicode < 128)
+					// ASCII Seulement
+					if ((event.text.unicode < 58 && event.text.unicode > 47) || (event.text.unicode == 46))
 					{
-						nomPartie_ += static_cast<char>(event.text.unicode);
-						menu_[1].setString(nomPartie_);
+						ipPartie_ += static_cast<char>(event.text.unicode);
+						menu_[1].setString(ipPartie_);
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && nomPartie_.size() > 19)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace) && ipPartie_.size() > 18)
 				{
-					nomPartie_.erase(nomPartie_.end() - 1);
-					menu_[1].setString(nomPartie_);
+					ipPartie_.erase(ipPartie_.end() - 1);
+					menu_[1].setString(ipPartie_);
 				}
 			}
 			else if (choix_ == 2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
@@ -121,19 +133,17 @@ namespace Vue
 			toucheLache_ = true;
 		}*/
 	}
-
-	void NouvellePartie::update()
+	
+	void RejoindrePartie::update()
 	{
 		menu_[choix_].setFillColor(sf::Color::Yellow);
 		logo_.setTextureRect(animationtitre_.getFrame());
 	}
 
-	void NouvellePartie::afficher()
+	void RejoindrePartie::afficher()
 	{
-		Controleur::Fenetre::fenetre->draw(ip_);
 		Controleur::Fenetre::fenetre->draw(titreMenu_);
-
-		menu_[choix_].setFillColor(sf::Color::Yellow);
+		Controleur::Fenetre::fenetre->draw(ip_);
 
 		for (int i(0); i < 3; i++)
 		{
@@ -141,15 +151,10 @@ namespace Vue
 		}
 
 		Controleur::Fenetre::fenetre->draw(logo_);
-
 	}
 
 
-	void NouvellePartie::setIP(std::string str) {
-		ip_.setString(str);
-	}
-
-	std::string NouvellePartie::getIP() {
+	std::string RejoindrePartie::getIP() {
 		return ip_.getString();
 
 	}

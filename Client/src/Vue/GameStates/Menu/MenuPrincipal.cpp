@@ -4,8 +4,10 @@
 #include <iostream>
 #include <Windows.h>
 #include "MenuPrincipal.h"
-#include "../Outils/Jauge.h"
-#include "../../Controleur/Navigation.h"
+#include "../../Outils/Jauge.h"
+#include "../../../Controleur/Navigation.h"
+#include "../../../Controleur/GameStates/MenuChoix.h"
+#include "../../../Controleur/GameStates/Menu/MenuPrincipal.h"
 
 namespace Vue
 {
@@ -13,13 +15,13 @@ namespace Vue
 	MenuPrincipal::MenuPrincipal(std::vector<Controleur::Choix> choix, Controleur::MenuPrincipal* controleur) : MenuChoix(choix, controleur)
 	{
 
-		if (!textureTitre_.loadFromFile("ressources/sprite/titre.png"))
+		if (!textureLogo_.loadFromFile("ressources/sprite/titre.png"))
 		{
 			std::cout << "impossible d'ouvrir l'image du titre" << std::endl;
 		}
-		textureTitre_.setSmooth(false);
+		textureLogo_.setSmooth(false);
 
-		titre_.setTexture(textureTitre_);
+		logo_.setTexture(textureLogo_);
 
 		std::vector<sf::IntRect> animation
 		{
@@ -35,9 +37,9 @@ namespace Vue
 			sf::IntRect(0, 256 * 9, 512, 256),
 			sf::IntRect(0, 256 * 10, 512, 256)
 		};
-		animationtitre_.initialiser(animation, 100);
+		animationLogo_.initialiser(animation, 100);
 
-		titre_.setPosition(500, 100);
+		logo_.setPosition(500, 100);
 		for (int i(0); i < textes_.size(); ++i)
 		{
 			textes_[i]->setPosition(600, i * 50 + 400);
@@ -47,8 +49,8 @@ namespace Vue
 	void MenuPrincipal::afficher()
 	{
 		MenuChoix::afficher();
-		titre_.setTextureRect(animationtitre_.getFrame());
-		Controleur::Fenetre::fenetre->draw(titre_);
+		logo_.setTextureRect(animationLogo_.getFrame());
+		Controleur::Fenetre::fenetre->draw(logo_);
 	}
 }
 

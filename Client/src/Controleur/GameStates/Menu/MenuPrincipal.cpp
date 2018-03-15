@@ -2,7 +2,8 @@
 #include <vector>
 #include "MenuPrincipal.h"
 #include "../../Navigation.h"
-#include "../../../Vue/GameStates/MenuPrincipal.h"
+#include "../../../Vue/GameStates/Menu/MenuPrincipal.h"
+#include "NouvellePartie.h"
 
 namespace Controleur
 {
@@ -13,6 +14,7 @@ namespace Controleur
 			{
 				"Nouveau", true, []
 				{
+					Fenetre::empilerGameState(new NouvellePartie());
 				}
 			},
 			{

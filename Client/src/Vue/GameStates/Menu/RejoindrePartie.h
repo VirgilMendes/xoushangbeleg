@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "../Outils/Animation.h"
-#include "../GameStates/GameState.h"
+#include "../../Outils/Animation.h"
+#include "../../GameStates/GameState.h"
 
 
 namespace Controleur 

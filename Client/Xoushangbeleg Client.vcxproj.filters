@@ -4,9 +4,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\Vue\Outils\Jauge.cpp" />
-    <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
-    <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
-    <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
     <ClCompile Include="src\Modele\Case.cpp" />
     <ClCompile Include="src\Modele\Grille.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Grille.cpp" />
@@ -25,14 +22,15 @@
     <ClCompile Include="src\Vue\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\DonneeServeur.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\MenuPrincipal.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\Menu\NouvellePartie.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Menu\MenuPrincipal.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Menu\NouvellePartie.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Menu\RejoindrePartie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
     <ClInclude Include="src\Vue\Outils\Animation.h" />
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
-    <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
-    <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
-    <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
     <ClInclude Include="src\Modele\Case.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
@@ -60,6 +58,10 @@
     <ClInclude Include="src\Vue\Composants\Grille\CurseurPlacement.h" />
     <ClInclude Include="src\Controleur\DonneeServeur.h" />
     <ClInclude Include="src\Controleur\GameStates\Menu\MenuPrincipal.h" />
+    <ClInclude Include="src\Controleur\GameStates\Menu\NouvellePartie.h" />
+    <ClInclude Include="src\Vue\GameStates\Menu\MenuPrincipal.h" />
+    <ClInclude Include="src\Vue\GameStates\Menu\NouvellePartie.h" />
+    <ClInclude Include="src\Vue\GameStates\Menu\RejoindrePartie.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

@@ -1,6 +1,6 @@
 #include "Vue/GameStates/Grille.h"
-#include "Vue/GameStates/NouvellePartie.h"
-#include "Vue/GameStates/RejoindrePartie.h"
+#include "Vue/GameStates/Menu/NouvellePartie.h"
+#include "Vue/GameStates/Menu/RejoindrePartie.h"
 #include <thread>
 #include <SFML/Network.hpp>
 #include "Controleur/Navigation.h"

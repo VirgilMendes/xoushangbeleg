@@ -137,6 +137,7 @@
     <ClCompile Include="src\Controleur\GameStates\MenuChoix.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\MenuPrincipal.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\Menu\NouvellePartie.cpp" />
     <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -151,9 +152,9 @@
     <ClCompile Include="src\Vue\Composants\Grille\Unite.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuChoix.cpp" />
     <ClCompile Include="src\Vue\GameStates\PlacementUnite.cpp" />
-    <ClCompile Include="src\Vue\GameStates\MenuPrincipal.cpp" />
-    <ClCompile Include="src\Vue\GameStates\NouvellePartie.cpp" />
-    <ClCompile Include="src\Vue\GameStates\RejoindrePartie.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Menu\MenuPrincipal.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Menu\NouvellePartie.cpp" />
+    <ClCompile Include="src\Vue\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\Outils\Jauge.cpp" />
     <ClCompile Include="src\Vue\Composants\Grille\InterfaceUnite.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="src\Controleur\GameStates\MenuChoix.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
     <ClInclude Include="src\Controleur\GameStates\Menu\MenuPrincipal.h" />
+    <ClInclude Include="src\Controleur\GameStates\Menu\NouvellePartie.h" />
     <ClInclude Include="src\Modele\Unite\Archer.h" />
     <ClInclude Include="src\Controleur\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Modele\Case.h" />
@@ -182,10 +184,10 @@
     <ClInclude Include="src\Vue\GameStates\GameState.h" />
     <ClInclude Include="src\Vue\Outils\Jauge.h" />
     <ClInclude Include="src\Vue\GameStates\MenuChoix.h" />
-    <ClInclude Include="src\Vue\GameStates\MenuPrincipal.h" />
+    <ClInclude Include="src\Vue\GameStates\Menu\MenuPrincipal.h" />
     <ClInclude Include="src\Controleur\GameStates\GameState.h" />
-    <ClInclude Include="src\Vue\GameStates\NouvellePartie.h" />
-    <ClInclude Include="src\Vue\GameStates\RejoindrePartie.h" />
+    <ClInclude Include="src\Vue\GameStates\Menu\NouvellePartie.h" />
+    <ClInclude Include="src\Vue\GameStates\Menu\RejoindrePartie.h" />
     <ClInclude Include="src\Vue\Composants\Grille\Unite.h" />
     <ClInclude Include="src\Modele\Outils\Vecteur2.h" />
     <ClInclude Include="src\Vue\Outils\Node.h" />
