@@ -4,33 +4,35 @@
 
 namespace Controleur
 {
+	
+	
 	MenuChoix::MenuChoix(std::vector<Choix> choix) : choix_(choix), vue_(new Vue::MenuChoix(choix, this))
 	{
-		interfaceUtilisateur_ = true;
-		
-		choixCourant_ = 0;
-		Choix choixMenu = choix_[0];
-		
-		for (int i(0); i < choix_.size(); ++i)
-		{
-			choixMenu = choix_[i];
-			if (!choixMenu.actif)
-				vue_->desactiverChoix(i);
-		}
-		
-		choixMenu = choix_[0];
+			interfaceUtilisateur_ = true;
 
-		while (!choixMenu.actif)
-		{
-			++choixCourant_;
-			if (choixCourant_ == choix_.size())
-				break;
-			choixMenu = choix_[choixCourant_];
+			choixCourant_ = 0;
+			Choix choixMenu = choix_[0];
+
+			for (int i(0); i < choix_.size(); ++i)
+			{
+				choixMenu = choix_[i];
+				if (!choixMenu.actif)
+					vue_->desactiverChoix(i);
+			}
+
+			choixMenu = choix_[0];
+
+			while (!choixMenu.actif)
+			{
+				++choixCourant_;
+				if (choixCourant_ == choix_.size())
+					break;
+				choixMenu = choix_[choixCourant_];
+			}
+			if (choixCourant_ != choix_.size())
+				vue_->setChoixCourant(choixCourant_);
 		}
-		if (choixCourant_ != choix_.size())
-			vue_->setChoixCourant(choixCourant_);
-		
-	}
+	
 
 	MenuChoix::~MenuChoix()
 	{
@@ -200,5 +202,38 @@ namespace Controleur
 
 	void MenuChoix::enclancherActionSpecial()
 	{
+	}
+
+	MenuChoix::MenuChoix(): vue_(nullptr)
+	{
+
+	}
+
+	void MenuChoix::initialiser(const std::vector<Choix>& choix, Vue::MenuChoix* vue, const bool interfaceUtilisateur)
+	{
+		choix_ = choix;
+		vue_ = vue;
+
+		choixCourant_ = 0;
+		Choix choixMenu = choix_[0];
+
+		for (int i(0); i < choix_.size(); ++i)
+		{
+			choixMenu = choix_[i];
+			if (!choixMenu.actif)
+				vue_->desactiverChoix(i);
+		}
+
+		choixMenu = choix_[0];
+
+		while (!choixMenu.actif)
+		{
+			++choixCourant_;
+			if (choixCourant_ == choix_.size())
+				break;
+			choixMenu = choix_[choixCourant_];
+		}
+		if (choixCourant_ != choix_.size())
+			vue_->setChoixCourant(choixCourant_);
 	}
 }

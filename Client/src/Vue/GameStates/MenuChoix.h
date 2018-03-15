@@ -32,7 +32,7 @@ namespace Vue
 		void update() override;
 		void afficher() override;
 	
-	private:
+	protected:
 
 		//Gestion des textes
 		sf::Font police_;

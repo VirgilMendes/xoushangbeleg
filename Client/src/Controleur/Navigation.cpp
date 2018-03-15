@@ -3,6 +3,7 @@
 #include "Navigation.h"
 #include "GameStates/MenuChoix.h"
 #include  "GameStates/Grille.h"
+#include "GameStates/Menu/MenuPrincipal.h"
 
 namespace Controleur
 {
@@ -20,8 +21,10 @@ namespace Controleur
 		{
 			std::cout << "Impossible d'ouvrir la police par défaut" << std::endl;
 		}
-		Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
-		gameStates_.push_front(grille);
+		MenuPrincipal* menu = new MenuPrincipal();
+		gameStates_.push_front(menu);
+		//Grille* grille = new Grille(Modele::Vecteur2<int>(32,32));
+		//gameStates_.push_front(grille);
 		//PlacementUnite* placementUnite = new PlacementUnite();
 		//gameStates_.push_front(placementUnite);
 	}

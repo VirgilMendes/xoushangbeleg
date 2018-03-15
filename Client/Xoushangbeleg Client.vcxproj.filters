@@ -24,6 +24,7 @@
     <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Vue\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\DonneeServeur.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\Menu\MenuPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="src\Vue\Outils\TexteVariable.h" />
     <ClInclude Include="src\Vue\Composants\Grille\CurseurPlacement.h" />
     <ClInclude Include="src\Controleur\DonneeServeur.h" />
+    <ClInclude Include="src\Controleur\GameStates\Menu\MenuPrincipal.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

@@ -9,13 +9,13 @@
 
 namespace Vue
 {
-	
-	MenuPrincipal::MenuPrincipal() : choix_(0), toucheLache_(true), sauvegardeExistante_(false)
-	{	
+
+	MenuPrincipal::MenuPrincipal(std::vector<Controleur::Choix> choix, Controleur::MenuPrincipal* controleur) : MenuChoix(choix, controleur)
+	{
 
 		if (!textureTitre_.loadFromFile("ressources/sprite/titre.png"))
 		{
-			std::cout << "impossible d'ouvrir l'image" << std::endl;
+			std::cout << "impossible d'ouvrir l'image du titre" << std::endl;
 		}
 		textureTitre_.setSmooth(false);
 
@@ -37,104 +37,19 @@ namespace Vue
 		};
 		animationtitre_.initialiser(animation, 100);
 
-		titre_.setPosition(300, 100);
-
-		if (!font_.loadFromFile("ressources/VCR_OSD_MONO_1.001.ttf"))
+		titre_.setPosition(500, 100);
+		for (int i(0); i < textes_.size(); ++i)
 		{
-			std::cout << "impossible d'ouvrir la police" << std::endl;
+			textes_[i]->setPosition(600, i * 50 + 400);
 		}
-
-		TabMenu_[0].setString("Nouveau");
-		TabMenu_[1].setString("Rejoindre");
-		TabMenu_[2].setString("Charger");
-		TabMenu_[3].setString("Quitter");
-
-		for (int i = 0; i < 4; i++)
-		{
-			TabMenu_[i].setFont(font_);
-			TabMenu_[i].setCharacterSize(24);
-			TabMenu_[i].setFillColor(sf::Color::White);
-			TabMenu_[i].setPosition(450, i * 50 + 400);
-		}
-	}
-
-	void MenuPrincipal::setFichiers(bool sauvegardeExistante)
-	{
-		sauvegardeExistante_ = sauvegardeExistante;
-	}
-
-	void MenuPrincipal::handleEvent()
-	{
-
-		/*TabMenu_[choix_].setFillColor(sf::Color::White);
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && toucheLache_)
-		{
-			if (choix_ > 0)
-			{
-				if (!sauvegardeExistante_ && choix_ == 3)
-				{
-					choix_ -= 2;
-				}
-				else
-				{
-					choix_ -= 1;
-				}
-			}
-			toucheLache_ = false;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && toucheLache_)
-		{
-			if (choix_ < 3)
-			{
-				if (!sauvegardeExistante_ && choix_ == 1)
-				{
-					choix_ += 2;
-				}
-				else
-				{
-					choix_ += 1;
-				}
-			}
-			toucheLache_ = false;
-		}
-
-		if (event.type == sf::Event::KeyReleased)
-		{
-			toucheLache_ = true;
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-		{
-		}*/
-	}
-
-	void MenuPrincipal::update()
-	{
-		if (!sauvegardeExistante_) // charger gris
-		{
-			TabMenu_[2].setFillColor(gris_);
-		}
-		else
-		{
-			TabMenu_[2].setFillColor(sf::Color::White);
-		}
-		TabMenu_[choix_].setFillColor(sf::Color::Yellow);
 	}
 
 	void MenuPrincipal::afficher()
 	{
-		for (int i = 0; i < 4; i++)
-		{
-			Controleur::Fenetre::fenetre->draw(TabMenu_[i]);
-		}
-
-		Controleur::Fenetre::fenetre->draw(titre_);
-
+		MenuChoix::afficher();
 		titre_.setTextureRect(animationtitre_.getFrame());
-
+		Controleur::Fenetre::fenetre->draw(titre_);
 	}
-
 }
 
 
