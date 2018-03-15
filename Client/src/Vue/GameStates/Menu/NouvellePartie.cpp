@@ -40,15 +40,16 @@ namespace Vue
 
 		for (int i(0); i < textes_.size(); ++i)
 		{
-			textes_[i]->setPosition(600, i * 50 + 320);
+			textes_[i]->setPosition(600, i * 50 + 400);
 		}
 
+		titreMenu_.setString("Creer Une Partie");
 		titreMenu_.setFont(Controleur::Fenetre::getPoliceParDefaut());
 		titreMenu_.setCharacterSize(36);
 		titreMenu_.setFillColor(sf::Color::White);
-		titreMenu_.setPosition(600, 400);
+		titreMenu_.setPosition(500, 325);
 
-
+		ip_.setString("IP : ");
 		ip_.setFont(Controleur::Fenetre::getPoliceParDefaut());
 		ip_.setCharacterSize(24);
 		ip_.setFillColor(sf::Color::White);
@@ -61,11 +62,11 @@ namespace Vue
 	void NouvellePartie::afficher()
 	{
 		MenuChoix::afficher();
-
-		Controleur::Fenetre::fenetre->draw(ip_);
-		Controleur::Fenetre::fenetre->draw(titreMenu_);
 		logo_.setTextureRect(animationLogo_.getFrame());
 		Controleur::Fenetre::fenetre->draw(logo_);
+		Controleur::Fenetre::fenetre->draw(ip_);
+		Controleur::Fenetre::fenetre->draw(titreMenu_);
+		
 	}
 
 
