@@ -77,6 +77,9 @@ namespace Vue
 				case sf::Keyboard::K: case sf::Keyboard::Return:
 					controleur_->enclencherActionValidation();
 					break;
+				case  sf::Keyboard::L: case sf::Keyboard::BackSpace:
+					controleur_->enclancherActionRetour();
+					break;
 				case sf::Keyboard::Escape:
 					Controleur::Fenetre::fenetre->close();
 					break;

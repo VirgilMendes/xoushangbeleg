@@ -8,5 +8,7 @@ namespace Controleur
 	public:
 		MenuPrincipal();
 		~MenuPrincipal();
+
+		void enclancherActionRetour() override{}
 	};
 }

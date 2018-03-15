@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MenuChoix.h"
+#include "../Navigation.h"
 
 namespace Controleur
 {
@@ -194,6 +195,7 @@ namespace Controleur
 
 	void MenuChoix::enclancherActionRetour()
 	{
+		Fenetre::depilerGameState();
 	}
 
 	void MenuChoix::enclancherActionMenu()
@@ -213,6 +215,7 @@ namespace Controleur
 	{
 		choix_ = choix;
 		vue_ = vue;
+		interfaceUtilisateur_ = interfaceUtilisateur;
 
 		choixCourant_ = 0;
 		Choix choixMenu = choix_[0];
