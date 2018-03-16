@@ -39,12 +39,13 @@ namespace Controleur
 		void enclancherActionMenu() override;
 		void enclancherActionSpecial() override;
 	
-	protected:
-		
+	protected:	
+
 		MenuChoix();
 		void initialiser(const std::vector<Choix>& choix, Vue::MenuChoix* vue, const bool interfaceUtilisateur = false);
 		
 		int choixCourant_;
+
 		Vue::MenuChoix* vue_;
 		std::vector<Choix> choix_;
 		

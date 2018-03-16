@@ -2,6 +2,7 @@
 #include "MenuAction.h"
 #include "../../Navigation.h"
 #include "../Grille.h"
+#include "../../../src/Vue/GameStates/MenuChoixFond.h"
 
 namespace Controleur
 {
@@ -35,8 +36,9 @@ namespace Controleur
 					Controleur::Fenetre::depilerGameState();
 				}
 			}
+
 		};
-		initialiser(choix, new Vue::MenuChoix(choix, this), true);
+		initialiser(choix, new Vue::MenuChoixFond(choix, this), true);
 	}
 
 	MenuAction::~MenuAction()

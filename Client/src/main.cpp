@@ -5,6 +5,7 @@
 #include <SFML/Network.hpp>
 #include "Controleur/Navigation.h"
 #include "Controleur/DonneeServeur.h"
+#include "Vue\GameStates\MenuChoixFond.h"
 
 int main()
 {
@@ -16,6 +17,9 @@ int main()
 
 	Controleur::Fenetre::initialiser();
 	Controleur::Fenetre::run();
+
+
+	//Controleur::Fenetre::run();
 
 	/*sf::TcpSocket socket;
 	sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
