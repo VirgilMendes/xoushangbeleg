@@ -50,14 +50,17 @@ namespace Controleur {
 		Modele::Classe classeUnite;
 		Modele::Equipe equipeUnite;
 		Modele::Vecteur2<int> positionUnite;
-		std::cout << root.child("initialisation").child("unites").next_sibling("unite") << std::endl;
 		pugi::xml_node::iterator it;
+		
+		std::cout << root.child("initialisation").last_child().first_child().name() << std::endl;
+		std::cout << root.child("initialisation").last_child().last_child().name() << std::endl;
+
 		//Cas a part pour chaque unite
-		for (it = root.child("initialisation").child("unites").children().begin(); it != root.child("initialisation").child("unites").children().end(); ++it) {
+		for (it = root.child("initialisation").last_child().begin(); it != root.child("initialisation").last_child().end(); ++it) {
 			//for (pugi::xml_node uniteXml = root.child("initialisation").child("unites").first_child(); uniteXml; uniteXml = uniteXml.next_sibling()) {
 			pugi::xml_node uniteXml = *it;
 			std::cout << "2" << std::endl;
-			nomUnite = uniteXml.child("nomUnite").child_value();
+			nomUnite = uniteXml.name();
 			std::cout << "2.1" << std::endl;
 			//classeUnite = Modele::Classe::_from_string(uniteXml.child("classe").child_value());
 			std::cout << "2.2" << std::endl;
@@ -99,7 +102,7 @@ namespace Controleur {
 		doc.print(flux);
 		return flux.str();
 	}
-	std::string initialisatonCarteUnite() {
+	std::string DonneeServeur::initialisatonCarteUnite() {
 		pugi::xml_document doc;
 		auto root = doc.append_child("paquet");
 		pugi::xml_node nodeInitialisation = root.append_child("initialisation");
@@ -107,29 +110,26 @@ namespace Controleur {
 		pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
 		pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
 		pugi::xml_node nodeUnite;
-		pugi::xml_node nodeNomUnite;
 		pugi::xml_node nodeClasseUnite;
 		pugi::xml_node nodeEquipeUnite;
 		pugi::xml_node nodePositionUnite;
 		pugi::xml_node nodePositionXUnite;
 		pugi::xml_node nodePositionYUnite;
 		Modele::Vecteur2<int> position;
-		std::set<Modele::Unite> listeUnite_;
+		Modele::Grille grille = Fenetre::getProchaineGrille()->getGrilleModele();
+		std::set<Modele::Unite*> listeUnite_ = grille.getUnites();
 		//utiliser listeUnite de Carte.h{
 		for (auto iterateur(listeUnite_.begin()); iterateur != listeUnite_.end(); iterateur++) {
-			Modele::Unite unite = *iterateur;
-			position = unite.getPosition();
+			Modele::Unite *unite = const_cast<Modele::Unite*>(*iterateur);
+			position = unite->getPosition();
 
-			nodeUnite = nodeListeUnite.append_child("unite");
-
-			nodeNomUnite = nodeUnite.append_child("nomUnite");
-			nodeNomUnite.text().set(unite.getNom().c_str());
+			nodeUnite = nodeListeUnite.append_child(unite->getNom().c_str());
 
 			nodeClasseUnite = nodeUnite.append_child("classe");
-			nodeClasseUnite.text().set(unite.getClasse()._to_string());
+			nodeClasseUnite.text().set(unite->getClasse()._to_string());
 
 			nodeEquipeUnite = nodeUnite.append_child("equipe");
-			nodeEquipeUnite.text().set(unite.getEquipe()._to_string());
+			nodeEquipeUnite.text().set(unite->getEquipe()._to_string());
 
 			nodePositionUnite = nodeUnite.append_child("position");
 

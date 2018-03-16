@@ -44,6 +44,8 @@ namespace Controleur
 		void setPositionCurseurUniteActuel();
 		void finirTourUniteActuel();
 
+		Modele::Grille getGrilleModele();
+
 		Modele::Unite* getUniteCourante() { return uniteCourante_; }
 		EtatCombat getEtatCombat() { return etatCombat_; }
 		void setEtatCombat(const EtatCombat& etatCombat) { etatCombat_ = etatCombat; }

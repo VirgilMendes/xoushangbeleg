@@ -18,22 +18,20 @@
 		<nom>nom de la carte</nom>
 	  </carte>
 	  <unites>
-		<unite //ajouter attribut avec le nom>
-		  <nomUnite>nom de l'unite</nomUnite>
+		< //nom de l'unite>
 		  <classe>nom de la classe</classe>
 		  <equipe>numéro de l'equipe</equipe>
 		  <position>
 			<x>coordonné x</x>
 			<y>coordonné y</y>
 		  </position>
-		</unite>
-		<unite>
-		  <nomUnite>nom de l'unite</nomUnite>
+		</ //nom de l'unite>
+		< //nom de l'unite2>
 		  <classe>nom de la classe</classe>
 		  .
 		  .
 		  .
-		</unite>
+		</ //nom de l'unite2>
 	  </unites>
 	</initialisation>
 </paquet>

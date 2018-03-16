@@ -241,4 +241,7 @@ namespace Controleur
 		actionFaite_ = false;
 		deplacementFait_ = false;
 	}
+	Modele::Grille Grille::getGrilleModele() {
+		return *modele_;
+	}
 }

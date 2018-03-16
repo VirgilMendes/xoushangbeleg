@@ -14,6 +14,7 @@
 #include <sstream>
 #include <list>
 #include "../Modele/Grille.h"
+#include "Navigation.h"
 
 namespace Controleur {
 	class DonneeServeur {
@@ -22,6 +23,7 @@ namespace Controleur {
 			static void deplacerXml(pugi::xml_node root);
 			static void initialiserXml(pugi::xml_node root);
 			static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position);
+			static std::string initialisatonCarteUnite();
 		private : 
 			DonneeServeur() {};
 	};
