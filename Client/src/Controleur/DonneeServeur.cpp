@@ -8,7 +8,6 @@ namespace Controleur {
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_buffer(str.c_str(), str.length());
 		pugi::xml_node root = doc.document_element();
-		std::cout << (std::string)root.first_child().name() << std::endl;
 		//verification du premier node
 		if ((std::string)root.first_child().name() == "deplacement")
 		{
@@ -40,7 +39,6 @@ namespace Controleur {
 	}
 
 	void DonneeServeur::initialiserXml(pugi::xml_node root) {
-		std::cout << "1" << std::endl;
 		//Gerer la carte
 		//root.child("carte")...
 
@@ -50,37 +48,26 @@ namespace Controleur {
 		Modele::Classe classeUnite;
 		Modele::Equipe equipeUnite;
 		Modele::Vecteur2<int> positionUnite;
-		pugi::xml_node::iterator it;
-		
-		std::cout << root.child("initialisation").last_child().first_child().name() << std::endl;
-		std::cout << root.child("initialisation").last_child().last_child().name() << std::endl;
-
 		//Cas a part pour chaque unite
-		for (it = root.child("initialisation").last_child().begin(); it != root.child("initialisation").last_child().end(); ++it) {
-			//for (pugi::xml_node uniteXml = root.child("initialisation").child("unites").first_child(); uniteXml; uniteXml = uniteXml.next_sibling()) {
-			pugi::xml_node uniteXml = *it;
-			std::cout << "2" << std::endl;
+		for (pugi::xml_node uniteXml = root.child("initialisation").child("unites").first_child(); uniteXml;  uniteXml = uniteXml.next_sibling()) {
 			nomUnite = uniteXml.name();
-			std::cout << "2.1" << std::endl;
-			//classeUnite = Modele::Classe::_from_string(uniteXml.child("classe").child_value());
-			std::cout << "2.2" << std::endl;
-			//equipeUnite = Modele::Equipe::_from_string(uniteXml.child("equipe").child_value());
-			//positionUnite.x = stoi((std::string)uniteXml.child("position").child("x").child_value());
-			//positionUnite.y = stoi((std::string)uniteXml.child("position").child("y").child_value());
-			/*if (classeUnite == Modele::Classe::_from_string("Archer")) {
-			Modele::Archer uniteCree(nomUnite, equipeUnite, positionUnite);
-			//grille.ajouterUnite(&uniteCree);
+			classeUnite = Modele::Classe::_from_string(uniteXml.child("classe").child_value());
+			equipeUnite = Modele::Equipe::_from_string(uniteXml.child("equipe").child_value());
+			positionUnite.x = (int)uniteXml.child("position").child("x").child_value();
+			positionUnite.y = (int)uniteXml.child("position").child("y").child_value();
+			if (classeUnite == Modele::Classe::_from_string("Archer")) {
+				Modele::Archer uniteCree(nomUnite, equipeUnite, positionUnite);
+				//grille.ajouterUnite(&uniteCree);
 			}
 			else if (classeUnite == Modele::Classe::_from_string("Soldat")) {
-			Modele::Soldat uniteCree(nomUnite, equipeUnite, positionUnite);
-			//grille.ajouterUnite(&uniteCree);
+				Modele::Soldat uniteCree(nomUnite, equipeUnite, positionUnite);
+				//grille.ajouterUnite(&uniteCree);
 			}
 			else {
-			Modele::Tank uniteCree(nomUnite, equipeUnite, positionUnite);
-			//grille.ajouterUnite(&uniteCree);
-			}*/
+				Modele::Tank uniteCree(nomUnite, equipeUnite, positionUnite);
+				//grille.ajouterUnite(&uniteCree);
+			}
 		}
-		std::cout << "3" << std::endl;
 	}
 
 	std::string DonneeServeur::deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
