@@ -4,6 +4,7 @@
 #include "../../Navigation.h"
 #include "../../../Vue/GameStates/Menu/MenuPrincipal.h"
 #include "NouvellePartie.h"
+#include "RejoindrePartie.h"
 
 namespace Controleur
 {
@@ -20,6 +21,7 @@ namespace Controleur
 			{
 				"Rejoindre", true , []
 				{
+					Fenetre::empilerGameState(new RejoindrePartie());
 				}
 			},
 			{

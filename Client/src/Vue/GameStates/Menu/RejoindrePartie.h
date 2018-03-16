@@ -1,54 +1,36 @@
-#pragma once
-
 #include <string>
 #include "../../Outils/Animation.h"
-#include "../../GameStates/GameState.h"
+#include "../MenuChoix.h"
 
-
-namespace Controleur 
-{
-	class Fenetre;
+namespace Controleur {
+	class RejoindrePartie;
 }
 
 namespace Vue
 {
 
-	class RejoindrePartie : public GameState
+	class RejoindrePartie : public MenuChoix
 	{
 	public:
 
-		RejoindrePartie(Controleur::Fenetre* fenetre);
-		void handleEvent() override;
-		void update() override;
+		RejoindrePartie(std::vector<Controleur::Choix> choix, Controleur::RejoindrePartie* controleur);
+
 		void afficher() override;
-		std::string RejoindrePartie::getIP();
 
-
+		void setIP();
+		void setIP(std::string std);
+		std::string getIP();
 
 	private:
-		
-		int choix_;
-
-		bool ipRemplie_;
-		
-		sf::Color gris = sf::Color(100, 100, 100);
-		
-		std::string str;
 
 		sf::Texture textureLogo_;
 		sf::Sprite logo_;
-		Animation animationtitre_;
 
-		sf::Text menu_[3];
-		sf::Font font_;
+		Animation animationLogo_;
 
 		sf::Text titreMenu_;
+
 		sf::Text ip_;
-		std::string ipPartie_;
-
-
-		bool toucheLache_;
 	};
 
 }
-

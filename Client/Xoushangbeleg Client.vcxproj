@@ -138,6 +138,7 @@
     <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\MenuPrincipal.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\NouvellePartie.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
     <ClInclude Include="src\Controleur\GameStates\Menu\MenuPrincipal.h" />
     <ClInclude Include="src\Controleur\GameStates\Menu\NouvellePartie.h" />
+    <ClInclude Include="src\Controleur\GameStates\Menu\RejoindrePartie.h" />
     <ClInclude Include="src\Modele\Unite\Archer.h" />
     <ClInclude Include="src\Controleur\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Modele\Case.h" />
