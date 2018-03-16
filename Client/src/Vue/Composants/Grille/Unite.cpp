@@ -61,12 +61,18 @@ namespace Vue
 
 	void Unite::deplacerUnite(Modele::Vecteur2<int> deplacement)
 	{
-		sprite_->move(sf::Vector2f(deplacement.x * RES_TEXTURE_XSB, deplacement.y * RES_TEXTURE_XSB));
+		sprite_->move(sf::Vector2f(deplacement.x , deplacement.y ));
 	}
 
 	void Unite::setPosition(Modele::Vecteur2<int> position)
 	{
-		sprite_->setPosition(position.x*RES_TEXTURE_XSB, position.y*RES_TEXTURE_XSB);
+		sprite_->setPosition(position.x, position.y);
+	}
+
+	Modele::Vecteur2<int> Unite::getPosition()
+	{
+		sf::Vector2f i = sprite_->getPosition();
+		return sf::Vector2i(i.x, i.y);
 	}
 
 	void Unite::mourrir()

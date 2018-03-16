@@ -19,6 +19,7 @@ namespace Vue
 		
 		void deplacerUnite(Modele::Vecteur2<int> deplacement);
 		void setPosition(Modele::Vecteur2<int> position);
+		Modele::Vecteur2<int> getPosition();
 
 		void mourrir();
 

@@ -132,13 +132,73 @@ namespace Vue
 
 	void Grille::deplacerUnite(Modele::Unite* unite, Modele::Vecteur2<int> deplacement)
 	{
+		Vue::Unite* uniteVue = nullptr;
 		for(auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur )
 		{
 			if (iterateur->getModele() == unite)
 			{
-				iterateur->deplacerUnite(deplacement);
-				return;
+				uniteVue = &(*iterateur);
+				break;
 			}
+		}
+		if(uniteVue == nullptr)
+			return;
+
+		std::stack<Modele::Vecteur2<int>> chemin = this->modele_->chercherChemin(uniteVue->getModele()->getPosition()+deplacement);
+		int i = uniteVue->getPosition().x;
+		int j = uniteVue->getPosition().y;
+		std::cout << " debut : i = " << i << " / j = " << j << std::endl;
+		while (!chemin.empty())
+		{
+			std::cout << "pile : x = " << chemin.top().x << " / y = " << chemin.top().y << std::endl;
+			if (i != chemin.top().x*RES_TEXTURE_XSB)
+			{
+				if (i < chemin.top().x*RES_TEXTURE_XSB)
+				{
+					while (i < chemin.top().x*RES_TEXTURE_XSB)
+					{
+						i+=8;
+						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
+						this->afficher();
+					}
+				}
+				else
+				{
+					while (i > chemin.top().x*RES_TEXTURE_XSB)
+					{
+						i -= 8;
+						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
+						this->afficher();
+					}
+				}
+				std::cout << "sprite : x = " << uniteVue->getPosition().x << " / y = " << uniteVue->getPosition().y << std::endl;
+			}
+			else 
+			{
+				if (j < chemin.top().y*RES_TEXTURE_XSB)
+				{
+					while (j < chemin.top().y*RES_TEXTURE_XSB)
+					{
+						j+=8;
+						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
+						this->afficher();
+					}
+				}
+				else
+				{
+					while (j > chemin.top().y*RES_TEXTURE_XSB)
+					{
+						j-=8;
+						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
+						this->afficher();
+					}
+				}
+				std::cout << "sprite : x = " << uniteVue->getPosition().x << " / y = " << uniteVue->getPosition().y << std::endl;
+			}
+			std::cout << "i = " << i << " / j = " << j << std::endl;
+			i = chemin.top().x*RES_TEXTURE_XSB;
+			j = chemin.top().y*RES_TEXTURE_XSB;
+			chemin.pop();
 		}
 	}
 
