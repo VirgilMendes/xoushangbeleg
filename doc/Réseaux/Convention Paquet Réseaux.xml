@@ -11,6 +11,27 @@
   </deplacement>
 </paquet>
 
+<!-- Paquet action: attaque -->
+<paquet>
+  <attaque>
+    <uniteAttaque>
+      <nom>nom de l'unité</nom>
+    </uniteAttaque>
+    <uniteDegats>
+      <nom>nom de l'unité</nom>
+    </uniteDegats>
+  </attaque>
+</paquet>
+
+<!-- Paquet action: fin de tour -->
+<paquet>
+  <tourFini>
+    <unite>
+      <nom>nom de l'unité</nom>
+    </unite>
+  </tourFini>
+</paquet>
+
 <!-- Paquet d'initialisation des positions et de la carte -->
 <paquet>
   <initialisation>
