@@ -107,13 +107,27 @@ namespace Modele
 
 	std::stack<Vecteur2<int>> Grille::chercherChemin(const Vecteur2<int>& cible)
 	{
-		return std::stack<Vecteur2<int>>();
+		Case* arrive = getCase(cible);
+		std::stack<Vecteur2<int>> chemin;
+		chemin.push(cible);
+		Case* caseCourante = arrive;
+		while(caseCourante->getCaseParent() != nullptr)
+		{
+			Case* caseParent = caseCourante->getCaseParent();
+			chemin.push(caseParent->getPosition());
+			caseCourante = caseParent;
+		}
+		return chemin;
 	}
 
 	void Grille::nettoyerDerniereRechercheDeplacement()
 	{
-		for(auto iterateur(derniereRechercheDeplacement_.begin()); iterateur != derniereRechercheDeplacement_.end(); ++iterateur)
-			getCase(*iterateur)->setCout(INT32_MAX);
+		for (auto iterateur(derniereRechercheDeplacement_.begin()); iterateur != derniereRechercheDeplacement_.end(); ++iterateur)
+		{
+			Case* caseRecherche = getCase(*iterateur);
+			caseRecherche->setCout(INT32_MAX);
+			caseRecherche->setCaseParent(nullptr);
+		}
 		derniereRechercheDeplacement_.clear();
 	}
 
@@ -170,6 +184,7 @@ namespace Modele
 					if (caseAdjacente->getObstacle()._to_integral() == 0 && caseAdjacente->getTerrain()._to_integral()!=2 && caseAdjacente->getUnite() == nullptr)
 					{
 						caseAdjacente->setCout(caseCourante->getCout() + 1);
+						caseAdjacente->setCaseParent(caseCourante);
 						analyser.push(caseAdjacente);
 					}
 				}
