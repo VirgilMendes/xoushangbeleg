@@ -4,6 +4,7 @@
 #include "../../Navigation.h"
 #include "../../../Vue/GameStates/Menu/NouvellePartie.h"
 #include "../Grille.h"
+#include "../../Reseaux.h"
 
 namespace Controleur
 {
@@ -14,6 +15,7 @@ namespace Controleur
 			{
 				"Creer", true, []
 				{
+					Reseaux::connecter();
 					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
 				}
 			},

@@ -28,6 +28,7 @@
     <ClCompile Include="src\Vue\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuChoixFond.cpp" />
+    <ClCompile Include="src\Controleur\Reseaux.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
@@ -64,6 +65,9 @@
     <ClInclude Include="src\Vue\GameStates\Menu\MenuPrincipal.h" />
     <ClInclude Include="src\Vue\GameStates\Menu\NouvellePartie.h" />
     <ClInclude Include="src\Vue\GameStates\Menu\RejoindrePartie.h" />
+    <ClInclude Include="src\Controleur\GameStates\Menu\RejoindrePartie.h" />
+    <ClInclude Include="src\Vue\GameStates\MenuChoixFond.h" />
+    <ClInclude Include="src\Controleur\Reseaux.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

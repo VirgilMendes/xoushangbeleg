@@ -141,6 +141,7 @@
     <ClCompile Include="src\Controleur\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\Navigation.cpp" />
+    <ClCompile Include="src\Controleur\Reseaux.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Modele\Unite\Archer.cpp" />
     <ClCompile Include="src\Modele\Unite\Soldat.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\Controleur\GameStates\Menu\MenuPrincipal.h" />
     <ClInclude Include="src\Controleur\GameStates\Menu\NouvellePartie.h" />
     <ClInclude Include="src\Controleur\GameStates\Menu\RejoindrePartie.h" />
+    <ClInclude Include="src\Controleur\Reseaux.h" />
     <ClInclude Include="src\Modele\Unite\Archer.h" />
     <ClInclude Include="src\Controleur\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Modele\Case.h" />

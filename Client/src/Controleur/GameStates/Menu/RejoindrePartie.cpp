@@ -4,6 +4,7 @@
 #include "../../Navigation.h"
 #include "../../../Vue/GameStates/Menu/RejoindrePartie.h"
 #include "../Grille.h"
+#include "../../Reseaux.h"
 
 namespace Controleur
 {
@@ -13,20 +14,21 @@ namespace Controleur
 		{
 			{
 				"Rejoindre", true, []
-		{
-			Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
-		}
+				{
+					Reseaux::connecter();
+					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
+				}
 			},
 			{
 				"IP : ", true , []
-		{
-		}
+				{
+				}
 			},
 			{
 				"Retour", true, []
-		{
-			Controleur::Fenetre::depilerGameState();
-		}
+				{
+					Controleur::Fenetre::depilerGameState();
+				}
 			}
 		};
 		initialiser(choix, new Vue::RejoindrePartie(choix, this));

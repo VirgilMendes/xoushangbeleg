@@ -5,7 +5,7 @@
 int main()
 	{
 
-	std::cout << "Serveur" << std::endl;
+	std::cout << "Lancement du Serveur de Xoushangbeleg" << std::endl;
 
 	sf::TcpListener listener;
 
@@ -16,12 +16,21 @@ int main()
 	}
 
 	// accepte une nouvelle connexion
-	sf::TcpSocket client1;
-	if (listener.accept(client1) != sf::Socket::Done)
+	sf::TcpSocket hote;
+	if (listener.accept(hote) != sf::Socket::Done)
 	{
-		std::cout << "impossible d'obtenir le premier client" << std::endl;
+		std::cout << "impossible d'obtenir l'hote" << std::endl;
 	}
+	std::cout << "Connection de l'hote" << std::endl;
 
+	sf::TcpSocket invitee;
+	if (listener.accept(invitee) != sf::Socket::Done)
+	{
+		std::cout << "impossible d'obtenir l'invitee" << std::endl;
+	}
+	std::cout << "Connection de l'invitee" << std::endl;
+	
+	/*
 	char deplacement[255];
 	std::size_t recus;
 
@@ -45,4 +54,5 @@ int main()
 	{
 		std::cout << "impossible d'enviyer les données au second client" << std::endl;
 	}
+	*/
 }
