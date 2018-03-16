@@ -12,8 +12,8 @@ int main()
 	//int client;
 	//std::cin >> client; std::cout << std::endl;
 
-	std::string testXml = "<paquet><initialisation><carte><nom/></carte><unites><jean><classe>Archer< / classe><equipe>Bleu< / equipe><position><x>50< / x><x>60< / x>< / position>< /jean><soldat76><classe>Soldat< / classe><equipe>Bleu< / equipe><position><x>8< / x><x>7< / x>< / position>< /soldat76><he><classe>Tank< / classe><equipe>Rouge< / equipe><position><x>10< / x><x>12< / x>< / position>< /he>< / unites></initialisation>< / paquet>";
-	Controleur::DonneeServeur::decodeXml(testXml);
+	//std::string testXml = "<paquet><initialisation><carte><nom/></carte><unites><jean><classe>Archer< / classe><equipe>Bleu< / equipe><position><x>50< / x><x>60< / x>< / position>< /jean><soldat76><classe>Soldat< / classe><equipe>Bleu< / equipe><position><x>8< / x><x>7< / x>< / position>< /soldat76><he><classe>Tank< / classe><equipe>Rouge< / equipe><position><x>10< / x><x>12< / x>< / position>< /he>< / unites></initialisation>< / paquet>";
+	//Controleur::DonneeServeur::decodeXml(testXml);
 	Controleur::Fenetre::initialiser();
 	Controleur::Fenetre::run();
 
