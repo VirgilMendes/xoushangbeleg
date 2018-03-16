@@ -9,7 +9,7 @@ namespace Modele
 	class Tank : public Unite
 	{
 	public :
-		Tank( Equipe ,std::string surnomAmusant, int x, int y);
+		Tank(std::string nom, Equipe equipe, Vecteur2<int> position);
 
 	};
 

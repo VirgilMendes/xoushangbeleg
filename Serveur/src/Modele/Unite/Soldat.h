@@ -6,10 +6,10 @@
 namespace Modele
 {
 
-	class Archer : public Unite
+	class Soldat : public Unite
 	{
 	public:
-		Archer(Equipe equ, std::string surnomAmusant, int x, int y);
+		Soldat(std::string nom, Equipe equipe, Vecteur2<int> position);
 
 	};
 
