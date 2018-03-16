@@ -9,11 +9,11 @@ namespace Vue
 		textFond.loadFromFile("ressources/sprite/fondMenuChoix.png");
 		spriteFond.setTexture(textFond);
 		spriteFond.setTextureRect(sf::IntRect(0,0,64,64));
-		spriteFond.setScale(2.0f, 2.0f);
-		spriteFond.setPosition(1280 - 128, 0);
+		spriteFond.setScale(3.0f, 3.0f);
+		spriteFond.setPosition(1280 - 192, 0);
 		for (int i(0); i < textes_.size(); i++)
 		{
-			textes_[i]->setPosition(1150,0);
+			textes_[i]->setPosition(1125,30+30*i);
 		}
 	}
 
