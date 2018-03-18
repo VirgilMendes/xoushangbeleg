@@ -17,15 +17,19 @@ namespace Vue
 
 		Modele::Unite* getModele() { return modele_; }
 		
-		void deplacerUnite(Modele::Vecteur2<int> deplacement);
+		bool deplacerUniteVers(Modele::Vecteur2<int> cible);
 		void setPosition(Modele::Vecteur2<int> position);
 		Modele::Vecteur2<int> getPosition();
 
 		void mourrir();
 
+		void update();
 		void dessiner(sf::RenderTarget* cible, sf::RenderStates etat = sf::Transform());
 
 		static const std::map<const Modele::Classe, const std::string> cheminTextureUnite;
+
+		Animation* getAnimationDeplacementFace() { return &deplacementFace_; }
+		Animation* getAnimationDeplacementDos() { return &deplacementDos_; }
 
 	private:
 
@@ -38,5 +42,7 @@ namespace Vue
 		sf::Texture* texture_;
 
 		bool mort;
+
+		Animation* animationDeplacementCourante_;
 	};
 }

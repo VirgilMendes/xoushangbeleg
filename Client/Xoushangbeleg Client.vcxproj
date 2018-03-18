@@ -158,6 +158,7 @@
     <ClCompile Include="src\Vue\GameStates\Menu\NouvellePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuChoixFond.cpp" />
+    <ClCompile Include="src\Vue\Outils\Animation.cpp" />
     <ClCompile Include="src\Vue\Outils\Jauge.cpp" />
     <ClCompile Include="src\Vue\Composants\Grille\InterfaceUnite.cpp" />
   </ItemGroup>

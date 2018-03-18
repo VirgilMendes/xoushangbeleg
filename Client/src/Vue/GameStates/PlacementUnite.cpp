@@ -84,7 +84,7 @@ namespace Vue {
 			target->draw(classeText[i], states);
 		}
 		
-		target->draw(curseur, states);	
+		curseur.dessiner(*target, states);
 	}
 
 	int PlacementUnite::getChoix()

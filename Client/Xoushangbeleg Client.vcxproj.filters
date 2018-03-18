@@ -29,6 +29,7 @@
     <ClCompile Include="src\Controleur\GameStates\Menu\RejoindrePartie.cpp" />
     <ClCompile Include="src\Vue\GameStates\MenuChoixFond.cpp" />
     <ClCompile Include="src\Controleur\Reseaux.cpp" />
+    <ClCompile Include="src\Vue\Outils\Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />

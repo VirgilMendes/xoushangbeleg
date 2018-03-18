@@ -7,7 +7,7 @@
 namespace Vue
 {
 
-	class Curseur : public sf::Drawable
+	class Curseur 
 	{
 	public:
 		Curseur() : position_(0, 0), sprite_(nullptr), texture_(nullptr)
@@ -71,14 +71,13 @@ namespace Vue
 
 		sf::Vector2i getPosition() { return position_; }
 
-
-	private:
-
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+		void dessiner(sf::RenderTarget& target, sf::RenderStates& states)
 		{
 			sprite_->setTextureRect(stay_.getFrame());
 			target.draw(*sprite_, states);
 		}
+
+	private:
 
 		Animation stay_;
 

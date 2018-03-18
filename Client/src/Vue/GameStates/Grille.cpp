@@ -63,6 +63,9 @@ namespace Vue
 		}
 		if (interfaceUnite_ != nullptr)
 			delete interfaceUnite_;
+
+		for (Unite* unite : unites_)
+			delete unite;
 	}
 
 	void Grille::miseAJourAnimation()
@@ -127,7 +130,7 @@ namespace Vue
 		{
 			texture = textures_[cheminTexture];
 		}
-		unites_.push_back(Unite(unite, texture));
+		unites_.push_back(new Unite(unite, texture));
 	}
 
 	void Grille::deplacerUnite(Modele::Unite* unite, Modele::Vecteur2<int> deplacement)
@@ -135,69 +138,29 @@ namespace Vue
 		Vue::Unite* uniteVue = nullptr;
 		for(auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur )
 		{
-			if (iterateur->getModele() == unite)
+			if ((*iterateur)->getModele() == unite)
 			{
-				uniteVue = &(*iterateur);
+				uniteVue = *iterateur;
 				break;
 			}
 		}
 		if(uniteVue == nullptr)
 			return;
 
-		std::stack<Modele::Vecteur2<int>> chemin = this->modele_->chercherChemin(uniteVue->getModele()->getPosition()+deplacement);
-		int i = uniteVue->getPosition().x;
-		int j = uniteVue->getPosition().y;
-		std::cout << " debut : i = " << i << " / j = " << j << std::endl;
+		std::stack<Modele::Vecteur2<int>> chemin = this->modele_->chercherChemin(uniteVue->getPosition()/RES_TEXTURE_XSB+deplacement);
+		std::cout << "c" << chemin.size() << std::endl;
 		while (!chemin.empty())
 		{
-			std::cout << "pile : x = " << chemin.top().x << " / y = " << chemin.top().y << std::endl;
-			if (i != chemin.top().x*RES_TEXTURE_XSB)
+			while (true)
 			{
-				if (i < chemin.top().x*RES_TEXTURE_XSB)
-				{
-					while (i < chemin.top().x*RES_TEXTURE_XSB)
-					{
-						i+=8;
-						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
-						this->afficher();
-					}
-				}
-				else
-				{
-					while (i > chemin.top().x*RES_TEXTURE_XSB)
-					{
-						i -= 8;
-						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
-						this->afficher();
-					}
-				}
-				std::cout << "sprite : x = " << uniteVue->getPosition().x << " / y = " << uniteVue->getPosition().y << std::endl;
+				if (uniteVue->deplacerUniteVers(chemin.top()))
+					break;
+				sf::Event event;
+				while(Controleur::Fenetre::fenetre->pollEvent(event)){}
+				Controleur::Fenetre::fenetre->clear(sf::Color::Black);
+				afficher();
+				Controleur::Fenetre::fenetre->display();
 			}
-			else 
-			{
-				if (j < chemin.top().y*RES_TEXTURE_XSB)
-				{
-					while (j < chemin.top().y*RES_TEXTURE_XSB)
-					{
-						j+=8;
-						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
-						this->afficher();
-					}
-				}
-				else
-				{
-					while (j > chemin.top().y*RES_TEXTURE_XSB)
-					{
-						j-=8;
-						uniteVue->setPosition(Modele::Vecteur2<int>(i, j));
-						this->afficher();
-					}
-				}
-				std::cout << "sprite : x = " << uniteVue->getPosition().x << " / y = " << uniteVue->getPosition().y << std::endl;
-			}
-			std::cout << "i = " << i << " / j = " << j << std::endl;
-			i = chemin.top().x*RES_TEXTURE_XSB;
-			j = chemin.top().y*RES_TEXTURE_XSB;
 			chemin.pop();
 		}
 	}
@@ -206,9 +169,9 @@ namespace Vue
 	{
 		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 		{
-			if ((*iterateur).getModele() == unite)
+			if ((*iterateur)->getModele() == unite)
 			{
-				iterateur->mourrir();;
+				(*iterateur)->mourrir();;
 				return;
 			}
 		}
@@ -273,6 +236,8 @@ namespace Vue
 
 	void Grille::update()
 	{
+		for (Unite* unite : unites_)
+			unite->update();
 	}
 
 	void Grille::afficher()
@@ -289,10 +254,10 @@ namespace Vue
 		// et on dessine enfin le tableau de vertex du sol 
 		fenetre->draw(sommets_, etat);
 
-		fenetre->draw(curseur_, etat);
+		curseur_.dessiner(*fenetre, etat);
 
-		for (Unite unite : unites_)
-			unite.dessiner(fenetre, etat);
+		for (Unite* unite : unites_)
+			unite->dessiner(fenetre, etat);
 
 		if (filtreCase_ != nullptr)
 			filtreCase_->dessiner(fenetre, etat);

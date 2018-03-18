@@ -12,7 +12,7 @@ namespace Controleur
 		Modele::Unite* billy = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
 		modele_->ajouterUnite(billy);
 		vue_->ajouterUnite(billy, Vue::Unite::cheminTextureUnite.at(billy->getClasse()));
-
+		
 		Modele::Unite* roger = new Modele::Archer("Roger", Modele::Equipe::Rouge, Modele::Vecteur2<int>(4, 4));
 		modele_->ajouterUnite(roger);
 		vue_->ajouterUnite(roger, Vue::Unite::cheminTextureUnite.at(roger->getClasse()));
@@ -20,7 +20,7 @@ namespace Controleur
 		Modele::Unite* gerard = new Modele::Soldat("Gerard", Modele::Equipe::Bleu, Modele::Vecteur2<int>(4, 3));
 		modele_->ajouterUnite(gerard);
 		vue_->ajouterUnite(gerard, Vue::Unite::cheminTextureUnite.at(gerard->getClasse()));
-
+		
 		modele_->relancerOrdreDeJeu();
 		setPositionCurseurUniteActuel();
 	}
@@ -139,9 +139,12 @@ namespace Controleur
 			Modele::Vecteur2<int> deplacement = positionCurseur_ - anciennePosition;
 
 			modele_->deplacerUnite(unite, deplacement);
-			modele_->nettoyerDerniereRechercheDeplacement();
+			
 			vue_->supprimerFiltreSurCases();
 			vue_->deplacerUnite(unite, deplacement);	
+
+			modele_->nettoyerDerniereRechercheDeplacement();
+
 			vue_->genererInformationPersonnage(unite);
 			deplacementFait_ = true;
 		}

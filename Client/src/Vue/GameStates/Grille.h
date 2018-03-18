@@ -55,7 +55,7 @@ namespace Vue
 			Modele::Grille* modele_;
 			Controleur::Grille* controleur_;
 
-			std::list<Unite> unites_;
+			std::list<Unite*> unites_;
 
 			sf::Texture textureGrille_;
 			sf::Texture textureObstacle_;
