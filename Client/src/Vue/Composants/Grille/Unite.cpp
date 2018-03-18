@@ -57,7 +57,7 @@ namespace Vue
 			sf::IntRect(6*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
 			sf::IntRect(7*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
 		};
-		deplacementDos_.initialiser(deplacementFace, 50, Animation::Type::UneFois);
+		deplacementDos_.initialiser(deplacementDos, 50, Animation::Type::UneFois);
 	}
 
 	bool Unite::deplacerUniteVers(Modele::Vecteur2<int> cible)
@@ -67,19 +67,19 @@ namespace Vue
 		if (position == sf::Vector2f(cible.x * 64, cible.y * 64)) return  true;
 		if((static_cast<int>(position.x) % 64 == 0) && (static_cast<int>(position.y) % 64 == 0))
 		{
-			if (position.x > cible.x*RES_TEXTURE_XSB)
+			if (position.x > cible.x * RES_TEXTURE_XSB)
 			{
 				animationDeplacementCourante_ = &deplacementDos_;
 			}
-			else if (position.x < cible.x*RES_TEXTURE_XSB)
+			else if (position.x < cible.x * RES_TEXTURE_XSB)
 			{
 				animationDeplacementCourante_ = &deplacementFace_;
 			}
-			else if (position.y > cible.y*RES_TEXTURE_XSB)
+			else if (position.y > cible.y * RES_TEXTURE_XSB)
 			{
 				animationDeplacementCourante_ = &deplacementDos_;
 			}
-			else if (position.y < cible.y*RES_TEXTURE_XSB)
+			else if (position.y < cible.y * RES_TEXTURE_XSB)
 			{
 				animationDeplacementCourante_ = &deplacementFace_;
 			}
@@ -88,6 +88,7 @@ namespace Vue
 		sf::IntRect frame = animationDeplacementCourante_->getFrame();
 		if (frame != sprite_->getTextureRect())
 		{	
+			
 			sprite_->setTextureRect(frame);
 			
 			if (position.x > cible.x*RES_TEXTURE_XSB)
