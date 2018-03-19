@@ -107,15 +107,12 @@ namespace Modele
 
 	std::stack<Vecteur2<int>> Grille::chercherChemin(const Vecteur2<int>& cible)
 	{
-		Case* arrive = getCase(cible);
+		Case* caseCourante = getCase(cible);
 		std::stack<Vecteur2<int>> chemin;
-		chemin.push(cible);
-		Case* caseCourante = arrive;
 		while(caseCourante->getCaseParent() != nullptr)
 		{
-			Case* caseParent = caseCourante->getCaseParent();
-			chemin.push(caseParent->getPosition());
-			caseCourante = caseParent;
+			chemin.push(caseCourante->getPosition());
+			caseCourante = caseCourante->getCaseParent();
 		}
 		return chemin;
 	}

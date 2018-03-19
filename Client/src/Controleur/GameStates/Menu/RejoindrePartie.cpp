@@ -15,7 +15,7 @@ namespace Controleur
 			{
 				"Rejoindre", true, []
 				{
-					Reseaux::connecter();
+					Reseaux::connecterInvitee();
 					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
 				}
 			},
