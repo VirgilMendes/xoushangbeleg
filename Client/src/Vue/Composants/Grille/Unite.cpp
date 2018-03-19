@@ -24,48 +24,50 @@ namespace Vue
 
 	void Unite::initAnimation()
 	{
-		int equipe = modele_->getEquipe()._to_integral()*2;
+		int equipe = modele_->getEquipe()._to_integral();
 
 		const std::vector < sf::IntRect > idle =
 		{
-			sf::IntRect(equipe* RES_TEXTURE_XSB, 4*RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
-			sf::IntRect(equipe * RES_TEXTURE_XSB+ RES_TEXTURE_XSB , 4*RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
+			sf::IntRect(equipe * 2 * RES_TEXTURE_XSB, 4*RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB),
+			sf::IntRect(equipe * 2 * RES_TEXTURE_XSB+ RES_TEXTURE_XSB , 4*RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
 		};
 		idle_.initialiser(idle, 750, Animation::Type::Boucle);
 
 		const std::vector < sf::IntRect > deplacementFace =
 		{
 			sf::IntRect(0, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(2*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(3*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(4*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(5*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(6*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(7*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
+			sf::IntRect(RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(2*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(3*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(4*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(5*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(6*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(7*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
 		};
 		deplacementFace_.initialiser(deplacementFace, 50, Animation::Type::UneFois);
 
 		const std::vector < sf::IntRect > deplacementDos =
 		{
 			sf::IntRect(0, RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB+RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(2*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(3*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(4*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(5*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(6*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(7*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
+			sf::IntRect(RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB+RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(2*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(3*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(4*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(5*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(6*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(7*RES_TEXTURE_XSB, equipe * 2 * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
 		};
 		deplacementDos_.initialiser(deplacementDos, 50, Animation::Type::UneFois);
+		std::cout << equipe * RES_TEXTURE_XSB * 4 + 0 << " " << equipe * RES_TEXTURE_XSB * 4 + RES_TEXTURE_XSB << " " <<
+			equipe * RES_TEXTURE_XSB * 4 + RES_TEXTURE_XSB * 2 << " " << equipe * RES_TEXTURE_XSB * 4 + RES_TEXTURE_XSB * 3 << std::endl;
 		const std::vector < sf::IntRect > attaque =
 		{
-			sf::IntRect((RES_TEXTURE_XSB * 4) + 0, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect((RES_TEXTURE_XSB * 4) + RES_TEXTURE_XSB, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect((RES_TEXTURE_XSB * 4) + 2 * RES_TEXTURE_XSB, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect((RES_TEXTURE_XSB * 4) + 3 * RES_TEXTURE_XSB, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(equipe * RES_TEXTURE_XSB * 4 + 0,						5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(equipe * RES_TEXTURE_XSB * 4 + RES_TEXTURE_XSB,			5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(equipe * RES_TEXTURE_XSB * 4 + 2 * RES_TEXTURE_XSB,		5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(equipe * RES_TEXTURE_XSB * 4 + 3 * RES_TEXTURE_XSB,		5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
 		};//equipe*
-		attaque_.initialiser(attaque, 50, Animation::Type::UneFois);
+		attaque_.initialiser(attaque, 500, Animation::Type::UneFois);
 	}
 
 	bool Unite::deplacerUniteVers(Modele::Vecteur2<int> cible)
@@ -118,18 +120,23 @@ namespace Vue
 		}
 		return false;
 	}
+
+	void Unite::initialiserAttaquer()
+	{
+		attaque_.restart();
+		sprite_->setTextureRect(attaque_.getFrame());
+	}
+
 	bool Unite::attaquer()
 	{
-		animationDeplacementCourante_ = &attaque_;
-		sf::IntRect frame = animationDeplacementCourante_->getFrame();
-		int equipe = modele_->getEquipe()._to_integral() * 2;
+		
+		sf::IntRect frame = attaque_.getFrame();
+		if (frame == Animation::finAnimation) return true;
 		if (frame != sprite_->getTextureRect())
 		{
 			sprite_->setTextureRect(frame);
-			return false;
-
 		}
-		return true;
+		return false;
 
 	}
 

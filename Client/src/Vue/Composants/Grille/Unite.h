@@ -18,6 +18,7 @@ namespace Vue
 		Modele::Unite* getModele() { return modele_; }
 		
 		bool deplacerUniteVers(Modele::Vecteur2<int> cible);
+		void initialiserAttaquer();
 		bool attaquer();
 		void setPosition(Modele::Vecteur2<int> position);
 		Modele::Vecteur2<int> getPosition();

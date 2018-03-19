@@ -167,23 +167,37 @@ namespace Vue
 
 	void Grille::attaquerUnite(Modele::Unite* unite)
 	{
-		sf::Clock horloge;
-		Vue::Unite* uniteVue = nullptr;
+		Vue::Unite* uniteCible = nullptr;
 		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 		{
 			if ((*iterateur)->getModele() == unite)
 			{
-				uniteVue = *iterateur;
+				uniteCible = *iterateur;
 				break;
 			}
 		}
-		if (uniteVue == nullptr)
+		if (uniteCible == nullptr)
 			return;
-		while (!uniteVue->attaquer())
+
+		Vue::Unite* uniteSource = nullptr;
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 		{
+			if ((*iterateur)->getModele() == unite)
+			{
+				uniteSource = *iterateur;
+				break;
+			}
+		}
+		if (uniteSource == nullptr)
+			return;
+		
+		uniteSource->initialiserAttaquer();
+
+		while (true)
+		{
+			if (uniteSource->attaquer())
+				break;
 			sf::Event event;
-			while (horloge.getElapsedTime().asMilliseconds() < 100) {}
-			horloge.restart();
 			while (Controleur::Fenetre::fenetre->pollEvent(event)) {}
 			Controleur::Fenetre::fenetre->clear(sf::Color::Black);
 			afficher();
