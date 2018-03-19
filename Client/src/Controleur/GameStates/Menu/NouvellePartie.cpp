@@ -15,7 +15,7 @@ namespace Controleur
 			{
 				"Creer", true, []
 				{
-					Reseaux::connecter();
+					Reseaux::connecterHote();
 					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
 				}
 			},

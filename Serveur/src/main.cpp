@@ -2,6 +2,31 @@
 #include <iostream>
 #include "SFML/Network.hpp"
 
+
+static void envoyerDonneesBloquant(std::string donnees, sf::TcpSocket& socket)
+{
+	sf::Packet paquet;
+	paquet << donnees;
+	if (socket.send(paquet) != sf::Socket::Done)
+	{
+		std::cout << "Impossible d'envoyer les donnees" << std::endl;
+	}
+}
+
+static  std::string recevoirDonneesBloquant(sf::TcpSocket& socket)
+{
+	sf::Packet paquet;
+
+	if (socket.receive(paquet) != sf::Socket::Done)
+	{
+		std::cout << "Impossible de recevoir les donnees" << std::endl;
+		return "";
+	}
+	std::string donnees;
+	paquet >> donnees;
+	return donnees;
+}
+
 int main()
 	{
 
@@ -15,21 +40,48 @@ int main()
 		std::cout << "impossible de se lier au port" << std::endl;
 	}
 
-	// accepte une nouvelle connexion
-	sf::TcpSocket hote;
-	if (listener.accept(hote) != sf::Socket::Done)
-	{
-		std::cout << "impossible d'obtenir l'hote" << std::endl;
-	}
-	std::cout << "Connection de l'hote" << std::endl;
 
-	sf::TcpSocket invitee;
-	if (listener.accept(invitee) != sf::Socket::Done)
 	{
-		std::cout << "impossible d'obtenir l'invitee" << std::endl;
-	}
-	std::cout << "Connection de l'invitee" << std::endl;
+		sf::TcpSocket hote;
+		if (listener.accept(hote) != sf::Socket::Done)
+		{
+		std::cout << "impossible d'obtenir l'hote" << std::endl;
+		}
 	
+	
+		std::cout << "Connection de l'hote" << std::endl;
+	
+		std::string messageConnection(recevoirDonneesBloquant(hote));
+
+		if (std::string(messageConnection) != "H")
+		{
+			std::cout << "Il n'y a pas d'hote à cette partie" << std::endl;
+		}
+
+		envoyerDonneesBloquant("H", hote);
+
+	}
+
+	{
+		sf::TcpSocket invite;
+		if (listener.accept(invite) != sf::Socket::Done)
+		{
+			std::cout << "impossible d'obtenir l'hote" << std::endl;
+		}
+
+
+		std::cout << "Connection de l'invite" << std::endl;
+
+		std::string messageConnection(recevoirDonneesBloquant(invite));
+
+		if (std::string(messageConnection) != "I")
+		{
+			std::cout << "Il y a déja un hote à cette partie" << std::endl;
+		}
+
+		envoyerDonneesBloquant("I", invite);
+
+	}
 	/*
 	char deplacement[255];
 	std::size_t recus;
