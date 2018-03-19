@@ -165,6 +165,32 @@ namespace Vue
 		}
 	}
 
+	void Grille::attaquerUnite(Modele::Unite* unite)
+	{
+		sf::Clock horloge;
+		Vue::Unite* uniteVue = nullptr;
+		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
+		{
+			if ((*iterateur)->getModele() == unite)
+			{
+				uniteVue = *iterateur;
+				break;
+			}
+		}
+		if (uniteVue == nullptr)
+			return;
+		while (!uniteVue->attaquer())
+		{
+			sf::Event event;
+			while (horloge.getElapsedTime().asMilliseconds() < 100) {}
+			horloge.restart();
+			while (Controleur::Fenetre::fenetre->pollEvent(event)) {}
+			Controleur::Fenetre::fenetre->clear(sf::Color::Black);
+			afficher();
+			Controleur::Fenetre::fenetre->display();
+		}
+	}
+
 	void Grille::supprimerUnite(Modele::Unite* unite)
 	{
 		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)

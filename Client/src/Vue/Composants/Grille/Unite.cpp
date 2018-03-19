@@ -60,15 +60,11 @@ namespace Vue
 		deplacementDos_.initialiser(deplacementDos, 50, Animation::Type::UneFois);
 		const std::vector < sf::IntRect > attaque =
 		{
-			sf::IntRect(0, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(2 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(3 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(4 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(5 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(6 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
-			sf::IntRect(7 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
-		};
+			sf::IntRect((RES_TEXTURE_XSB * 4) + 0, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect((RES_TEXTURE_XSB * 4) + RES_TEXTURE_XSB, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect((RES_TEXTURE_XSB * 4) + 2 * RES_TEXTURE_XSB, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect((RES_TEXTURE_XSB * 4) + 3 * RES_TEXTURE_XSB, 5 * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+		};//equipe*
 		attaque_.initialiser(attaque, 50, Animation::Type::UneFois);
 	}
 
@@ -121,6 +117,20 @@ namespace Vue
 			}
 		}
 		return false;
+	}
+	bool Unite::attaquer()
+	{
+		animationDeplacementCourante_ = &attaque_;
+		sf::IntRect frame = animationDeplacementCourante_->getFrame();
+		int equipe = modele_->getEquipe()._to_integral() * 2;
+		if (frame != sprite_->getTextureRect())
+		{
+			sprite_->setTextureRect(frame);
+			return false;
+
+		}
+		return true;
+
 	}
 
 	void Unite::setPosition(Modele::Vecteur2<int> position)

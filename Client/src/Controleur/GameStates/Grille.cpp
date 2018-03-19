@@ -165,6 +165,7 @@ namespace Controleur
 			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
 			if (unite != nullptr && unite != modele_->getProprietaireDerniereRechercheAttaque())
 			{
+				vue_->attaquerUnite(unite);
 				modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
 				if (unite->getVieCourante() <= 0)
 				{
