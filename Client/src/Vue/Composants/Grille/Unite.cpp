@@ -58,6 +58,18 @@ namespace Vue
 			sf::IntRect(7*RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB + RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
 		};
 		deplacementDos_.initialiser(deplacementDos, 50, Animation::Type::UneFois);
+		const std::vector < sf::IntRect > attaque =
+		{
+			sf::IntRect(0, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(2 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(3 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(4 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(5 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(6 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB) ,
+			sf::IntRect(7 * RES_TEXTURE_XSB, equipe * RES_TEXTURE_XSB, RES_TEXTURE_XSB, RES_TEXTURE_XSB)
+		};
+		attaque_.initialiser(attaque, 50, Animation::Type::UneFois);
 	}
 
 	bool Unite::deplacerUniteVers(Modele::Vecteur2<int> cible)

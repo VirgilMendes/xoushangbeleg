@@ -36,6 +36,7 @@ namespace Vue
 		Animation idle_; 
 		Animation deplacementFace_;
 		Animation deplacementDos_;
+		Animation attaque_;
 		Modele::Unite* modele_;
 		sf::Sprite* sprite_;
 		sf::Image image_;
