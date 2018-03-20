@@ -10,21 +10,22 @@ namespace Controleur {
 		pugi::xml_node action = document.child("paquet").first_child(); 
 		std::string nomAction = std::string(action.name());
 		
-		if (nomAction == "debutTour")
+		if (nomAction == "finDeTour")
 		{
-			executerDeplacementUniteDepuisXML(action);
+			executerFinDeTourDepuisXML(action);
 		}
 		else if (nomAction == "deplacement")
 		{
+			std::cout << "test" << std::endl;
 			executerDeplacementUniteDepuisXML(action);
 		}
 		else if (nomAction == "attaque")
 		{
-			executerDeplacementUniteDepuisXML(action);
+			executerAttaqueUniteDepuisXML(action);
 		}
 		else
 		{
-			throw "paquet invalide reçu";
+			return;
 		}
 
 
@@ -54,6 +55,7 @@ namespace Controleur {
 		Modele::Vecteur2<int> deplacement(nodeDeplacement.attribute("x").as_int(), nodeDeplacement.attribute("y").as_int());
 
 		Grille* grille = Controleur::Fenetre::getProchaineGrille();
+		std::cout << nom << " " << std::to_string(deplacement) << std::endl;
 		grille->deplacerUniteDepuisReseaux(nom, deplacement);
 	}
 
@@ -64,7 +66,7 @@ namespace Controleur {
 		pugi::xml_node nodeSource = nodeAction.append_child("source");
 		nodeSource.append_attribute("nom").set_value(source.c_str());
 		pugi::xml_node nodeCible = nodeAction.append_child("cible");
-		nodeSource.append_attribute("nom").set_value(cible.c_str());
+		nodeCible.append_attribute("nom").set_value(cible.c_str());
 
 		std::stringstream flux;
 		document.print(flux);
@@ -93,7 +95,8 @@ namespace Controleur {
 	void DonneeServeur::executerFinDeTourDepuisXML(pugi::xml_node action)
 	{
 		Grille* grille = Controleur::Fenetre::getProchaineGrille();
-		grille->finirTourUniteActuel();
+		std::cout << "loli" << std::endl;
+		grille->finirTourDepuisReseaux();
 	}
 
 	std::string DonneeServeur::genererGrilleVersChaineXML(Modele::Grille* grille)
@@ -155,7 +158,7 @@ namespace Controleur {
 		pugi::xml_node nodeDimension = nodeGrille.child("dimension");
 		Modele::Vecteur2<int> dimension(nodeDimension.attribute("x").as_int(), nodeDimension.attribute("y").as_int());
 		std::vector<std::vector<Modele::Case*>> cases(dimension.x, std::vector<Modele::Case*>(dimension.y, nullptr));
-		std::set<Modele::Unite*> unites;
+		std::set<Modele::Unite*, Modele::ComparateurPointeurUniteNom> unites;
 
 		for(pugi::xml_node nodeCase : nodeGrille)
 		{

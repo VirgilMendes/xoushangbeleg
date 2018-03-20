@@ -27,6 +27,30 @@ static  std::string recevoirDonneesBloquant(sf::TcpSocket& socket)
 	return donnees;
 }
 
+static void envoyerDonneesNonBloquant(std::string donnees, sf::TcpSocket& socket)
+{
+	sf::Packet paquet;
+	paquet << donnees;
+
+	while (socket.send(paquet) == sf::Socket::Partial)
+	{
+	}
+}
+
+static  std::string recevoirDonneesNonBloquant(sf::TcpSocket& socket)
+{
+	sf::Packet paquet;
+	socket.setBlocking(false);
+	while (socket.receive(paquet) == sf::Socket::Partial)
+	{
+	}
+
+	std::string donnees = "";
+	paquet >> donnees;
+	socket.setBlocking(true);
+	return donnees;
+}
+
 int main()
 	{
 
@@ -81,6 +105,21 @@ int main()
 	
 	envoyerDonneesBloquant(informationInitialisationGrille, invite);
 
+	while (true)
+	{
+		std::string donneesHote = recevoirDonneesNonBloquant(hote);
+		if (donneesHote.size() > 0)
+		{
+			std::cout << donneesHote << std::endl;
+			envoyerDonneesBloquant(donneesHote, invite);
+		}
+		std::string donneesInvite = recevoirDonneesNonBloquant(invite);
+		if (donneesInvite.size() > 0)
+		{
+			std::cout << donneesInvite << std::endl;
+			envoyerDonneesBloquant(donneesInvite, hote);
+		}
+	}
 
 	/*
 	char deplacement[255];

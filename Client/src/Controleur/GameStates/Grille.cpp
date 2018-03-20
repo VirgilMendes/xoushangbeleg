@@ -2,6 +2,8 @@
 #include "../../Modele/Case.h"
 #include "../Navigation.h"
 #include "MenuCombat/MenuAction.h"
+#include "../Reseaux.h"
+#include "../DonneeServeur.h"
 
 namespace Controleur
 {
@@ -22,14 +24,20 @@ namespace Controleur
 		vue_->ajouterUnite(gerard, Vue::Unite::cheminTextureUnite.at(gerard->getClasse()));
 		
 		modele_->relancerOrdreDeJeu();
+		equipeCourante_ = modele_->getUniteActuel()->getEquipe();
 		setPositionCurseurUniteActuel();
+
+		equipeJoueur_ = Modele::Equipe::Bleu;
 	}
 
 	Grille::Grille(Modele::Grille* modele) :modele_(modele), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection),
 		actionFaite_(false), deplacementFait_(false)
 	{
 		modele_->relancerOrdreDeJeu();
+		equipeCourante_ = modele_->getUniteActuel()->getEquipe();
 		setPositionCurseurUniteActuel();
+
+		equipeJoueur_ = Modele::Equipe::Rouge;
 	}
 
 	Grille::~Grille()
@@ -46,6 +54,12 @@ namespace Controleur
 	void Grille::update()
 	{
 		vue_->update();
+		std::string test = Reseaux::recevoirDonneesNonBloquant();
+		if(test.size() > 0)
+		{
+			std::cout << test << std::endl;
+		}
+		DonneeServeur::decoderXml(test);
 	}
 
 	void Grille::afficher()
@@ -74,6 +88,8 @@ namespace Controleur
 
 	void Grille::enclencherActionValidation()
 	{
+		if (equipeJoueur_ != equipeCourante_)
+			return;
 		switch(etatCombat_)
 		{
 		case EtatCombat::Navigation:
@@ -146,6 +162,7 @@ namespace Controleur
 			Modele::Vecteur2<int> deplacement = positionCurseur_ - anciennePosition;
 
 			modele_->deplacerUnite(unite, deplacement);
+			Reseaux::envoyerDonneesBloquant(DonneeServeur::genererDeplacementUniteVersXML(unite->getNom(), deplacement));
 			
 			vue_->supprimerFiltreSurCases();
 			vue_->deplacerUnite(unite, deplacement);	
@@ -172,6 +189,7 @@ namespace Controleur
 			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
 			if (unite != nullptr && unite != modele_->getProprietaireDerniereRechercheAttaque())
 			{
+				Reseaux::envoyerDonneesBloquant(DonneeServeur::genererAttaqueUniteVersXML(modele_->getProprietaireDerniereRechercheAttaque()->getNom(), unite->getNom()));
 				vue_->attaquerUnite(modele_->getProprietaireDerniereRechercheAttaque(), unite);
 				modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
 				if (unite->getVieCourante() <= 0)
@@ -242,15 +260,18 @@ namespace Controleur
 
 	void Grille::finirTourUniteActuel()
 	{
+		Reseaux::envoyerDonneesBloquant(DonneeServeur::genererFinDeTourVersXML());
 		modele_->finDeTour();
 		Modele::Unite* uniteActuel = modele_->getUniteActuel();
 		if (uniteActuel == nullptr)
 		{
 			modele_->relancerOrdreDeJeu();
 		}
+		equipeCourante_ = modele_->getUniteActuel()->getEquipe();
 		setPositionCurseurUniteActuel();
 		actionFaite_ = false;
 		deplacementFait_ = false;
+		
 	}
 	Modele::Grille* Grille::getGrilleModele() {
 		return modele_;
@@ -268,9 +289,10 @@ namespace Controleur
 			}
 		}
 
+		modele_->chercherCasesAccessiblesDeplacement(uniteADeplacer->getPosition(), uniteADeplacer->getPorteeDeplacement());
 		modele_->deplacerUnite(uniteADeplacer, deplacement);
-
 		vue_->deplacerUnite(uniteADeplacer, deplacement);
+		modele_->nettoyerDerniereRechercheDeplacement();
 	}
 
 	void Grille::attaquerUniteDepuisReseaux(std::string source, std::string cible)
@@ -297,5 +319,19 @@ namespace Controleur
 
 		vue_->attaquerUnite(uniteSource, uniteCible);
 		uniteSource->attaquer(uniteCible);
+	}
+
+	void Grille::finirTourDepuisReseaux()
+	{
+		modele_->finDeTour();
+		Modele::Unite* uniteActuel = modele_->getUniteActuel();
+		if (uniteActuel == nullptr)
+		{
+			modele_->relancerOrdreDeJeu();
+		}
+		equipeCourante_ = modele_->getUniteActuel()->getEquipe();
+		setPositionCurseurUniteActuel();
+		actionFaite_ = false;
+		deplacementFait_ = false;
 	}
 }

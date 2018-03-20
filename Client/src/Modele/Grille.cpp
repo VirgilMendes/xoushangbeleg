@@ -35,7 +35,7 @@ namespace Modele
 		genererAutreAsset(50);
 	}
 
-	Grille::Grille(std::vector<std::vector<Case*>> cases, std::set<Unite*> unites) : dimension_(Vecteur2<int>(cases[0].size(), cases.size())),
+	Grille::Grille(std::vector<std::vector<Case*>> cases, std::set<Unite*, ComparateurPointeurUniteNom> unites) : dimension_(Vecteur2<int>(cases[0].size(), cases.size())),
 		cases_(cases), unites_(unites), proprietaireDerniereRechercheDeplacement_(nullptr), proprietaireDerniereRechercheAttaque_(nullptr)
 	{
 		for(Unite *unite : unites)

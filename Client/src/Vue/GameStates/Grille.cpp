@@ -148,9 +148,11 @@ namespace Vue
 				break;
 			}
 		}
-		if(uniteVue == nullptr)
+		if (uniteVue == nullptr)
+		{
+			std::cout << "bordel" << std::endl;
 			return;
-
+		}
 		std::stack<Modele::Vecteur2<int>> chemin = this->modele_->chercherChemin(uniteVue->getPosition()/RES_TEXTURE_XSB+deplacement);
 		while (!chemin.empty())
 		{

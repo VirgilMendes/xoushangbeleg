@@ -13,12 +13,21 @@
 
 namespace Modele {
 
+
+	struct ComparateurPointeurUniteNom
+	{
+		bool operator()(Unite* const  a, Unite* const  b) const
+		{
+			return a->getNom() < b->getNom();
+		}
+	};
+
 	class Grille {
 
 	public :
 		
 		Grille(const Vecteur2<int>& dimension);
-		Grille(std::vector<std::vector<Case*>> cases, std::set<Unite*> unites);
+		Grille(std::vector<std::vector<Case*>> cases, std::set<Unite*, ComparateurPointeurUniteNom> unites);
 		virtual ~Grille();
 
 		Vecteur2<int> getDimension() { return dimension_; }
@@ -28,7 +37,7 @@ namespace Modele {
 		std::vector<std::vector<Case*>> getCases() { return cases_; }
 		
 		Unite* getUnite(const std::string& nom);
-		std::set<Unite*> getUnites() { return unites_; }
+		std::set<Unite*, ComparateurPointeurUniteNom> getUnites() { return unites_; }
 		void ajouterUnite(Unite* unite);
 		void supprimerUnite(Unite* unite);
 
@@ -64,8 +73,8 @@ namespace Modele {
 		Vecteur2<int> dimension_;
 
 		std::vector<std::vector<Case*>> cases_;
-		std::set<Unite*> unites_;
-		std::set<Unite*> ordreDeJeu_;
+		std::set<Unite*, ComparateurPointeurUniteNom> unites_;
+		std::set<Unite*, ComparateurPointeurUniteNom> ordreDeJeu_;
 
 		//Sauvegarde Recherche de chemin
 		std::list<Vecteur2<int>> derniereRechercheDeplacement_;

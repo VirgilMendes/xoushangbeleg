@@ -53,6 +53,7 @@ namespace Controleur
 
 		void deplacerUniteDepuisReseaux(std::string nom, Modele::Vecteur2<int> deplacement);
 		void attaquerUniteDepuisReseaux(std::string source, std::string cible);
+		void finirTourDepuisReseaux();
 
 	private:
 
@@ -68,5 +69,9 @@ namespace Controleur
 
 		bool actionFaite_;
 		bool deplacementFait_;
+
+		Modele::Equipe equipeJoueur_;
+		Modele::Equipe equipeCourante_;
+
 	};
 }

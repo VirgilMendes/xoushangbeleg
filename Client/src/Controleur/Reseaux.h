@@ -14,6 +14,7 @@ namespace Controleur
 			envoyerDonneesBloquant("H");
 			if(recevoirDonneesBloquant()!="H")
 				std::cout << "erreur connection" << std::endl;
+			hote_ = true;
 		}
 
 		static void connecterInvitee()
@@ -22,6 +23,7 @@ namespace Controleur
 			envoyerDonneesBloquant("I");
 			if (recevoirDonneesBloquant() != "I")
 				std::cout << "erreur connection" << std::endl;
+			hote_ = false;
 		}
 
 		static void envoyerDonneesBloquant(std::string donnees)
@@ -47,6 +49,35 @@ namespace Controleur
 			return donnees;
 		}
 
+		static void envoyerDonneesNonBloquant(std::string donnees)
+		{
+			sf::Packet paquet;
+			paquet << donnees;
+
+			while (socket_.send(paquet) == sf::Socket::Partial)
+			{
+			}
+		}
+
+		static  std::string recevoirDonneesNonBloquant()
+		{
+			sf::Packet paquet;
+			socket_.setBlocking(false);
+			while (socket_.receive(paquet) == sf::Socket::Partial)
+			{
+			}
+
+			std::string donnees;
+			paquet >> donnees;
+			socket_.setBlocking(true);
+			return donnees;
+		}
+
+		static bool estHote()
+		{
+			return hote_;
+		}
+
 	private:
 
 		static void connecter()
@@ -58,6 +89,7 @@ namespace Controleur
 			}
 		}
 
+		static bool hote_;
 		static sf::TcpSocket socket_;
 	};
 

@@ -26,7 +26,7 @@ namespace Modele
 		Unite(const std::string& nom, const Equipe& equipe, const Classe& classe, const int vieMax, const int attaque,
 			const int defense,  const int porteeDeplacement, const int porteeAttaque, const Vecteur2<int>& position);
 			
-		std::string getNom() { return nom_; }
+		std::string getNom() const { return nom_; }
 		void setEquipe(Equipe equipe) { equipe_ = equipe; }
 		Equipe getEquipe() { return equipe_; }
 		Classe getClasse() { return classe_; }
