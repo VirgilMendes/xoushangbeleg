@@ -11,11 +11,11 @@ namespace Controleur {
 		//verification du premier node
 		if ((std::string)root.first_child().name() == "deplacement")
 		{
-			deplacerXml(root);
+			deplacerUniteDepuisXML(root);
 		}
 		else if ((std::string)root.first_child().name() == "initialisation")
 		{
-			initialiserXml(root);
+			//initialiserGrilleDepuisChaineXML(root);
 		}
 		else
 		{
@@ -24,7 +24,7 @@ namespace Controleur {
 
 
 	}
-	void DonneeServeur::deplacerXml(pugi::xml_node root) {
+	void DonneeServeur::deplacerUniteDepuisXML(pugi::xml_node root) {
 		//nom de l'unite
 		std::string nomUnite = root.child("deplacement").child("unite").child("nom").child_value();
 
@@ -36,38 +36,6 @@ namespace Controleur {
 
 		//Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
 		//Combat->deplacerUnite(nomUnite, position);
-	}
-
-	void DonneeServeur::initialiserXml(pugi::xml_node root) {
-		//Gerer la carte
-		//root.child("carte")...
-
-		//Unites
-		//Variables pour les unites
-		std::string nomUnite;
-		Modele::Classe classeUnite;
-		Modele::Equipe equipeUnite;
-		Modele::Vecteur2<int> positionUnite;
-		//Cas a part pour chaque unite
-		for (pugi::xml_node uniteXml = root.child("initialisation").child("unites").first_child(); uniteXml;  uniteXml = uniteXml.next_sibling()) {
-			nomUnite = uniteXml.name();
-			classeUnite = Modele::Classe::_from_string(uniteXml.child("classe").child_value());
-			equipeUnite = Modele::Equipe::_from_string(uniteXml.child("equipe").child_value());
-			positionUnite.x = (int)uniteXml.child("position").child("x").child_value();
-			positionUnite.y = (int)uniteXml.child("position").child("y").child_value();
-			if (classeUnite == Modele::Classe::_from_string("Archer")) {
-				Modele::Archer uniteCree(nomUnite, equipeUnite, positionUnite);
-				//grille.ajouterUnite(&uniteCree);
-			}
-			else if (classeUnite == Modele::Classe::_from_string("Soldat")) {
-				Modele::Soldat uniteCree(nomUnite, equipeUnite, positionUnite);
-				//grille.ajouterUnite(&uniteCree);
-			}
-			else {
-				Modele::Tank uniteCree(nomUnite, equipeUnite, positionUnite);
-				//grille.ajouterUnite(&uniteCree);
-			}
-		}
 	}
 
 	std::string DonneeServeur::deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
@@ -89,45 +57,112 @@ namespace Controleur {
 		doc.print(flux);
 		return flux.str();
 	}
-	std::string DonneeServeur::initialisatonCarteUnite() {
-		pugi::xml_document doc;
-		auto root = doc.append_child("paquet");
-		pugi::xml_node nodeInitialisation = root.append_child("initialisation");
-		pugi::xml_node nodeCarte = nodeInitialisation.append_child("carte");
-		pugi::xml_node nodeNomCarte = nodeCarte.append_child("nom");
-		pugi::xml_node nodeListeUnite = nodeInitialisation.append_child("unites");
-		pugi::xml_node nodeUnite;
-		pugi::xml_node nodeClasseUnite;
-		pugi::xml_node nodeEquipeUnite;
-		pugi::xml_node nodePositionUnite;
-		pugi::xml_node nodePositionXUnite;
-		pugi::xml_node nodePositionYUnite;
-		Modele::Vecteur2<int> position;
-		Modele::Grille grille = Fenetre::getProchaineGrille()->getGrilleModele();
-		std::set<Modele::Unite*> listeUnite_ = grille.getUnites();
-		//utiliser listeUnite de Carte.h{
-		for (auto iterateur(listeUnite_.begin()); iterateur != listeUnite_.end(); iterateur++) {
-			Modele::Unite *unite = const_cast<Modele::Unite*>(*iterateur);
-			position = unite->getPosition();
+	
+	std::string DonneeServeur::GrilleVersChaineXML(Modele::Grille* grille)
+	{
+		pugi::xml_document document;
+		pugi::xml_node nodeRacine = document.append_child("paquet").append_child("initialisation");
+		pugi::xml_node nodeGrille = nodeRacine.append_child("grille");
 
-			nodeUnite = nodeListeUnite.append_child(unite->getNom().c_str());
+		Modele::Vecteur2<int> dimension = grille->getDimension();
+		pugi::xml_node nodeDimension = nodeGrille.append_child("dimension");
+		nodeDimension.append_attribute("x").set_value(dimension.x);
+		nodeDimension.append_attribute("y").set_value(dimension.y);
 
-			nodeClasseUnite = nodeUnite.append_child("classe");
-			nodeClasseUnite.text().set(unite->getClasse()._to_string());
+		for (std::vector<Modele::Case*> ligne : grille->getCases())
+		{
+			for (Modele::Case* caseModele : ligne)
+			{
+				pugi::xml_node nodeCase = nodeGrille.append_child("case");
 
-			nodeEquipeUnite = nodeUnite.append_child("equipe");
-			nodeEquipeUnite.text().set(unite->getEquipe()._to_string());
-
-			nodePositionUnite = nodeUnite.append_child("position");
-
-			nodePositionXUnite = nodePositionUnite.append_child("x");
-			nodePositionXUnite.text().set(position.x);
-
-			nodePositionYUnite = nodePositionUnite.append_child("x");
-			nodePositionYUnite.text().set(position.y);
+				Modele::Vecteur2<int> position = caseModele->getPosition();
+				pugi::xml_node nodePosition = nodeCase.append_child("position");
+				nodePosition.append_attribute("x").set_value(position.x);
+				nodePosition.append_attribute("y").set_value(position.y);
+				nodePosition.append_attribute("test").set_value("test");
+				nodeCase.append_child("terrain").text().set(caseModele->getTerrain()._to_string());
+				nodeCase.append_child("obstacle").text().set(caseModele->getObstacle()._to_string());
+			}
 		}
+
+		pugi::xml_node nodeUnites = nodeRacine.append_child("unites");
+
+		for (Modele::Unite* unite: grille->getUnites())
+		{
+			pugi::xml_node nodeUnite = nodeUnites.append_child("unite");
+			nodeUnite.append_attribute("nom").set_value(unite->getNom().c_str());
+			
+			Modele::Vecteur2<int> position = unite->getPosition();
+			pugi::xml_node nodePosition = nodeUnite.append_child("position");
+			nodePosition.append_attribute("x").set_value(position.x);
+			nodePosition.append_attribute("y").set_value(position.y);
+
+			nodeUnite.append_child("equipe").text().set(unite->getEquipe()._to_string());
+			nodeUnite.append_child("classe").text().set(unite->getClasse()._to_string());
+		}
+
 		std::stringstream flux;
-		doc.print(flux);
+		document.print(flux);
 		return flux.str();
+	}
+
+	Modele::Grille* DonneeServeur::initialiserGrilleDepuisChaineXML(std::string xml)
+	{
+		pugi::xml_document document;
+		document.load_string(xml.c_str());
+
+		pugi::xml_node nodePaquet = document.child("paquet").child("initialisation");
+		pugi::xml_node nodeGrille = nodePaquet.child("grille");
+
+		pugi::xml_node nodeDimension = nodeGrille.child("dimension");
+		Modele::Vecteur2<int> dimension(nodeDimension.attribute("x").as_int(), nodeDimension.attribute("y").as_int());
+		std::vector<std::vector<Modele::Case*>> cases(dimension.x, std::vector<Modele::Case*>(dimension.y, nullptr));
+		std::set<Modele::Unite*> unites;
+
+		for(pugi::xml_node nodeCase : nodeGrille)
+		{
+			if (std::string(nodeCase.name()) != "case") continue;;
+
+			pugi::xml_node nodePosition = nodeCase.child("position");
+			Modele::Vecteur2<int> position(nodePosition.attribute("x").as_int(), nodePosition.attribute("y").as_int());
+			
+			Modele::Terrain terrain = Modele::Terrain::_from_string_nocase(nodeCase.child("terrain").text().as_string());
+			Modele::Obstacle obstacle = Modele::Obstacle::_from_string_nocase(nodeCase.child("obstacle").text().as_string());
+
+			Modele::Case* caseModele = new Modele::Case
+			(
+				position,
+				terrain,
+				obstacle
+			);
+			cases[position.y][position.x] = caseModele;
+			
+		}
+
+		pugi::xml_node nodeUnites = nodePaquet.child("unites");
+		for (pugi::xml_node nodeUnite : nodeUnites)
+		{
+			pugi::xml_node nodePosition = nodeUnite.child("position");
+			
+			std::string nom = nodeUnite.attribute("nom").as_string();
+			Modele::Vecteur2<int> position = Modele::Vecteur2<int>(nodePosition.attribute("x").as_int(), nodePosition.attribute("y").as_int());
+			Modele::Equipe equipe = Modele::Equipe::_from_string_nocase(nodeUnite.child("equipe").text().as_string());
+			Modele::Classe classe = Modele::Classe::_from_string_nocase(nodeUnite.child("classe").text().as_string());
+			
+			switch(classe)
+			{
+				case Modele::Classe::Tank:
+					unites.insert(new Modele::Tank(nom, equipe, position));
+					break;
+				case Modele::Classe::Archer:
+					unites.insert(new Modele::Archer(nom, equipe, position));
+					break;
+				case Modele::Classe::Soldat:
+					unites.insert(new Modele::Soldat(nom, equipe, position));
+					break;
+			}
+		}
+
+		return new Modele::Grille(cases, unites);
 	}
 }

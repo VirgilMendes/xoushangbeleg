@@ -50,6 +50,10 @@ namespace Vue
 				quad[2].texCoords = sf::Vector2f((caseNombre + 1) * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
 				quad[3].texCoords = sf::Vector2f(caseNombre * RES_TEXTURE_XSB, RES_TEXTURE_XSB);
 			}
+		for(Modele::Unite* unite : modele_->getUnites())
+		{
+			ajouterUnite(unite, Unite::cheminTextureUnite.at(unite->getClasse()));
+		}
 		setCenter(0, 0);
 	}
 
@@ -148,7 +152,6 @@ namespace Vue
 			return;
 
 		std::stack<Modele::Vecteur2<int>> chemin = this->modele_->chercherChemin(uniteVue->getPosition()/RES_TEXTURE_XSB+deplacement);
-		std::cout << "c" << chemin.size() << std::endl;
 		while (!chemin.empty())
 		{
 			while (true)

@@ -18,6 +18,7 @@ namespace Modele {
 	public :
 		
 		Grille(const Vecteur2<int>& dimension);
+		Grille(std::vector<std::vector<Case*>> cases, std::set<Unite*> unites);
 		virtual ~Grille();
 
 		Vecteur2<int> getDimension() { return dimension_; }

@@ -42,7 +42,7 @@ namespace Controleur
 			{
 				std::cout << "Impossible de recevoir les donnees" << std::endl;
 			}
-			std::string donnees;
+			std::string donnees;      
 			paquet >> donnees;
 			return donnees;
 		}

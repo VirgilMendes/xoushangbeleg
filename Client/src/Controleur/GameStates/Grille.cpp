@@ -25,6 +25,13 @@ namespace Controleur
 		setPositionCurseurUniteActuel();
 	}
 
+	Grille::Grille(Modele::Grille* modele) :modele_(modele), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection),
+		actionFaite_(false), deplacementFait_(false)
+	{
+		modele_->relancerOrdreDeJeu();
+		setPositionCurseurUniteActuel();
+	}
+
 	Grille::~Grille()
 	{
 		delete modele_;
@@ -245,7 +252,7 @@ namespace Controleur
 		actionFaite_ = false;
 		deplacementFait_ = false;
 	}
-	Modele::Grille Grille::getGrilleModele() {
-		return *modele_;
+	Modele::Grille* Grille::getGrilleModele() {
+		return modele_;
 	}
 }

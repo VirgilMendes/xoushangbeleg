@@ -40,48 +40,50 @@ int main()
 		std::cout << "impossible de se lier au port" << std::endl;
 	}
 
-
+	sf::TcpSocket hote;
+	if (listener.accept(hote) != sf::Socket::Done)
 	{
-		sf::TcpSocket hote;
-		if (listener.accept(hote) != sf::Socket::Done)
-		{
+	std::cout << "impossible d'obtenir l'hote" << std::endl;
+	}
+	
+	
+	std::cout << "Connection de l'hote" << std::endl;
+	
+	std::string messageConnectionHote(recevoirDonneesBloquant(hote));
+
+	if (std::string(messageConnectionHote) != "H")
+	{
+		std::cout << "Il n'y a pas d'hote a cette partie" << std::endl;
+	}
+	
+	sf::TcpSocket invite;
+	if (listener.accept(invite) != sf::Socket::Done)
+	{
 		std::cout << "impossible d'obtenir l'hote" << std::endl;
-		}
-	
-	
-		std::cout << "Connection de l'hote" << std::endl;
-	
-		std::string messageConnection(recevoirDonneesBloquant(hote));
-
-		if (std::string(messageConnection) != "H")
-		{
-			std::cout << "Il n'y a pas d'hote à cette partie" << std::endl;
-		}
-
-		envoyerDonneesBloquant("H", hote);
-
 	}
 
+
+	std::cout << "Connection de l'invite" << std::endl;
+
+	std::string messageConnectionInvite(recevoirDonneesBloquant(invite));
+
+	if (std::string(messageConnectionInvite) != "I")
 	{
-		sf::TcpSocket invite;
-		if (listener.accept(invite) != sf::Socket::Done)
-		{
-			std::cout << "impossible d'obtenir l'hote" << std::endl;
-		}
-
-
-		std::cout << "Connection de l'invite" << std::endl;
-
-		std::string messageConnection(recevoirDonneesBloquant(invite));
-
-		if (std::string(messageConnection) != "I")
-		{
-			std::cout << "Il y a déja un hote à cette partie" << std::endl;
-		}
-
-		envoyerDonneesBloquant("I", invite);
-
+		std::cout << "Il y a deja un hote a cette partie" << std::endl;
 	}
+
+	envoyerDonneesBloquant("H", hote);
+	envoyerDonneesBloquant("I", invite);
+
+	std::string informationInitialisationGrille(recevoirDonneesBloquant(hote));
+
+	std::cout << informationInitialisationGrille << std::endl;
+
+	std::cout << "Infomration sur la grille recu" << std::endl;
+	
+	envoyerDonneesBloquant(informationInitialisationGrille, invite);
+
+
 	/*
 	char deplacement[255];
 	std::size_t recus;

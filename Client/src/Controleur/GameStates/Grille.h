@@ -18,6 +18,7 @@ namespace Controleur
 	{
 	public:
 		Grille(Modele::Vecteur2<int> dimensions_);
+		Grille(Modele::Grille* modele);
 		virtual ~Grille();
 
 		void handleEvent() override;
@@ -44,7 +45,7 @@ namespace Controleur
 		void setPositionCurseurUniteActuel();
 		void finirTourUniteActuel();
 
-		Modele::Grille getGrilleModele();
+		Modele::Grille* getGrilleModele();
 
 		Modele::Unite* getUniteCourante() { return uniteCourante_; }
 		EtatCombat getEtatCombat() { return etatCombat_; }

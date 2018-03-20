@@ -5,6 +5,7 @@
 #include "../../../Vue/GameStates/Menu/RejoindrePartie.h"
 #include "../Grille.h"
 #include "../../Reseaux.h"
+#include "../../DonneeServeur.h"
 
 namespace Controleur
 {
@@ -16,7 +17,8 @@ namespace Controleur
 				"Rejoindre", true, []
 				{
 					Reseaux::connecterInvitee();
-					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
+					std::string xmlGrille = Reseaux::recevoirDonneesBloquant();
+					Fenetre::empilerGameState(new Grille(DonneeServeur::initialiserGrilleDepuisChaineXML(xmlGrille)));
 				}
 			},
 			{

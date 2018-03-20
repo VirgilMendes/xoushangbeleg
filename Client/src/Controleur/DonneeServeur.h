@@ -20,10 +20,11 @@ namespace Controleur {
 	class DonneeServeur {
 		public :
 			static void decodeXml(std::string str);
-			static void deplacerXml(pugi::xml_node root);
-			static void initialiserXml(pugi::xml_node root);
+			static void deplacerUniteDepuisXML(pugi::xml_node root);
+			
 			static std::string deplacerUnite(std::string nom, Modele::Vecteur2<int> position);
-			static std::string initialisatonCarteUnite();
+			static std::string GrilleVersChaineXML(Modele::Grille* grille);
+			static Modele::Grille* initialiserGrilleDepuisChaineXML(std::string xml);
 		private : 
 			DonneeServeur() {};
 	};

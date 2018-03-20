@@ -8,6 +8,7 @@
 #include <vector>
 #include <pugixml.hpp>
 #include <sstream>
+#include "../Controleur/DonneeServeur.h"
 
 
 namespace Modele
@@ -32,7 +33,15 @@ namespace Modele
 		genererObstaclesRocheux();
 		genererArbre(20);
 		genererAutreAsset(50);
+	}
 
+	Grille::Grille(std::vector<std::vector<Case*>> cases, std::set<Unite*> unites) : dimension_(Vecteur2<int>(cases[0].size(), cases.size())),
+		cases_(cases), unites_(unites), proprietaireDerniereRechercheDeplacement_(nullptr), proprietaireDerniereRechercheAttaque_(nullptr)
+	{
+		for(Unite *unite : unites)
+		{
+			getCase(unite->getPosition())->setUnite(unite);
+		}
 	}
 
 	Grille::~Grille()

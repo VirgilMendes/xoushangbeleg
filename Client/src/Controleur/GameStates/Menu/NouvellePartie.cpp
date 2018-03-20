@@ -5,6 +5,7 @@
 #include "../../../Vue/GameStates/Menu/NouvellePartie.h"
 #include "../Grille.h"
 #include "../../Reseaux.h"
+#include "../../DonneeServeur.h"
 
 namespace Controleur
 {
@@ -17,6 +18,8 @@ namespace Controleur
 				{
 					Reseaux::connecterHote();
 					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
+					std::string xmlGrille = DonneeServeur::GrilleVersChaineXML(Fenetre::getProchaineGrille()->getGrilleModele());
+					Reseaux::envoyerDonneesBloquant(xmlGrille);
 				}
 			},
 			{
