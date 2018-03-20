@@ -77,8 +77,6 @@ int main()
 
 	std::string informationInitialisationGrille(recevoirDonneesBloquant(hote));
 
-	std::cout << informationInitialisationGrille << std::endl;
-
 	std::cout << "Infomration sur la grille recu" << std::endl;
 	
 	envoyerDonneesBloquant(informationInitialisationGrille, invite);
