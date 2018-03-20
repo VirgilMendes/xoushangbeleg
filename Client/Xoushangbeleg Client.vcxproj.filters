@@ -18,8 +18,6 @@
     <ClCompile Include="src\Vue\Composants\Grille\Unite.cpp" />
     <ClCompile Include="src\Vue\GameStates\Grille.cpp" />
     <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuAction.cpp" />
-    <ClCompile Include="src\Controleur\GameStates\PlacementUnite.cpp" />
-    <ClCompile Include="src\Vue\GameStates\PlacementUnite.cpp" />
     <ClCompile Include="src\Controleur\DonneeServeur.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\MenuPrincipal.cpp" />
     <ClCompile Include="src\Controleur\GameStates\Menu\NouvellePartie.cpp" />
@@ -30,6 +28,8 @@
     <ClCompile Include="src\Vue\GameStates\MenuChoixFond.cpp" />
     <ClCompile Include="src\Controleur\Reseaux.cpp" />
     <ClCompile Include="src\Vue\Outils\Animation.cpp" />
+    <ClCompile Include="src\Controleur\GameStates\MenuCombat\MenuPlacement.cpp" />
+    <ClCompile Include="src\Vue\GameStates\MenuPlacement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Controleur\Navigation.h" />
@@ -56,8 +56,6 @@
     <ClInclude Include="src\Vue\Composants\Grille\Unite.h" />
     <ClInclude Include="src\Vue\GameStates\Grille.h" />
     <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuAction.h" />
-    <ClInclude Include="src\Controleur\GameStates\PlacementUnite.h" />
-    <ClInclude Include="src\Vue\GameStates\PlacementUnite.h" />
     <ClInclude Include="src\Vue\Outils\TexteVariable.h" />
     <ClInclude Include="src\Vue\Composants\Grille\CurseurPlacement.h" />
     <ClInclude Include="src\Controleur\DonneeServeur.h" />
@@ -69,6 +67,8 @@
     <ClInclude Include="src\Controleur\GameStates\Menu\RejoindrePartie.h" />
     <ClInclude Include="src\Vue\GameStates\MenuChoixFond.h" />
     <ClInclude Include="src\Controleur\Reseaux.h" />
+    <ClInclude Include="src\Controleur\GameStates\MenuCombat\MenuPlacement.h" />
+    <ClInclude Include="src\Vue\GameStates\MenuPlacement.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Xoushangbeleg sprite\Carte.bmp" />

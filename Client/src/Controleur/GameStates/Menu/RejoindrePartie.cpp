@@ -17,8 +17,13 @@ namespace Controleur
 				"Rejoindre", true, []
 				{
 					Reseaux::connecterInvitee();
+<<<<<<< Updated upstream
 					std::string xmlGrille = Reseaux::recevoirDonneesBloquant();
 					Fenetre::empilerGameState(new Grille(DonneeServeur::initialiserGrilleDepuisChaineXML(xmlGrille)));
+=======
+					Fenetre::empilerGameState(new Grille(Modele::Vecteur2<int>(32,32)));
+					Fenetre::empilerGameState(new MenuPlacement(Modele::Equipe::Bleu));
+>>>>>>> Stashed changes
 				}
 			},
 			{
