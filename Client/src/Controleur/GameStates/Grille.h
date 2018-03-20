@@ -51,6 +51,9 @@ namespace Controleur
 		EtatCombat getEtatCombat() { return etatCombat_; }
 		void setEtatCombat(const EtatCombat& etatCombat) { etatCombat_ = etatCombat; }
 
+		void deplacerUniteDepuisReseaux(std::string nom, Modele::Vecteur2<int> deplacement);
+		void attaquerUniteDepuisReseaux(std::string source, std::string cible);
+
 	private:
 
 		Modele::Grille* modele_;

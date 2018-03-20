@@ -172,7 +172,7 @@ namespace Controleur
 			Modele::Unite* unite = modele_->getCase(positionCurseur_)->getUnite();
 			if (unite != nullptr && unite != modele_->getProprietaireDerniereRechercheAttaque())
 			{
-				vue_->attaquerUnite(modele_->getProprietaireDerniereRechercheAttaque());
+				vue_->attaquerUnite(modele_->getProprietaireDerniereRechercheAttaque(), unite);
 				modele_->getProprietaireDerniereRechercheAttaque()->attaquer(unite);
 				if (unite->getVieCourante() <= 0)
 				{
@@ -254,5 +254,48 @@ namespace Controleur
 	}
 	Modele::Grille* Grille::getGrilleModele() {
 		return modele_;
+	}
+
+	void Grille::deplacerUniteDepuisReseaux(std::string nom, Modele::Vecteur2<int> deplacement)
+	{
+		Modele::Unite* uniteADeplacer = nullptr;
+		for(Modele::Unite* unite : modele_->getUnites())
+		{
+			if(unite->getNom() == nom)
+			{
+				uniteADeplacer = unite;
+				break;
+			}
+		}
+
+		modele_->deplacerUnite(uniteADeplacer, deplacement);
+
+		vue_->deplacerUnite(uniteADeplacer, deplacement);
+	}
+
+	void Grille::attaquerUniteDepuisReseaux(std::string source, std::string cible)
+	{
+		Modele::Unite* uniteSource = nullptr;
+		for (Modele::Unite* unite : modele_->getUnites())
+		{
+			if (unite->getNom() == source)
+			{
+				uniteSource = unite;
+				break;
+			}
+		}
+
+		Modele::Unite* uniteCible = nullptr;
+		for (Modele::Unite* unite : modele_->getUnites())
+		{
+			if (unite->getNom() == cible)
+			{
+				uniteCible = unite;
+				break;
+			}
+		}
+
+		vue_->attaquerUnite(uniteSource, uniteCible);
+		uniteSource->attaquer(uniteCible);
 	}
 }

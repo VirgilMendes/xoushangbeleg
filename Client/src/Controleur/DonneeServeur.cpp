@@ -4,61 +4,99 @@
 
 namespace Controleur {
 
-	void DonneeServeur::decodeXml(std::string str) {
-		pugi::xml_document doc;
-		pugi::xml_parse_result result = doc.load_buffer(str.c_str(), str.length());
-		pugi::xml_node root = doc.document_element();
-		//verification du premier node
-		if ((std::string)root.first_child().name() == "deplacement")
+	void DonneeServeur::decoderXml(std::string chaineXMl) {
+		pugi::xml_document document;
+		document.load_string(chaineXMl.c_str());
+		pugi::xml_node action = document.child("paquet").first_child(); 
+		std::string nomAction = std::string(action.name());
+		
+		if (nomAction == "debutTour")
 		{
-			deplacerUniteDepuisXML(root);
+			executerDeplacementUniteDepuisXML(action);
 		}
-		else if ((std::string)root.first_child().name() == "initialisation")
+		else if (nomAction == "deplacement")
 		{
-			//initialiserGrilleDepuisChaineXML(root);
+			executerDeplacementUniteDepuisXML(action);
+		}
+		else if (nomAction == "attaque")
+		{
+			executerDeplacementUniteDepuisXML(action);
 		}
 		else
 		{
-
+			throw "paquet invalide reçu";
 		}
 
 
 	}
-	void DonneeServeur::deplacerUniteDepuisXML(pugi::xml_node root) {
-		//nom de l'unite
-		std::string nomUnite = root.child("deplacement").child("unite").child("nom").child_value();
 
-		Modele::Vecteur2<int> position;
-		//position X de l'unite
-		position.x = stoi((std::string)root.child("deplacement").child("position").child("x").child_value());
-		//position Y de l'unite
-		position.y = stoi((std::string)root.child("deplacement").child("position").child("y").child_value());
-
-		//Vue::Combat* Combat = dynamic_cast<Vue::Combat*>(gameStates_.back());
-		//Combat->deplacerUnite(nomUnite, position);
-	}
-
-	std::string DonneeServeur::deplacerUnite(std::string nom, Modele::Vecteur2<int> position)
+	std::string DonneeServeur::genererDeplacementUniteVersXML(std::string nom, Modele::Vecteur2<int> deplacement)
 	{
-		//vueCombat->deplacerUnite(nom, position);
+		pugi::xml_document document;
+		pugi::xml_node nodeAction = document.append_child("paquet").append_child("deplacement");
+		pugi::xml_node nodeUnite = nodeAction.append_child("unite");
+		nodeUnite.append_attribute("nom").set_value(nom.c_str());
+		pugi::xml_node nodeDeplacement = nodeAction.append_child("deplacement");
+		nodeDeplacement.append_attribute("x").set_value(deplacement.x);
+		nodeDeplacement.append_attribute("y").set_value(deplacement.y);
 
-		pugi::xml_document doc;
-		auto root = doc.append_child("paquet");
-		pugi::xml_node nodeDeplacement = root.append_child("deplacement");
-		pugi::xml_node nodeUnite = nodeDeplacement.append_child("unite");
-		pugi::xml_node nodeNom = nodeUnite.append_child("nom");
-		nodeNom.text().set(nom.c_str());
-		pugi::xml_node nodePosition = nodeDeplacement.append_child("position");
-		pugi::xml_node nodeX = nodePosition.append_child("x");
-		nodeX.text().set((std::to_string(position.x).c_str()));
-		pugi::xml_node nodeY = nodePosition.append_child("y");
-		nodeY.text().set(std::to_string(position.y).c_str());
 		std::stringstream flux;
-		doc.print(flux);
+		document.print(flux);
 		return flux.str();
 	}
-	
-	std::string DonneeServeur::GrilleVersChaineXML(Modele::Grille* grille)
+
+	void DonneeServeur::executerDeplacementUniteDepuisXML(pugi::xml_node action) 
+	{
+		
+		std::string nom = action.child("unite").attribute("nom").as_string();
+
+		pugi::xml_node nodeDeplacement = action.child("deplacement");
+		Modele::Vecteur2<int> deplacement(nodeDeplacement.attribute("x").as_int(), nodeDeplacement.attribute("y").as_int());
+
+		Grille* grille = Controleur::Fenetre::getProchaineGrille();
+		grille->deplacerUniteDepuisReseaux(nom, deplacement);
+	}
+
+	std::string DonneeServeur::genererAttaqueUniteVersXML(std::string source, std::string cible)
+	{
+		pugi::xml_document document;
+		pugi::xml_node nodeAction = document.append_child("paquet").append_child("attaque");
+		pugi::xml_node nodeSource = nodeAction.append_child("source");
+		nodeSource.append_attribute("nom").set_value(source.c_str());
+		pugi::xml_node nodeCible = nodeAction.append_child("cible");
+		nodeSource.append_attribute("nom").set_value(cible.c_str());
+
+		std::stringstream flux;
+		document.print(flux);
+		return flux.str();
+	}
+
+	void DonneeServeur::executerAttaqueUniteDepuisXML(pugi::xml_node action)
+	{
+		std::string source = action.child("source").attribute("nom").as_string();
+		std::string cible = action.child("cible").attribute("nom").as_string();
+
+		Grille* grille = Controleur::Fenetre::getProchaineGrille();
+		grille->attaquerUniteDepuisReseaux(source, cible);
+	}
+
+	std::string DonneeServeur::genererFinDeTourVersXML()
+	{
+		pugi::xml_document document;
+		pugi::xml_node nodeAction = document.append_child("paquet").append_child("finDeTour");
+
+		std::stringstream flux;
+		document.print(flux);
+		return flux.str();
+	}
+
+	void DonneeServeur::executerFinDeTourDepuisXML(pugi::xml_node action)
+	{
+		Grille* grille = Controleur::Fenetre::getProchaineGrille();
+		grille->finirTourUniteActuel();
+	}
+
+	std::string DonneeServeur::genererGrilleVersChaineXML(Modele::Grille* grille)
 	{
 		pugi::xml_document document;
 		pugi::xml_node nodeRacine = document.append_child("paquet").append_child("initialisation");

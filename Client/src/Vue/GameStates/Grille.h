@@ -33,7 +33,7 @@ namespace Vue
 		void ajouterUnite(Modele::Unite* unite, std::string cheminTexture);
 		void deplacerUnite(Modele::Unite* unite, Modele::Vecteur2<int> deplacement);
 
-		void attaquerUnite(Modele::Unite* unite);
+		void attaquerUnite(Modele::Unite* source, Modele::Unite* cible);
 
 		void supprimerUnite(Modele::Unite* unite);
 

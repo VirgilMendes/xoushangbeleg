@@ -168,12 +168,12 @@ namespace Vue
 		}
 	}
 
-	void Grille::attaquerUnite(Modele::Unite* unite)
+	void Grille::attaquerUnite(Modele::Unite* source, Modele::Unite* cible)
 	{
 		Vue::Unite* uniteCible = nullptr;
 		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 		{
-			if ((*iterateur)->getModele() == unite)
+			if ((*iterateur)->getModele() == cible)
 			{
 				uniteCible = *iterateur;
 				break;
@@ -185,7 +185,7 @@ namespace Vue
 		Vue::Unite* uniteSource = nullptr;
 		for (auto iterateur(unites_.begin()); iterateur != unites_.end(); ++iterateur)
 		{
-			if ((*iterateur)->getModele() == unite)
+			if ((*iterateur)->getModele() == source)
 			{
 				uniteSource = *iterateur;
 				break;
