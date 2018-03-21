@@ -86,9 +86,9 @@ namespace Modele
 			if ((*iterateur) == unite)
 			{
 				getCase(unite->getPosition())->setUnite(nullptr);
-				delete *iterateur;
 				unites_.erase(iterateur);
 				ordreDeJeu_.erase(unite);
+				delete unite;
 				return;
 			}
 		}
