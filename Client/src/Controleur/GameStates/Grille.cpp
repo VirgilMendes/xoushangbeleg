@@ -319,6 +319,11 @@ namespace Controleur
 
 		vue_->attaquerUnite(uniteSource, uniteCible);
 		uniteSource->attaquer(uniteCible);
+		if (uniteCible->getVieCourante() <= 0)
+		{
+			vue_->supprimerUnite(uniteCible);
+			modele_->supprimerUnite(uniteCible);
+		}
 	}
 
 	void Grille::finirTourDepuisReseaux()
