@@ -9,7 +9,6 @@
 #include <SFML/System.hpp>
 #include "GameStates/GameState.h"
 #include <stack>
-#include "GameStates/PlacementUnite.h"
 #include <pugixml.hpp>
 #include <sstream>
 #include <list>
@@ -32,6 +31,9 @@ namespace Controleur {
 		
 			static std::string genererFinDeTourVersXML();
 			static void executerFinDeTourDepuisXML(pugi::xml_node action);
+
+			static std::string genererPlacementUniteVersXML(Modele::Unite* unite, Modele::Vecteur2<int> position);
+			static void executerPlacementUniteDepuisXML(pugi::xml_node action);
 			
 		private : 
 			DonneeServeur() {};

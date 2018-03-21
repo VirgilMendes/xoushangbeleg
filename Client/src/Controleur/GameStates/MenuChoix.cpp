@@ -183,6 +183,12 @@ namespace Controleur
 			case ActionDeplacement::Bas:
 				deplacerAuChoixSuivant();
 				break;
+			case ActionDeplacement::Gauche:
+				deplacerAuChoixPrecedant();
+				break;
+			case ActionDeplacement::Droite:
+				deplacerAuChoixSuivant();
+				break;
 			default:
 				break;
 		}

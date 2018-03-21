@@ -7,7 +7,7 @@
 
 namespace Vue
 {
-	Grille::Grille(Modele::Grille* modele, Controleur::Grille* controleur) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1280, 720)), modele_(modele), controleur_(controleur), interfaceUnite_(nullptr)
+	Grille::Grille(Modele::Grille* modele, Controleur::Grille* controleur) : sf::View(sf::Vector2f(0,0), sf::Vector2f(1280, 720)), modele_(modele), controleur_(controleur), interfaceUnite_(nullptr), filtreCase_(nullptr)
 	{
 		horloge_ = new sf::Clock;
 

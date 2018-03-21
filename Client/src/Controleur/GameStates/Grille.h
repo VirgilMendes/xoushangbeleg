@@ -8,6 +8,7 @@ namespace Controleur
 {
 
 	BETTER_ENUM(EtatCombat, int,
+		Placement,
 		Navigation,
 		Selection,
 		Deplacement,
@@ -35,6 +36,9 @@ namespace Controleur
 		void selectionerUnite();
 		void deplacerUnite();
 		void attaquerUnite();
+		void placerUnite();
+
+		void setUniteAPlacer(Modele::Unite* unite);
 
 		void deplacerCurseur(Modele::Vecteur2<int> deplacement);
 		void setPositionCurseur(Modele::Vecteur2<int> position);
@@ -49,11 +53,20 @@ namespace Controleur
 
 		Modele::Unite* getUniteCourante() { return uniteCourante_; }
 		EtatCombat getEtatCombat() { return etatCombat_; }
+		int getNbUniteAPlacerRouge() { return nbUniteAPlacerRouge; }
+		int getNbUniteAPlacerBleue() { return nbUniteAPlacerBleue; }
 		void setEtatCombat(const EtatCombat& etatCombat) { etatCombat_ = etatCombat; }
+
 
 		void deplacerUniteDepuisReseaux(std::string nom, Modele::Vecteur2<int> deplacement);
 		void attaquerUniteDepuisReseaux(std::string source, std::string cible);
 		void finirTourDepuisReseaux();
+		void placerUniteDepuisReseaux(Modele::Classe classe, Modele::Vecteur2<int> position);
+
+		int getId() { return id; }
+		void incrementerId() { id = id + 1; }
+		Modele::Equipe getEquipeCourante() { return equipeCourante_; }
+
 
 	private:
 
@@ -73,5 +86,10 @@ namespace Controleur
 		Modele::Equipe equipeJoueur_;
 		Modele::Equipe equipeCourante_;
 
+
+		int nbUniteAPlacerRouge;
+		int nbUniteAPlacerBleue;
+
+		int id;
 	};
 }

@@ -4,7 +4,8 @@
 
 namespace Controleur {
 
-	void DonneeServeur::decoderXml(std::string chaineXMl) {
+	void DonneeServeur::decoderXml(std::string chaineXMl) 
+	{
 		pugi::xml_document document;
 		document.load_string(chaineXMl.c_str());
 		pugi::xml_node action = document.child("paquet").first_child(); 
@@ -16,16 +17,15 @@ namespace Controleur {
 		}
 		else if (nomAction == "deplacement")
 		{
-			std::cout << "test" << std::endl;
 			executerDeplacementUniteDepuisXML(action);
 		}
 		else if (nomAction == "attaque")
 		{
 			executerAttaqueUniteDepuisXML(action);
 		}
-		else
+		else if(nomAction == "placement")
 		{
-			return;
+			executerPlacementUniteDepuisXML(action);
 		}
 
 
@@ -55,7 +55,6 @@ namespace Controleur {
 		Modele::Vecteur2<int> deplacement(nodeDeplacement.attribute("x").as_int(), nodeDeplacement.attribute("y").as_int());
 
 		Grille* grille = Controleur::Fenetre::getProchaineGrille();
-		std::cout << nom << " " << std::to_string(deplacement) << std::endl;
 		grille->deplacerUniteDepuisReseaux(nom, deplacement);
 	}
 
@@ -95,8 +94,34 @@ namespace Controleur {
 	void DonneeServeur::executerFinDeTourDepuisXML(pugi::xml_node action)
 	{
 		Grille* grille = Controleur::Fenetre::getProchaineGrille();
-		std::cout << "loli" << std::endl;
 		grille->finirTourDepuisReseaux();
+	}
+
+	std::string DonneeServeur::genererPlacementUniteVersXML(Modele::Unite* unite, Modele::Vecteur2<int> position)
+	{
+		pugi::xml_document document;
+		pugi::xml_node nodeAction = document.append_child("paquet").append_child("placement");
+		pugi::xml_node nodeUnite = nodeAction.append_child("unite");
+		nodeUnite.append_attribute("classe").set_value(unite->getClasse()._to_string());
+		pugi::xml_node nodePosition = nodeAction.append_child("position");
+		nodePosition.append_attribute("x").set_value(position.x);
+		nodePosition.append_attribute("y").set_value(position.y);
+
+		std::stringstream flux;
+		document.print(flux);
+		return flux.str();
+	}
+
+	void DonneeServeur::executerPlacementUniteDepuisXML(pugi::xml_node action)
+	{
+		Modele::Classe classe = Modele::Classe::_from_string_nocase(action.child("unite").attribute("classe").as_string());
+
+		pugi::xml_node nodePosition = action.child("position");
+		Modele::Vecteur2<int> position(nodePosition.attribute("x").as_int(), nodePosition.attribute("y").as_int());
+
+		Grille* grille = Controleur::Fenetre::getProchaineGrille();
+		
+		grille->placerUniteDepuisReseaux(classe, position);
 	}
 
 	std::string DonneeServeur::genererGrilleVersChaineXML(Modele::Grille* grille)

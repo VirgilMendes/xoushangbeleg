@@ -22,15 +22,15 @@ namespace Vue
 		MenuChoix(std::vector<Controleur::Choix> choix, Controleur::MenuChoix* controleur);
 		~MenuChoix();
 
-		void changerChoixCourant(int index);
-		void setChoixCourant(int index);
+		virtual void changerChoixCourant(int index);
+		virtual void setChoixCourant(int index);
 
-		void activerChoix(int index);
-		void desactiverChoix(int index);
+		virtual void activerChoix(int index);
+		virtual void desactiverChoix(int index);
 
-		void handleEvent() override;
-		void update() override;
-		void afficher() override;
+		virtual void handleEvent() override;
+		virtual void update() override;
+		virtual void afficher() override;
 	
 	protected:
 

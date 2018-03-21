@@ -22,6 +22,8 @@ namespace Modele {
 		}
 	};
 
+
+
 	class Grille {
 
 	public :

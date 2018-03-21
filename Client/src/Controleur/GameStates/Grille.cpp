@@ -1,43 +1,35 @@
 #include "Grille.h"
+#include "../../Modele/Unite/Unite.h"
 #include "../../Modele/Case.h"
 #include "../Navigation.h"
 #include "MenuCombat/MenuAction.h"
 #include "../Reseaux.h"
 #include "../DonneeServeur.h"
+#include "MenuCombat/MenuPlacement.h"
 
 namespace Controleur
 {
-	Grille::Grille(Modele::Vecteur2<int> dimension) : 
-		modele_(new Modele::Grille(dimension)), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection),
+	Grille::Grille(Modele::Vecteur2<int> dimension) :
+		modele_(new Modele::Grille(dimension)), uniteCourante_(nullptr), vue_(new Vue::Grille(modele_, this)),
+		etatCombat_(EtatCombat::Placement),
 		actionFaite_(false), deplacementFait_(false)
 	{
-		Modele::Unite* billy = new Modele::Tank("Billy", Modele::Equipe::Bleu, Modele::Vecteur2<int>(3,4));
-		modele_->ajouterUnite(billy);
-		vue_->ajouterUnite(billy, Vue::Unite::cheminTextureUnite.at(billy->getClasse()));
-		
-		Modele::Unite* roger = new Modele::Archer("Roger", Modele::Equipe::Rouge, Modele::Vecteur2<int>(4, 4));
-		modele_->ajouterUnite(roger);
-		vue_->ajouterUnite(roger, Vue::Unite::cheminTextureUnite.at(roger->getClasse()));
-
-		Modele::Unite* gerard = new Modele::Soldat("Gerard", Modele::Equipe::Bleu, Modele::Vecteur2<int>(4, 3));
-		modele_->ajouterUnite(gerard);
-		vue_->ajouterUnite(gerard, Vue::Unite::cheminTextureUnite.at(gerard->getClasse()));
-		
-		modele_->relancerOrdreDeJeu();
-		equipeCourante_ = modele_->getUniteActuel()->getEquipe();
-		setPositionCurseurUniteActuel();
-
-		equipeJoueur_ = Modele::Equipe::Bleu;
+		nbUniteAPlacerBleue = 2;
+		nbUniteAPlacerRouge = 2;
+		id = 1;
+		equipeCourante_ = Modele::Equipe::Rouge;
+		equipeJoueur_ = Modele::Equipe::Rouge;
 	}
 
-	Grille::Grille(Modele::Grille* modele) :modele_(modele), vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection),
-		actionFaite_(false), deplacementFait_(false)
+	Grille::Grille(Modele::Grille* modele) : modele_(modele), uniteCourante_(nullptr),
+	                                         vue_(new Vue::Grille(modele_, this)), etatCombat_(EtatCombat::Selection),
+	                                         actionFaite_(false), deplacementFait_(false)
 	{
-		modele_->relancerOrdreDeJeu();
-		equipeCourante_ = modele_->getUniteActuel()->getEquipe();
-		setPositionCurseurUniteActuel();
-
-		equipeJoueur_ = Modele::Equipe::Rouge;
+		nbUniteAPlacerBleue = 2;
+		nbUniteAPlacerRouge = 2;
+		id = 1;
+		equipeCourante_ = Modele::Equipe::Rouge;
+		equipeJoueur_ = Modele::Equipe::Bleu;
 	}
 
 	Grille::~Grille()
@@ -89,7 +81,9 @@ namespace Controleur
 	void Grille::enclencherActionValidation()
 	{
 		if (equipeJoueur_ != equipeCourante_)
+		{
 			return;
+		}
 		switch(etatCombat_)
 		{
 		case EtatCombat::Navigation:
@@ -103,6 +97,9 @@ namespace Controleur
 			break;
 		case EtatCombat::Attaque:
 			attaquerUnite();
+			break;
+		case EtatCombat::Placement:
+			placerUnite();
 			break;
 		}
 	}
@@ -214,7 +211,46 @@ namespace Controleur
 		}
 	}
 
+	void Grille::placerUnite()
+	{
+		Modele::Case* caseCourante = modele_->getCase(positionCurseur_);
+		if (caseCourante->getTerrain() != Modele::Terrain::aquatique && caseCourante->getObstacle() == Modele::Obstacle::aucun && caseCourante->getUnite() == nullptr)
+		{
+			incrementerId();
+			Reseaux::envoyerDonneesBloquant(DonneeServeur::genererPlacementUniteVersXML(uniteCourante_, positionCurseur_));
+			uniteCourante_->setPosition(positionCurseur_);
+			modele_->ajouterUnite(uniteCourante_);
+			vue_->ajouterUnite(uniteCourante_, Vue::Unite::cheminTextureUnite.at(uniteCourante_->getClasse()));
 
+			if (equipeCourante_ == Modele::Equipe::Rouge)
+			{
+				nbUniteAPlacerRouge = nbUniteAPlacerRouge - 1;
+				equipeCourante_ = Modele::Equipe::Bleu;
+			}
+			else
+			{
+				nbUniteAPlacerBleue = nbUniteAPlacerBleue - 1;
+				equipeCourante_ = Modele::Equipe::Rouge;
+			}
+
+			if (nbUniteAPlacerRouge == 0 && nbUniteAPlacerBleue == 0)
+			{
+
+				etatCombat_ = EtatCombat::Selection;
+				finirTourUniteActuel();
+				return;
+			}
+
+			if (equipeCourante_ == equipeJoueur_)
+				Controleur::Fenetre::empilerGameState(new MenuPlacement());
+		}
+		return;
+
+	}
+	void Grille::setUniteAPlacer(Modele::Unite* unite)
+	{
+		uniteCourante_ = unite;
+	}
 
 	void Grille::deplacerCurseur(Modele::Vecteur2<int> deplacement)
 	{
@@ -338,5 +374,48 @@ namespace Controleur
 		setPositionCurseurUniteActuel();
 		actionFaite_ = false;
 		deplacementFait_ = false;
+	}
+
+	void Grille::placerUniteDepuisReseaux(Modele::Classe classe, Modele::Vecteur2<int> position)
+	{
+		switch (classe)
+		{
+		case Modele::Classe::Tank:
+			uniteCourante_ = new Modele::Tank(std::to_string(id), equipeCourante_, position);
+			break;
+		case Modele::Classe::Soldat:
+			uniteCourante_ = new Modele::Soldat(std::to_string(id), equipeCourante_, position);
+			break;
+		case Modele::Classe::Archer:
+			uniteCourante_ = new Modele::Archer(std::to_string(id), equipeCourante_, position);
+			break;
+		}
+		
+		incrementerId();
+		uniteCourante_->setPosition(position);
+		modele_->ajouterUnite(uniteCourante_);
+		vue_->ajouterUnite(uniteCourante_, Vue::Unite::cheminTextureUnite.at(uniteCourante_->getClasse()));
+
+		if (equipeCourante_ == Modele::Equipe::Rouge)
+		{
+			nbUniteAPlacerRouge = nbUniteAPlacerRouge - 1;
+			equipeCourante_ = Modele::Equipe::Bleu;
+		}
+		else
+		{
+			nbUniteAPlacerBleue = nbUniteAPlacerBleue - 1;
+			equipeCourante_ = Modele::Equipe::Rouge;
+		}
+
+		if (nbUniteAPlacerRouge == 0 && nbUniteAPlacerBleue == 0)
+		{
+
+			etatCombat_ = EtatCombat::Selection;
+			finirTourUniteActuel();
+			return;
+		}
+		
+		if (equipeCourante_ == equipeJoueur_)
+			Controleur::Fenetre::empilerGameState(new MenuPlacement());
 	}
 }
