@@ -1,5 +1,5 @@
 # projet-readme
 
-[Wordpress](https://wordpress.com/view/xoushangbeleg.wordpress.com)
+[Wordpress](https://xoushangbeleg.wordpress.com/)
 
 [Slack](https://xoushangbeleg.slack.com/)
